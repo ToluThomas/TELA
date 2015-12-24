@@ -1,4 +1,35 @@
 <resources>
-    <string name="app_name">Alphabets</string>
+    <string name="app_name">TELA app</string>
     <string name="action_settings">Settings</string>
+    <string name="english_description">Select image to view topics on English language</string>
+    <string name="loading">loading</string>
+    <string name="letterSelect">Below is a list of the letters of the English alphabet:</string>
+    <string name="a">Select letter A</string>
+    <string name="b">Select letter B</string>
+    <string name="c">Select letter C</string>
+    <string name="d">Select letter D</string>
+    <string name="e">Select letter E</string>
+    <string name="f">Select letter F</string>
+    <string name="g">Select letter G</string>
+    <string name="h">Select letter H</string>
+    <string name="i">Select letter I</string>
+    <string name="j">Select letter J</string>
+    <string name="k">Select letter K</string>
+    <string name="l">Select letter L</string>
+    <string name="m">Select letter M</string>
+    <string name="n">Select letter N</string>
+    <string name="o">Select letter O</string>
+    <string name="p">Select letter P</string>
+    <string name="q">Select letter Q</string>
+    <string name="r">Select letter R</string>
+    <string name="s">Select letter S</string>
+    <string name="t">Select letter T</string>
+    <string name="u">Select letter U</string>
+    <string name="v">Select letter V</string>
+    <string name="w">Select letter W</string>
+    <string name="x">Select letter X</string>
+    <string name="y">Select letter Y</string>
+    <string name="z">Select letter Z</string>
+    <string name="letter">letter</string>
+    <string name="feedback">correct or wrong</string>
 </resources>
