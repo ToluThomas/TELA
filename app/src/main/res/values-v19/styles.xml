@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Tela" parent="Tela.Base.19">
+
+    </style>
+    
+    <style name="Tela.Base.19" parent="Tela.Base">
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="toolbarStyle">@style/Tela.Toolbar</item>
+    </style>
+
+    <style name="Tela.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetEnd">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetRight">0dp</item>
+    </style>
+
+</resources>
