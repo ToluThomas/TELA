@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="elevation_default_dialog">24dp</dimen>
+    <dimen name="elevation_default_picker">24dp</dimen>
+    <dimen name="elevation_default_navigation_drawer">16dp</dimen>
+    <dimen name="elevation_default_right_drawer">16dp</dimen>
+    <dimen name="elevation_default_bottom_sheet">16dp</dimen>
+    <dimen name="elevation_default_fab_pressed">12dp</dimen>
+    <dimen name="elevation_default_fab_above">14dp</dimen>
+    <dimen name="elevation_default_sub_menu">9dp</dimen>
+    <dimen name="elevation_default_menu">8dp</dimen>
+    <dimen name="elevation_default_card_pickedUpState">8dp</dimen>
+    <dimen name="elevation_default_button_raised_pressedState">8dp</dimen>
+    <dimen name="elevation_default_fab_rest">6dp</dimen>
+    <dimen name="elevation_default_snackbar">6dp</dimen>
+    <dimen name="elevation_default_app_bar">4dp</dimen>
+    <dimen name="elevation_default_above_app_bar">5dp</dimen>
+    <dimen name="elevation_default_below_app_bar">3dp</dimen>
+    <dimen name="elevation_default_refresh_indicator">3dp</dimen>
+    <dimen name="elevation_default_search_bar_scrollState">3dp</dimen>
+    <dimen name="elevation_default_quick_entry_scrollState">3dp</dimen>
+    <dimen name="elevation_default_card_restState">2dp</dimen>
+    <dimen name="elevation_default_button_raised_restState">2dp</dimen>
+    <dimen name="elevation_default_search_bar_restState">2dp</dimen>
+    <dimen name="elevation_default_quick_entry_restState">2dp</dimen>
+    <dimen name="elevation_default_switch">1dp</dimen>
+
+    <dimen name="fab_elevation">6dp</dimen>
+
+</resources>

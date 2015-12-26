@@ -20,8 +20,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile(name:'AndroidUtil-1.0', ext:'aar')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:design:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+
+}
+
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
 }

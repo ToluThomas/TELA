@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TELA app</string>
+    <string name="app_name">TELA</string>
     <string name="action_settings">Settings</string>
     <string name="english_description">Select image to view topics on English language</string>
     <string name="loading">loading</string>
