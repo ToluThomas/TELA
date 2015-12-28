@@ -3,11 +3,6 @@ package com.aun.tela.alphabets.application;
 import com.aun.tela.alphabets.application.cache.Database;
 import com.aun.tela.alphabets.application.cache.Preferences;
 
-/**
- * Created by Joseph Dalughut on 25/12/15 at 1:06 AM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class Application extends android.app.Application {
 
     private static Application INSTANCE = null;
