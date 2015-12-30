@@ -4,4 +4,9 @@
     <color name="white">#FFFFFF</color>
     <color name="Ash">#B2BEBB</color>
     <color name="black">#000000</color>
+    <color name="wax_flower">#F1A9A0</color>
+    <color name="snuff">#DCC6E0</color>
+    <color name="wistful">#AEA8D3</color>
+    <color name="alice_blue">#E4F1FE</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>

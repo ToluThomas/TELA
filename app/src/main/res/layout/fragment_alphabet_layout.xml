@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/wistful"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/back"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="@dimen/actionBarSize"
+        android:layout_height="@dimen/actionBarSize"
+        >
+
+        <com.aun.tela.alphabets.application.gui.custom.CircularView
+            android:id="@+id/backCircularView"
+            android:layout_width="@dimen/actionBarSize"
+            android:layout_height="@dimen/actionBarSize"
+            app:circular_color="random"
+            app:shadow="true"
+            app:border_width="12dp"
+            app:border_color="random"
+
+            />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@mipmap/ic_action_navigation_back"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_height="match_parent">
+
+        <GridView
+            android:id="@+id/alphaGrid"
+            android:listSelector="@color/transparent"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="0dp"
+            android:layout_marginLeft="@dimen/actionBarSize"
+            android:layout_marginRight="@dimen/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/scrollDown"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="right|bottom"
+        android:focusableInTouchMode="true"
+        android:layout_width="@dimen/actionBarSize"
+        android:layout_height="@dimen/actionBarSize"
+        >
+
+        <com.aun.tela.alphabets.application.gui.custom.CircularView
+            android:layout_width="@dimen/actionBarSize"
+            android:layout_height="@dimen/actionBarSize"
+            app:circular_color="random"
+            app:shadow="true"
+            app:border_width="12dp"
+            app:border_color="random"
+
+            />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@mipmap/ic_action_chevron_down"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/scrollUp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="right|top"
+        android:focusableInTouchMode="true"
+        android:layout_width="@dimen/actionBarSize"
+        android:layout_height="@dimen/actionBarSize"
+        >
+
+        <com.aun.tela.alphabets.application.gui.custom.CircularView
+            android:layout_width="@dimen/actionBarSize"
+            android:layout_height="@dimen/actionBarSize"
+            app:circular_color="random"
+            app:shadow="true"
+            app:border_width="12dp"
+            app:border_color="random"
+
+            />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@mipmap/ic_action_chevron_up"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</FrameLayout>

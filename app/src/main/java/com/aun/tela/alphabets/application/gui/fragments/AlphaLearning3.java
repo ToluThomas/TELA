@@ -9,7 +9,6 @@ import io.meengle.androidutil.gui.fragment.Fragtivity;
 public class AlphaLearning3 extends Fragtivity {
     @Override
     public int layoutId() {
-
         return R.layout.alpha_learning_layout3;
     }
 

@@ -7,9 +7,9 @@ import com.aun.tela.alphabets.R;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 
 public class AlphaLearning2 extends Fragtivity {
+
     @Override
     public int layoutId() {
-
         return R.layout.alpha_learning_layout2;
     }
 
