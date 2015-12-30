@@ -251,8 +251,8 @@ public class AlphaChoiceFragment extends Fragtivity {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) textView.getLayoutParams();
         params.gravity = Gravity.TOP | Gravity.START | Gravity.LEFT;
         CircularView newView = new CircularView(getContext());
-        newView.setCircularColor(0xFFFFFFFF);
-        newView.setBorderColor(0xFFFFFFFF);
+        newView.setCircularColor(circularView.getCircularColor());
+        newView.setBorderColor(circularView.getBorderColor());
         newView.addShadow();
         newView.setBorderWidth((circularView.getBorderWidth()));
         FrameLayout.LayoutParams paramsNew = new FrameLayout.LayoutParams(view.getWidth(), view.getHeight());
@@ -290,7 +290,7 @@ public class AlphaChoiceFragment extends Fragtivity {
         ValueAnimator centerTextAnimator = ObjectAnimator.ofPropertyValuesHolder(textView, tx, ty);
         ValueAnimator centerViewAnimator = ObjectAnimator.ofPropertyValuesHolder(view, vtx, vty, vsx, vsy);
         centerViewAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        centerViewAnimator.setDuration(1500);
+        centerViewAnimator.setDuration(1800);
         centerTextAnimator.setInterpolator(new AnticipateOvershootInterpolator());
         centerTextAnimator.setDuration(durationByDistance);
         Activity.setColor(circularView.getBorderColor());
