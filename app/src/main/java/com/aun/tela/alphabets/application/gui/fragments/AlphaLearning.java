@@ -39,11 +39,6 @@ import java.util.Random;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 31/12/15 at 9:12 AM.
- * Project name : TELA.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener {
 
     public static AlphaLearning getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor){

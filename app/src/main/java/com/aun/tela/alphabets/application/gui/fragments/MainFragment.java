@@ -30,11 +30,6 @@ import java.util.Random;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 03/01/16 at 11:12 AM.
- * Project name : TELA.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener{
 
     View back, scrollDown, scrollUp;
