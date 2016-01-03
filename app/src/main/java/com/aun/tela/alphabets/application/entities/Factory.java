@@ -8,11 +8,6 @@ import java.util.Map;
 
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 31/12/15 at 7:38 PM.
- * Project name : TELA.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class Factory {
 
     public static final class Alphabets {

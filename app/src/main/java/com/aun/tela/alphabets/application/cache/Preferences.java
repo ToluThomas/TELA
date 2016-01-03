@@ -4,11 +4,6 @@ import android.content.Context;
 
 import io.meengle.androidutil.cache.SecureSharedPreferences;
 
-/**
- * Created by Joseph Dalughut on 26/12/15 at 10:11 AM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class Preferences extends SecureSharedPreferences {
 
 
