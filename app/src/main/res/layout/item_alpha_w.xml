@@ -5,7 +5,7 @@
     android:layout_margin="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent">
 
-    <com.aun.tela.alphabets.application.gui.custom.CircularView
+    <com.aun.tela.alphabets.application.gui.custom.CircularColorView
         android:id="@+id/circularView"
         app:border_width="@dimen/activity_horizontal_margin"
         app:shadow="true"

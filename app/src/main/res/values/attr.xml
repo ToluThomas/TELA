@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="CircularView">
+    <declare-styleable name="CircularColorView">
         <attr name="border_width" format="dimension"/>
         <attr name="border_color" format="color|enum">
             <enum name="random" value="0"/>
@@ -10,6 +10,17 @@
             <enum name="random" value="0"/>
         </attr>
         <attr name="shadow" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="BarColorView">
+        <attr name="bar_border_width" format="dimension"/>
+        <attr name="bar_border_color" format="color|enum">
+            <enum name="random" value="0"/>
+        </attr>
+        <attr name="bar_color" format="color|enum">
+            <enum name="random" value="0"/>
+        </attr>
+        <attr name="bar_shadow" format="boolean"/>
     </declare-styleable>
 
 </resources>

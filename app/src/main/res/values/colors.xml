@@ -9,4 +9,5 @@
     <color name="wistful">#AEA8D3</color>
     <color name="alice_blue">#E4F1FE</color>
     <color name="transparent">@android:color/transparent</color>
+    <color name="eee">#eeeeee</color>
 </resources>

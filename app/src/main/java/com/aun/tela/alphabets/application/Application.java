@@ -2,6 +2,7 @@ package com.aun.tela.alphabets.application;
 
 import com.aun.tela.alphabets.application.cache.Database;
 import com.aun.tela.alphabets.application.cache.Preferences;
+import com.aun.tela.alphabets.application.util.Speech;
 
 public class Application extends android.app.Application {
 
@@ -17,6 +18,7 @@ public class Application extends android.app.Application {
         super.onCreate();
         Preferences.init(this);
         Database.init(this);
+        Speech.init();
     }
 
     public static Application getInstance() throws RuntimeException {

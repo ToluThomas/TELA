@@ -15,4 +15,18 @@
     <dimen name="text_size_display3">56sp</dimen>
     <dimen name="text_size_display4">112sp</dimen>
 
+    <integer name="text_size_tiny">8</integer>
+    <integer name="text_size_small">10</integer>
+    <integer name="text_size_caption">12</integer>
+    <integer name="text_size_button">14</integer>
+    <integer name="text_size_body1">14</integer>
+    <integer name="text_size_body2">14</integer>
+    <integer name="text_size_subHead">16</integer>
+    <integer name="text_size_title">20</integer>
+    <integer name="text_size_headline">24</integer>
+    <integer name="text_size_display1">34</integer>
+    <integer name="text_size_display2">45</integer>
+    <integer name="text_size_display3">56</integer>
+    <integer name="text_size_display4">112</integer>
+
 </resources>

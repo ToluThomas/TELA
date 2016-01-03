@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.aun.tela.alphabets.R;
-import com.aun.tela.alphabets.application.gui.fragments.AlphaChoiceFragment;
+import com.aun.tela.alphabets.application.gui.fragments.MainFragment;
 
 import io.meengle.util.Value;
 
@@ -22,7 +22,7 @@ public class Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replace(new AlphaChoiceFragment());
+        replace(new MainFragment());
     }
 
     public static void setColor(Integer color){

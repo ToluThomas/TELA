@@ -10,6 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.aun.tela.alphabets.application.generic.Collector;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
@@ -82,12 +83,7 @@ public class ViewAnimator {
     }
 
     public static void upDownify(View v, float extra, long startDelay, long duration){
-        Log.d("Height: "+v.getHeight());
-        //float extra = /*(percent / 100f) * (float) v.getMeasuredHeight();*/ 30;
-        //float tx = v.getTranslationX();
-        Log.d("Extra: "+ extra);
         float ty = v.getTranslationY();
-        Log.d("Ty: "+ty);
         //PropertyValuesHolder x = PropertyValuesHolder.ofFloat("translationX", tx, tx + extra);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationY", ty, ty + extra);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, y);
@@ -149,6 +145,8 @@ public class ViewAnimator {
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new AccelerateInterpolator());
+        v.setClickable(true);
+        v.setEnabled(true);
         animator.start();
         return animator;
     }
@@ -161,17 +159,78 @@ public class ViewAnimator {
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new DecelerateInterpolator());
+        v.setClickable(false);
+        v.setEnabled(false);
         animator.start();
         return animator;
     }
 
-    public static ValueAnimator color(View v, long startDelay, long duration, int from, int to){
-        ValueAnimator animator = ObjectAnimator.ofInt(v, "background", from, to);
+    public static ValueAnimator color(View v, String property, long startDelay, long duration, int from, int to){
+        ValueAnimator animator = ObjectAnimator.ofInt(v, property, from, to);
         animator.setEvaluator(new ArgbEvaluator());
         animator.setDuration(duration);
         animator.setStartDelay(startDelay);
         animator.start();
         return animator;
     }
+
+    public static void pop(final View view, final Collector<View> finishCollector){
+        SpringSystem springSystem = SpringSystem.create();
+        final Spring spring = springSystem.createSpring();
+        SpringConfig config = new SpringConfig(400, 10);
+        spring.setSpringConfig(config);
+        final SpringListener listener = new SpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float value = (float) spring.getCurrentValue();
+                float scale = 1f - (value * 0.5f);
+                view.setScaleX(scale);
+                view.setScaleY(scale);
+            }
+
+            @Override
+            public void onSpringAtRest(Spring spring) {
+                spring.removeAllListeners();
+                spring.addListener(new SpringListener() {
+                    @Override
+                    public void onSpringUpdate(Spring spring) {
+                        float value = (float) spring.getCurrentValue();
+                        float scale = 1f - (value * 0.5f);
+                        view.setScaleX(scale);
+                        view.setScaleY(scale);
+                    }
+
+                    @Override
+                    public void onSpringAtRest(Spring spring) {
+                        finishCollector.collect(view);
+                    }
+
+                    @Override
+                    public void onSpringActivate(Spring spring) {
+
+                    }
+
+                    @Override
+                    public void onSpringEndStateChange(Spring spring) {
+
+                    }
+                });
+                spring.setEndValue(0f);
+            }
+
+            @Override
+            public void onSpringActivate(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringEndStateChange(Spring spring) {
+
+            }
+        };
+        spring.addListener(listener);
+        spring.setEndValue(1f);
+    }
+
 
 }

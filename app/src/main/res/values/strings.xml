@@ -32,4 +32,8 @@
     <string name="z">Select letter Z</string>
     <string name="letter">letter</string>
     <string name="feedback">correct or wrong</string>
+    <string name="alphabets">ALPHABETS</string>
+    <string name="tela_learning">Tela Learning</string>
+    <string name="vowels">Vowels</string>
+    <string name="numbers">Numbers</string>
 </resources>

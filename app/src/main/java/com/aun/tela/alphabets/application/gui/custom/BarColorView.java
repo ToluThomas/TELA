@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.aun.tela.alphabets.R;
 
@@ -18,33 +20,33 @@ import io.meengle.util.Value;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public class CircularView extends View {
+public class BarColorView extends View {
 
     Paint paint;
     Paint borderPaint;
     int borderWidth = 0;
     int borderColor = 0xFFFFFFFF;
-    int circularColor = 0xFFFFFFFF;
+    int barColor = 0xFFFFFFFF;
 
     int canvasSize;
 
-    public CircularView(Context context) {
+    public BarColorView(Context context) {
         super(context);
         init();
     }
 
-    public CircularView(Context context, AttributeSet attrs) {
+    public BarColorView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public CircularView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BarColorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public CircularView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BarColorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -59,16 +61,18 @@ public class CircularView extends View {
         paint.setAntiAlias(true);
         borderPaint.setAntiAlias(true);
         if(!Value.NULL(attributeSet)) {
-            TypedArray array = getResources().obtainAttributes(attributeSet, R.styleable.CircularView);
-            circularColor = array.getColor(R.styleable.CircularView_circular_color, 0xFFFFFFFF);
-            borderColor = array.getColor(R.styleable.CircularView_border_color, 0xFFEEEEEE);
-            borderWidth = array.getDimensionPixelSize(R.styleable.CircularView_border_width, 0);
-            if (array.getBoolean(R.styleable.CircularView_shadow, false))
+            TypedArray array = getResources().obtainAttributes(attributeSet, R.styleable.BarColorView);
+            borderWidth = array.getDimensionPixelSize(R.styleable.BarColorView_bar_border_width, 0);
+            if (array.getBoolean(R.styleable.BarColorView_bar_shadow, false))
                 addShadow();
-            if (Value.Same.INTEGER(array.getInteger(R.styleable.CircularView_border_color, -1), 0))
+            if (Value.Same.INTEGER(array.getInteger(R.styleable.BarColorView_bar_border_color, -1), 0))
                 setBorderColor(com.aun.tela.alphabets.application.util.Color.random());
-            if (Value.Same.INTEGER(array.getInteger(R.styleable.CircularView_circular_color, -1), 0))
-                setCircularColor(com.aun.tela.alphabets.application.util.Color.random());
+            else
+                borderColor = array.getColor(R.styleable.BarColorView_bar_border_color, 0xFFEEEEEE);
+            if (Value.Same.INTEGER(array.getInteger(R.styleable.BarColorView_bar_color, -1), 0))
+                setBarColor(com.aun.tela.alphabets.application.util.Color.random());
+            else
+                barColor = array.getColor(R.styleable.BarColorView_bar_color, 0xFFFFFFFF);
             array.recycle();
         }
     }
@@ -77,18 +81,27 @@ public class CircularView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvasSize = canvas.getWidth();
+        int canvasHeight = canvas.getHeight();
+        int canvasWidth = canvas.getWidth();
 
-        int rad1 = canvasSize / 2;
+        int rad1 = canvasHeight / 2;
         int rad2 = rad1 - borderWidth;
 
         borderPaint.setStyle(Paint.Style.STROKE);
         paint.setStyle(Paint.Style.FILL);
         borderPaint.setColor(borderColor);
         borderPaint.setStrokeWidth((float) borderWidth);
-        paint.setColor(circularColor);
+        paint.setColor(barColor);
 
-        canvas.drawCircle(rad1, rad1, rad2, borderPaint);
-        canvas.drawCircle(rad1, rad1, rad2, paint);
+        //canvas.drawCircle(rad1, rad1, rad2, borderPaint);
+        //canvas.drawCircle(rad1, rad1, rad2, paint);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getLayoutParams();
+        int left = getLeft();
+        int top = getTop();
+        int right = getRight();
+        int bottom = getBottom();
+        canvas.drawRoundRect(new RectF(left + borderWidth, top + borderWidth, right - borderWidth, bottom - borderWidth), rad2, rad2, paint);
+        canvas.drawRoundRect(new RectF(left + borderWidth, top + borderWidth, right - borderWidth, bottom - borderWidth), rad1, rad1, borderPaint);
 
     }
 
@@ -97,12 +110,12 @@ public class CircularView extends View {
         borderPaint.setShadowLayer(8.0f, 0.0f, 4.0f, 0x20000000);
     }
 
-    public void setCircularColor(int circularColor){
-        this.circularColor = circularColor;
+    public void setBarColor(int circularColor){
+        this.barColor = circularColor;
     }
 
-    public int getCircularColor(){
-        return this.circularColor;
+    public int getBarColor(){
+        return this.barColor;
     }
 
     public void setBorderColor(int borderColor){
@@ -120,6 +133,7 @@ public class CircularView extends View {
 
     public int getBorderColor(){return this.borderColor;}
 
+    /*
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = measureHeight(heightMeasureSpec);
@@ -127,6 +141,7 @@ public class CircularView extends View {
         int size = height > width ? height : width;
         setMeasuredDimension(size, size);
     }
+    */
 
     private int measureWidth(int measureSpec) {
         int result = 0;

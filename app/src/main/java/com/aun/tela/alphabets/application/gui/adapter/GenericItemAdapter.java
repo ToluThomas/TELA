@@ -40,7 +40,7 @@ public class GenericItemAdapter<T, ViewHolderImpl extends RecyclerView.ViewHolde
         return new GenericItemAdapter<>();
     }
 
-    public GenericItemAdapter<T, ViewHolderImpl> setItems(List<T> items){this.items = items; return this;}
+    public GenericItemAdapter<T, ViewHolderImpl> setItems(List<T> items){this.items = items; refresh(); return this;}
 
     @Override
     public int getCount() {
@@ -55,6 +55,10 @@ public class GenericItemAdapter<T, ViewHolderImpl extends RecyclerView.ViewHolde
     @Override
     public long getItemId(int position) {
         return idRetriever.retrieve(getItem(position), position);
+    }
+
+    public void refresh(){
+        notifyDataSetChanged();
     }
 
     @Override

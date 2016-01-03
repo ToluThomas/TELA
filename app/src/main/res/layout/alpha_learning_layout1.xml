@@ -5,39 +5,6 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/back"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:clickable="true"
-        android:visibility="invisible"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="@dimen/actionBarSize"
-        android:layout_height="@dimen/actionBarSize"
-        >
-
-        <com.aun.tela.alphabets.application.gui.custom.CircularView
-            android:id="@+id/backCircularView"
-            android:layout_width="@dimen/actionBarSize"
-            android:layout_height="@dimen/actionBarSize"
-            app:circular_color="random"
-            app:shadow="true"
-            app:border_width="12dp"
-            app:border_color="random"
-
-            />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:background="@color/transparent"
-            android:src="@mipmap/ic_action_navigation_back"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
     <TextView
         android:id="@+id/alphabet"
         android:layout_width="wrap_content"
