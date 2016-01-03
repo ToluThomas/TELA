@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+    <com.aun.tela.alphabets.application.gui.custom.BarColorView
+        android:layout_width="match_parent"
+        android:id="@+id/barColorView"
+        app:border_color="random"
+        app:bar_color="random"
+        app:bar_shadow="true"
+        app:bar_border_width="@dimen/activity_horizontal_margin_half"
+        android:layout_height="match_parent" >
+
+
+    </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+
+    <TextView
+        android:id="@+id/text"
+        android:textSize="@dimen/text_size_display3"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/alphabets"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+</FrameLayout>

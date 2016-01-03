@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slidingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:umanoPanelHeight="@dimen/actionBarSize"
+        app:umanoShadowHeight="0dp"
+        app:umanoOverlay="true"
+        app:umanoDragView="@+id/chevron"
+        android:gravity="bottom"
+        app:umanoFadeColor="@color/transparent"
+        >
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:background="@color/wistful"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/titleBarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:layout_height="100dp">
+
+                        <com.aun.tela.alphabets.application.gui.custom.BarColorView
+                            android:layout_width="match_parent"
+                            android:id="@+id/titleBar"
+                            app:border_color="random"
+                            app:bar_color="random"
+                            app:bar_shadow="true"
+                            app:bar_border_width="@dimen/activity_horizontal_margin_half"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:textSize="@dimen/text_size_display3"
+                            android:layout_width="match_parent"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:layout_margin="@dimen/activity_horizontal_margin"
+                            android:text="@string/tela_learning"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_height="wrap_content" />
+
+                    </FrameLayout>
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingRight="@dimen/actionBarSize"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        >
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:id="@+id/list"
+                            android:divider="@color/transparent"
+                            android:dividerHeight="0dp"
+                            android:layout_height="wrap_content"/>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/scrollDown"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_gravity="right|bottom"
+                        android:focusableInTouchMode="true"
+                        android:layout_width="@dimen/actionBarSize"
+                        android:layout_height="@dimen/actionBarSize"
+                        >
+
+                        <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+                            android:id="@+id/scrollDownCircularView"
+                            android:layout_width="@dimen/actionBarSize"
+                            android:layout_height="@dimen/actionBarSize"
+                            app:circular_color="random"
+                            app:shadow="true"
+                            app:border_width="12dp"
+                            app:border_color="random"
+
+                            />
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:background="@color/transparent"
+                            android:src="@mipmap/ic_action_chevron_down"
+                            android:layout_height="match_parent" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/scrollUp"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_gravity="right|top"
+                        android:focusableInTouchMode="true"
+                        android:layout_width="@dimen/actionBarSize"
+                        android:layout_height="@dimen/actionBarSize"
+                        >
+
+                        <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+                            android:id="@+id/scrollUpCircularView"
+                            android:layout_width="@dimen/actionBarSize"
+                            android:layout_height="@dimen/actionBarSize"
+                            app:circular_color="random"
+                            app:shadow="true"
+                            app:border_width="12dp"
+                            app:border_color="random"
+
+                            />
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:background="@color/transparent"
+                            android:src="@mipmap/ic_action_chevron_up"
+                            android:layout_height="match_parent" />
+
+                    </FrameLayout>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/slidingView"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/slidingContent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/dragView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionBarSize">
+
+                    <ImageButton
+                        android:clickable="false"
+                        android:id="@+id/chevron"
+                        android:layout_width="100dp"
+                        android:alpha="0"
+                        android:background="@color/transparent"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_chevron_up_sunglo"
+                        android:layout_height="match_parent" />
+
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
+</FrameLayout>
