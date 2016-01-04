@@ -280,7 +280,7 @@ public class AlphaChoiceFragment extends Fragtivity {
         float textX = textView.getX();
         float textY = textView.getY();
 
-        float midX = view.getX() + (view.getWidth() / 2) - getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) + getResources().getDimensionPixelSize(R.dimen.actionBarSize);
+        float midX = view.getX() + (view.getWidth() / 2) - getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) + getResources().getDimensionPixelSize(R.dimen.buttonSize);
         float midY = view.getY() + (view.getHeight() / 2);
 
         ((FrameLayout) view).removeView(textView);

@@ -215,7 +215,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 }).setItems(items);
         recyclerView.setAdapter(adapter);
         slidingLayout.setPanelSlideListener(this);
-        int slidingContentHeight = getResources().getDimensionPixelSize(R.dimen.actionBarSize) + getResources().getDimensionPixelSize(R.dimen.hundred);
+        int slidingContentHeight = getResources().getDimensionPixelSize(R.dimen.buttonSize) + getResources().getDimensionPixelSize(R.dimen.alpha_learning_list_content_height);
         slidingLayout.setParallaxOffset(slidingContentHeight);
     }
 
@@ -313,6 +313,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 viewHolder.circularColorView.setCircularColor(viewHolder.circularColorView.getResources().getColor(R.color.transparent));
                 viewHolder.text.setTag(position);
                 viewHolder.circularColorView.setTag(position);
+                viewHolder.circularColorView.removeShadow();
                 viewHolder.text.setText(string);
                 return viewHolder;
             } else {
@@ -322,6 +323,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 viewHolder.text.setTextColor(Color.random());
                 viewHolder.itemView.setClickable(true);
                 viewHolder.text.setTag(position);
+                viewHolder.circularColorView.addShadow();
                 viewHolder.circularColorView.setTag(position);
                 return viewHolder;
             }
