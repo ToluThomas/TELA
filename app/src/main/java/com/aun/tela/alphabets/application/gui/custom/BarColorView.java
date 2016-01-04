@@ -107,6 +107,7 @@ public class BarColorView extends View {
 
     public void setBarColor(int circularColor){
         this.barColor = circularColor;
+        this.invalidate();
     }
 
     public int getBarColor(){

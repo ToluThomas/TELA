@@ -7,7 +7,7 @@
 
     <com.aun.tela.alphabets.application.gui.custom.CircularColorView
         android:id="@+id/circularView"
-        app:border_width="@dimen/activity_horizontal_margin"
+        app:border_width="@dimen/border_width_large_list_item"
         app:shadow="true"
         app:border_color="random"
         app:circular_color="@color/white"

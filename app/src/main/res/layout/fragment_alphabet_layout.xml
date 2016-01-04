@@ -11,17 +11,17 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:layout_width="@dimen/actionBarSize"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         >
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/backCircularView"
-            android:layout_width="@dimen/actionBarSize"
-            android:layout_height="@dimen/actionBarSize"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
             app:circular_color="random"
             app:shadow="true"
-            app:border_width="12dp"
+            app:border_width="@dimen/border_width_small_button"
             app:border_color="random"
 
             />
@@ -50,8 +50,8 @@
             android:numColumns="3"
             android:scrollbars="none"
             android:verticalSpacing="0dp"
-            android:layout_marginLeft="@dimen/actionBarSize"
-            android:layout_marginRight="@dimen/actionBarSize"
+            android:layout_marginLeft="@dimen/buttonSize"
+            android:layout_marginRight="@dimen/buttonSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -64,17 +64,17 @@
         android:focusable="true"
         android:layout_gravity="right|bottom"
         android:focusableInTouchMode="true"
-        android:layout_width="@dimen/actionBarSize"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         >
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/scrollDownCircularView"
-            android:layout_width="@dimen/actionBarSize"
-            android:layout_height="@dimen/actionBarSize"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
             app:circular_color="random"
             app:shadow="true"
-            app:border_width="12dp"
+            app:border_width="@dimen/border_width_small_button"
             app:border_color="random"
 
             />
@@ -97,17 +97,17 @@
         android:focusable="true"
         android:layout_gravity="right|top"
         android:focusableInTouchMode="true"
-        android:layout_width="@dimen/actionBarSize"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         >
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/scrollUpCircularView"
-            android:layout_width="@dimen/actionBarSize"
-            android:layout_height="@dimen/actionBarSize"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
             app:circular_color="random"
             app:shadow="true"
-            app:border_width="12dp"
+            app:border_width="@dimen/border_width_small_button"
             app:border_color="random"
 
             />
