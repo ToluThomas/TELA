@@ -16,6 +16,8 @@ import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 
+import io.meengle.util.Value;
+
 /**
  * Created by Joseph Dalughut on 29/12/15 at 6:59 PM.
  * Project name : Alphabets.
@@ -30,11 +32,11 @@ public class ViewAnimator {
 
     }
 
-    public static void springify(View view){
-        springify(view, Constants.DEFAULT_TENSION, Constants.DEFAULT_DAMPER);
+    public static void springify(View view, View.OnClickListener listener){
+        springify(view, listener, Constants.DEFAULT_TENSION, Constants.DEFAULT_DAMPER);
     }
 
-    public static void springify(final View view, double tension, double damper){
+    public static void springify(final View view, final View.OnClickListener clicklistener, double tension, double damper){
 
         SpringSystem springSystem = SpringSystem.create();
         final Spring spring = springSystem.createSpring();
@@ -67,12 +69,23 @@ public class ViewAnimator {
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(final View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         spring.setEndValue(1f);
                         break;
                     case MotionEvent.ACTION_UP:
+                        spring.setEndValue(0f);
+                        if(!Value.NULL(clicklistener)){
+                            v.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    clicklistener.onClick(v);
+                                }
+                            }, 50);
+                        }
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
                         spring.setEndValue(0f);
                         break;
                 }

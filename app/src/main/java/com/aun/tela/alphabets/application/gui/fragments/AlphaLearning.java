@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
@@ -112,33 +113,61 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
         rightCircularColorView = (CircularColorView) findViewById(R.id.rightCircularView);
     }
 
+    ViewTreeObserver.OnGlobalLayoutListener layoutListener;
+
     @Override
     public void setupViews() {
+        /*layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
+                }else{
+                    getRootView().getViewTreeObserver().removeGlobalOnLayoutListener(layoutListener);
+                }
+                setup();
+            }
+        };
+        getRootView().getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+        */
+        setup();
+    }
+
+    void setup(){
         color();
         build();
-        ViewAnimator.springify(back);
-        ViewAnimator.springify(left);
-        ViewAnimator.springify(right);
-        left.setClickable(true);
-        right.setClickable(true);
-        ViewAnimator.upDownify(back, 20, 300, 700);
-        ViewAnimator.upDownify(left, 20, 100, 700);
-        ViewAnimator.upDownify(right, 20, 600, 700);
-        back.setAlpha(0f);
-        left.setAlpha(0f);
-        right.setAlpha(0f);
-        left.setVisibility(View.VISIBLE);
-        right.setVisibility(View.VISIBLE);
-        back.setVisibility(View.VISIBLE);
-        ViewAnimator.popInZero(back, 0, 300);
-        //ViewAnimator.popInZero(left, 100, 300);
-        //ViewAnimator.popInZero(right, 200, 300);
-        back.setOnClickListener(new View.OnClickListener() {
+        ViewAnimator.springify(back, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Activity.replace(AlphaChoiceFragment.getInstance(textColor, borderColor));
             }
         });
+        ViewAnimator.springify(left, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        ViewAnimator.springify(right, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        left.setClickable(true);
+        right.setClickable(true);
+        ViewAnimator.upDownify(back, 20, 300, 700);
+        //ViewAnimator.upDownify(left, 20, 100, 700);
+        ViewAnimator.upDownify(right, 20, 600, 700);
+        back.setAlpha(0f);
+        left.setAlpha(0f);
+        right.setAlpha(0f);
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.VISIBLE);
+        back.setVisibility(View.VISIBLE);
+        ViewAnimator.popInZero(back, 0, 300);
+        //ViewAnimator.popInZero(left, 100, 300);
+        //ViewAnimator.popInZero(right, 200, 300);
 
         ViewAnimator.popInZero(chevron, 500, 300);
         ViewAnimator.upDownify(chevron, 10, 400, 700);
@@ -167,7 +196,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                         ViewHolder.setup(viewHolder, s, integer, aBoolean);
                         viewHolder.itemView.setScaleX(1f);
                         viewHolder.itemView.setScaleY(1f);
-                        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 exit(s, integer, v);
@@ -291,7 +320,6 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 viewHolder.circularColorView.setCircularColor(0xFFFFFFFF);
                 viewHolder.text.setText(string.toUpperCase());
                 viewHolder.text.setTextColor(Color.random());
-                ViewAnimator.springify(viewHolder.itemView);
                 viewHolder.itemView.setClickable(true);
                 viewHolder.text.setTag(position);
                 viewHolder.circularColorView.setTag(position);
@@ -571,9 +599,9 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                             @Override
                             public void run() {
 
-                                Log.d("NextViewPosition"+nextViewPosition);
+                                Log.d("NextViewPosition" + nextViewPosition);
                                 RecyclerView.ViewHolder v = recyclerView.findViewHolderForAdapterPosition(nextViewPosition);
-                                Log.d("V is : "+ (Value.NULL(v)? "Null" : v.toString()));
+                                Log.d("V is : " + (Value.NULL(v) ? "Null" : v.toString()));
                                 View view = v.itemView;
 
                                 exit(Factory.Alphabets.getAlphabetsUppercase().get(nextPosition), nextPosition, view);

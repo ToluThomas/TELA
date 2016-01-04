@@ -107,24 +107,21 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
         scrollUpCircularColorView.setCircularColor(a);
         scrollUpCircularColorView.setBorderColor(b);
 
-        ViewAnimator.springify(scrollDown);
-        ViewAnimator.springify(scrollUp);
-        scrollUp.setAlpha(0);
-        ViewAnimator.upDownify(scrollDown, -10, 500, 700);
-        ViewAnimator.upDownify(scrollUp, 10, 500, 700);
-
-        scrollDown.setOnClickListener(new View.OnClickListener() {
+        ViewAnimator.springify(scrollDown, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollDown();
             }
         });
-        scrollUp.setOnClickListener(new View.OnClickListener() {
+        ViewAnimator.springify(scrollUp, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollUp();
             }
         });
+        scrollUp.setAlpha(0);
+        ViewAnimator.upDownify(scrollDown, -10, 500, 700);
+        ViewAnimator.upDownify(scrollUp, 10, 500, 700);
 
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
