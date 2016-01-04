@@ -18,8 +18,6 @@
         app:bar_shadow="true"
         app:bar_border_width="@dimen/activity_horizontal_margin_half"
         android:layout_height="match_parent" >
-
-
     </com.aun.tela.alphabets.application.gui.custom.BarColorView>
 
     <TextView

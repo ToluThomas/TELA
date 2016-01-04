@@ -13,8 +13,6 @@
         android:id="@+id/container"
         android:fitsSystemWindows="true"
         android:layout_height="match_parent">
-
-
     </FrameLayout>
 
 </FrameLayout>

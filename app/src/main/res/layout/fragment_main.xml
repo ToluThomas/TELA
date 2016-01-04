@@ -14,8 +14,7 @@
         app:umanoOverlay="true"
         app:umanoDragView="@+id/chevron"
         android:gravity="bottom"
-        app:umanoFadeColor="@color/transparent"
-        >
+        app:umanoFadeColor="@color/transparent">
 
 
         <FrameLayout
@@ -58,24 +57,20 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:layout_height="wrap_content" />
-
                     </FrameLayout>
-
 
                 </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    >
+                    android:layout_weight="1">
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingRight="@dimen/buttonSize"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        >
+                        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                         <ListView
                             android:layout_width="match_parent"
@@ -94,8 +89,7 @@
                         android:layout_gravity="right|bottom"
                         android:focusableInTouchMode="true"
                         android:layout_width="@dimen/buttonSize"
-                        android:layout_height="@dimen/buttonSize"
-                        >
+                        android:layout_height="@dimen/buttonSize">
 
                         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                             android:id="@+id/scrollDownCircularView"
@@ -104,9 +98,7 @@
                             app:circular_color="random"
                             app:shadow="true"
                             app:border_width="@dimen/border_width_small_button"
-                            app:border_color="random"
-
-                            />
+                            app:border_color="random" />
 
                         <ImageButton
                             android:layout_width="match_parent"
@@ -127,8 +119,7 @@
                         android:layout_gravity="right|top"
                         android:focusableInTouchMode="true"
                         android:layout_width="@dimen/buttonSize"
-                        android:layout_height="@dimen/buttonSize"
-                        >
+                        android:layout_height="@dimen/buttonSize">
 
                         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                             android:id="@+id/scrollUpCircularView"
@@ -137,9 +128,7 @@
                             app:circular_color="random"
                             app:shadow="true"
                             app:border_width="@dimen/border_width_small_button"
-                            app:border_color="random"
-
-                            />
+                            app:border_color="random" />
 
                         <ImageButton
                             android:layout_width="match_parent"
@@ -194,16 +183,12 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
-
                 </FrameLayout>
-
 
             </LinearLayout>
 
         </FrameLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
 
 </FrameLayout>

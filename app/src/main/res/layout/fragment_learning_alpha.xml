@@ -15,8 +15,7 @@
         app:umanoOverlay="true"
         app:umanoScrollableView="@+id/recyclerView"
         app:umanoDragView="@+id/chevron"
-        app:umanoFadeColor="@color/transparent"
-        >
+        app:umanoFadeColor="@color/transparent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -41,16 +40,12 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent">
-
-
                     </FrameLayout>
 
                     <FrameLayout
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent">
-
-
                     </FrameLayout>
 
                 </LinearLayout>
@@ -67,8 +62,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:layout_width="@dimen/buttonSize"
-                android:layout_height="@dimen/buttonSize"
-                >
+                android:layout_height="@dimen/buttonSize">
 
                 <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                     android:id="@+id/leftCircularView"
@@ -77,9 +71,7 @@
                     app:circular_color="random"
                     app:shadow="true"
                     app:border_width="@dimen/border_width_small_button"
-                    app:border_color="random"
-
-                    />
+                    app:border_color="random" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -89,7 +81,6 @@
                     android:background="@color/transparent"
                     android:src="@mipmap/ic_action_chevron_left"
                     android:layout_height="match_parent" />
-
             </FrameLayout>
 
             <FrameLayout
@@ -101,8 +92,7 @@
                 android:layout_gravity="right|bottom"
                 android:focusableInTouchMode="true"
                 android:layout_width="@dimen/buttonSize"
-                android:layout_height="@dimen/buttonSize"
-                >
+                android:layout_height="@dimen/buttonSize">
 
                 <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                     android:id="@+id/rightCircularView"
@@ -111,9 +101,7 @@
                     app:circular_color="random"
                     app:shadow="true"
                     app:border_width="@dimen/border_width_small_button"
-                    app:border_color="random"
-
-                    />
+                    app:border_color="random" />
 
                 <ImageButton
                     android:layout_width="match_parent"
@@ -123,7 +111,6 @@
                     android:background="@color/transparent"
                     android:src="@mipmap/ic_action_chevron_right"
                     android:layout_height="match_parent" />
-
             </FrameLayout>
 
 
@@ -157,7 +144,6 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/ic_chevron_up_sunglo"
                         android:layout_height="match_parent" />
-
                 </FrameLayout>
 
 
@@ -170,9 +156,7 @@
                     android:scrollbars="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
-
                 </FrameLayout>
-
 
             </LinearLayout>
 
@@ -188,8 +172,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="@dimen/buttonSize"
-        android:layout_height="@dimen/buttonSize"
-        >
+        android:layout_height="@dimen/buttonSize">
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/backCircularView"
@@ -198,9 +181,7 @@
             app:circular_color="random"
             app:shadow="true"
             app:border_width="@dimen/border_width_small_button"
-            app:border_color="random"
-
-            />
+            app:border_color="random" />
 
         <ImageButton
             android:layout_width="match_parent"

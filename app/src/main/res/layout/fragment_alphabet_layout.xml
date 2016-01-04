@@ -12,8 +12,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="@dimen/buttonSize"
-        android:layout_height="@dimen/buttonSize"
-        >
+        android:layout_height="@dimen/buttonSize">
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/backCircularView"
@@ -22,9 +21,7 @@
             app:circular_color="random"
             app:shadow="true"
             app:border_width="@dimen/border_width_small_button"
-            app:border_color="random"
-
-            />
+            app:border_color="random" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -34,9 +31,7 @@
             android:background="@color/transparent"
             android:src="@mipmap/ic_action_navigation_back"
             android:layout_height="match_parent" />
-
     </FrameLayout>
-
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -54,7 +49,6 @@
             android:layout_marginRight="@dimen/buttonSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </FrameLayout>
 
     <FrameLayout
@@ -65,8 +59,7 @@
         android:layout_gravity="right|bottom"
         android:focusableInTouchMode="true"
         android:layout_width="@dimen/buttonSize"
-        android:layout_height="@dimen/buttonSize"
-        >
+        android:layout_height="@dimen/buttonSize">
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/scrollDownCircularView"
@@ -75,9 +68,7 @@
             app:circular_color="random"
             app:shadow="true"
             app:border_width="@dimen/border_width_small_button"
-            app:border_color="random"
-
-            />
+            app:border_color="random"/>
 
         <ImageButton
             android:layout_width="match_parent"
@@ -98,8 +89,7 @@
         android:layout_gravity="right|top"
         android:focusableInTouchMode="true"
         android:layout_width="@dimen/buttonSize"
-        android:layout_height="@dimen/buttonSize"
-        >
+        android:layout_height="@dimen/buttonSize">
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/scrollUpCircularView"
@@ -108,9 +98,7 @@
             app:circular_color="random"
             app:shadow="true"
             app:border_width="@dimen/border_width_small_button"
-            app:border_color="random"
-
-            />
+            app:border_color="random"/>
 
         <ImageButton
             android:layout_width="match_parent"
