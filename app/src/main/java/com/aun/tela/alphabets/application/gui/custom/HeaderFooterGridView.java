@@ -680,5 +680,4 @@ public class HeaderFooterGridView extends GridView {
             mDataSetObservable.notifyChanged();
         }
     }
-
 }

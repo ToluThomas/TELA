@@ -4,11 +4,6 @@ import java.util.Random;
 
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 29/12/15 at 11:37 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class Color {
 
     public static BiMap<String, String> COLORS = new BiMap<String, String>(){
@@ -107,11 +102,9 @@ public class Color {
             put("#6C7A89", "Lynch");
             put("#95A5A6", "Cascade");
         }
-
     };
 
     public static Integer random(){
         return android.graphics.Color.parseColor(Value.As.LIST(COLORS.keySet()).get(new Random().nextInt(COLORS.size())));
     }
-
 }

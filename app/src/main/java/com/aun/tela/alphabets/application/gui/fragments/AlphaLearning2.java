@@ -399,5 +399,4 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
     private void finish(){
         ((AlphaLearning)getParentFragment()).nextStateAndBuild();
     }
-
 }

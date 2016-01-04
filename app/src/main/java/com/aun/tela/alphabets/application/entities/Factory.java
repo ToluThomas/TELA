@@ -323,11 +323,6 @@ public class Factory {
                 case"y":return 24;case"z":return 25;
                 default: return -1;
             }
-        };
-
+        }
     }
-
-
-
-
 }

@@ -42,6 +42,4 @@ public class Activity extends AppCompatActivity {
     public static void replace(Fragment fragment){
         getInstance().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitAllowingStateLoss();
     }
-
-
 }

@@ -13,11 +13,6 @@ import com.aun.tela.alphabets.R;
 
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 29/12/15 at 8:16 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class CircularColorView extends View {
 
     Paint paint;
@@ -167,5 +162,4 @@ public class CircularColorView extends View {
 
         return (result + 2);
     }
-
 }

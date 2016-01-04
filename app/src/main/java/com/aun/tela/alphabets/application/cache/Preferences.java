@@ -39,5 +39,4 @@ public class Preferences extends SecureSharedPreferences {
     public static Preferences getInstance(){
         return INSTANCE;
     }
-
 }

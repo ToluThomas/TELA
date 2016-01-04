@@ -572,5 +572,4 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
             }
         }, 500);
     }
-
 }

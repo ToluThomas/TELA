@@ -14,11 +14,6 @@ import java.util.Locale;
 
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 01/01/16 at 8:21 AM.
- * Project name : TELA.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class Speech {
 
     static TextToSpeech tts;

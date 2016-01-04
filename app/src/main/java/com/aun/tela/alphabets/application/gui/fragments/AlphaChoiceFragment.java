@@ -35,11 +35,6 @@ import java.util.Random;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 29/12/15 at 6:22 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class AlphaChoiceFragment extends Fragtivity {
 
     View back, scrollDown, scrollUp;
@@ -359,7 +354,4 @@ public class AlphaChoiceFragment extends Fragtivity {
         });
         centerTextAnimator.start();
     }
-
-
-
 }

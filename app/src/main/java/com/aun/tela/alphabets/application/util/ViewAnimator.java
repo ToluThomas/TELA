@@ -16,11 +16,6 @@ import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 
-/**
- * Created by Joseph Dalughut on 29/12/15 at 6:59 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class ViewAnimator {
 
     public static final class Constants {

@@ -39,5 +39,4 @@ public class Database extends SQLiteOpenHelper {
     public static int getResPathFromName(String name, Context context){
         return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
     }
-
 }

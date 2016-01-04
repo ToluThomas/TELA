@@ -358,5 +358,4 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
     void scrollUp(){
         list.smoothScrollToPosition(list.getFirstVisiblePosition() - 1);
     }
-
 }

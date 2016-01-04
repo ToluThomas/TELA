@@ -10,11 +10,6 @@ import java.util.List;
 
 import io.meengle.util.Value;
 
-/**
- * Created by Joseph Dalughut on 29/12/15 at 10:48 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
 public class GenericRecyclerViewItemAdapter<T, ViewHolderImpl extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<ViewHolderImpl> {
 
     List<T> items;
@@ -76,5 +71,4 @@ public class GenericRecyclerViewItemAdapter<T, ViewHolderImpl extends RecyclerVi
     List<T> getItems(){
         return items;
     }
-
 }
