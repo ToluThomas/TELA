@@ -106,9 +106,24 @@ public class AlphaChoiceFragment extends Fragtivity {
         scrollDownCircularColorView.setCircularColor(a);
         scrollUpCircularColorView.setCircularColor(a);
         scrollUpCircularColorView.setBorderColor(b);
-        ViewAnimator.springify(back);
-        ViewAnimator.springify(scrollDown);
-        ViewAnimator.springify(scrollUp);
+        ViewAnimator.springify(back, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity.replace(new MainFragment());
+            }
+        });
+        ViewAnimator.springify(scrollDown, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollDown();
+            }
+        });
+        ViewAnimator.springify(scrollUp, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollUp();
+            }
+        });
         scrollUp.setAlpha(0);
         ViewAnimator.upDownify(back, 20, 300, 700);
         ViewAnimator.upDownify(scrollDown, -20, 500, 700);
@@ -133,7 +148,7 @@ public class AlphaChoiceFragment extends Fragtivity {
                         ViewHolder.setup(viewHolder, s, integer, aBoolean);
                         viewHolder.itemView.setScaleX(1f);
                         viewHolder.itemView.setScaleY(1f);
-                        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 exit(s, integer, v);
@@ -149,24 +164,6 @@ public class AlphaChoiceFragment extends Fragtivity {
                 });
         addHeader(a, b);
         alphaGrid.setAdapter(adapter);
-        scrollDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollDown();
-            }
-        });
-        scrollUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUp();
-            }
-        });
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity.replace(new MainFragment());
-            }
-        });
         alphaGrid.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -252,7 +249,6 @@ public class AlphaChoiceFragment extends Fragtivity {
         public static ViewHolder setup(ViewHolder viewHolder, String string, Integer position, Boolean isLast){
             viewHolder.text.setText(string.toUpperCase());
             viewHolder.text.setTextColor(Color.random());
-            ViewAnimator.springify(viewHolder.itemView);
             viewHolder.itemView.setClickable(true);
             viewHolder.text.setTag(position);
             viewHolder.circularColorView.setTag(position);
@@ -284,7 +280,7 @@ public class AlphaChoiceFragment extends Fragtivity {
         float textX = textView.getX();
         float textY = textView.getY();
 
-        float midX = view.getX() + (view.getWidth() / 2) - getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) + getResources().getDimensionPixelSize(R.dimen.actionBarSize);
+        float midX = view.getX() + (view.getWidth() / 2) - getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) + getResources().getDimensionPixelSize(R.dimen.buttonSize);
         float midY = view.getY() + (view.getHeight() / 2);
 
         ((FrameLayout) view).removeView(textView);

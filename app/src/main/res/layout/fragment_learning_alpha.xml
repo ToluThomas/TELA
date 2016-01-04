@@ -9,7 +9,7 @@
         android:id="@+id/slidingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:umanoPanelHeight="@dimen/actionBarSize"
+        app:umanoPanelHeight="@dimen/buttonSize"
         android:gravity="bottom"
         app:umanoShadowHeight="0dp"
         app:umanoOverlay="true"
@@ -66,17 +66,17 @@
                 android:visibility="invisible"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:layout_width="@dimen/actionBarSize"
-                android:layout_height="@dimen/actionBarSize"
+                android:layout_width="@dimen/buttonSize"
+                android:layout_height="@dimen/buttonSize"
                 >
 
                 <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                     android:id="@+id/leftCircularView"
-                    android:layout_width="@dimen/actionBarSize"
-                    android:layout_height="@dimen/actionBarSize"
+                    android:layout_width="@dimen/buttonSize"
+                    android:layout_height="@dimen/buttonSize"
                     app:circular_color="random"
                     app:shadow="true"
-                    app:border_width="12dp"
+                    app:border_width="@dimen/border_width_small_button"
                     app:border_color="random"
 
                     />
@@ -100,17 +100,17 @@
                 android:focusable="true"
                 android:layout_gravity="right|bottom"
                 android:focusableInTouchMode="true"
-                android:layout_width="@dimen/actionBarSize"
-                android:layout_height="@dimen/actionBarSize"
+                android:layout_width="@dimen/buttonSize"
+                android:layout_height="@dimen/buttonSize"
                 >
 
                 <com.aun.tela.alphabets.application.gui.custom.CircularColorView
                     android:id="@+id/rightCircularView"
-                    android:layout_width="@dimen/actionBarSize"
-                    android:layout_height="@dimen/actionBarSize"
+                    android:layout_width="@dimen/buttonSize"
+                    android:layout_height="@dimen/buttonSize"
                     app:circular_color="random"
                     app:shadow="true"
-                    app:border_width="12dp"
+                    app:border_width="@dimen/border_width_small_button"
                     app:border_color="random"
 
                     />
@@ -146,7 +146,7 @@
                 <FrameLayout
                     android:id="@+id/dragView"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/actionBarSize">
+                    android:layout_height="@dimen/buttonSize">
 
                     <ImageButton
                         android:clickable="false"
@@ -163,7 +163,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/hundred">
+                    android:layout_height="@dimen/alpha_learning_list_content_height">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
@@ -187,17 +187,17 @@
         android:visibility="invisible"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:layout_width="@dimen/actionBarSize"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
         >
 
         <com.aun.tela.alphabets.application.gui.custom.CircularColorView
             android:id="@+id/backCircularView"
-            android:layout_width="@dimen/actionBarSize"
-            android:layout_height="@dimen/actionBarSize"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
             app:circular_color="random"
             app:shadow="true"
-            app:border_width="12dp"
+            app:border_width="@dimen/border_width_small_button"
             app:border_color="random"
 
             />

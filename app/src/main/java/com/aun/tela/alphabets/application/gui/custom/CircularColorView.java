@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -98,9 +99,14 @@ public class CircularColorView extends View {
         setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
         borderPaint.setShadowLayer(8.0f, 0.0f, 4.0f, 0x20000000);
     }
+    public void removeShadow() {
+        setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
+        borderPaint.setShadowLayer(0, 0, 4, Color.TRANSPARENT);
+    }
 
     public void setCircularColor(int circularColor){
         this.circularColor = circularColor;
+        this.invalidate();
     }
 
     public int getCircularColor(){
