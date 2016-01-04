@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -167,6 +168,21 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
                         ViewHolder.setup(viewHolder,adapterItem, integer, aBoolean );
                         viewHolder.itemView.setScaleX(1f);
                         viewHolder.itemView.setScaleY(1f);
+                        viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                BarColorView titleBar = (BarColorView)v.findViewById(R.id.titleBar);
+                                switch (event.getAction()){
+                                    case MotionEvent.ACTION_DOWN:
+                                        titleBar.setBarColor(titleBar.getBorderColor());
+                                        break;
+                                    case MotionEvent.ACTION_UP:
+                                        titleBar.setBarColor(0xFFFFFFFF);
+                                        break;
+                                }
+                                return false;
+                            }
+                        });
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -212,7 +228,6 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
                 viewHolder.titleBar.setBarColor(0xFFFFFFFF);
                 viewHolder.title.setText(adapterItem.title.toUpperCase());
                 viewHolder.title.setTextColor(Color.random());
-                ViewAnimator.springify(viewHolder.itemView);
                 viewHolder.itemView.setClickable(true);
                 viewHolder.title.setTag(position);
                 viewHolder.titleBar.setTag(position);

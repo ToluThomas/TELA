@@ -565,11 +565,18 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 getRootView().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerView.smoothScrollToPosition(nextPosition);
+                        final int nextViewPosition = nextPosition+1;
+                        recyclerView.smoothScrollToPosition(nextViewPosition);
                         getRootView().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                exit(Factory.Alphabets.getAlphabetsUppercase().get(nextPosition), nextPosition, recyclerView.getChildAt(nextPosition + 1));
+
+                                Log.d("NextViewPosition"+nextViewPosition);
+                                RecyclerView.ViewHolder v = recyclerView.findViewHolderForAdapterPosition(nextViewPosition);
+                                Log.d("V is : "+ (Value.NULL(v)? "Null" : v.toString()));
+                                View view = v.itemView;
+
+                                exit(Factory.Alphabets.getAlphabetsUppercase().get(nextPosition), nextPosition, view);
                             }
                         }, 500);
                     }

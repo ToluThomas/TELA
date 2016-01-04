@@ -26,7 +26,7 @@ public class ViewAnimator {
     public static final class Constants {
 
         public static final double DEFAULT_TENSION = 800;
-        public static final double DEFAULT_DAMPER = 10;
+        public static final double DEFAULT_DAMPER = 40;
 
     }
 

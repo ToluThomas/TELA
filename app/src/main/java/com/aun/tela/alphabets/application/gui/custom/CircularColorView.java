@@ -101,6 +101,7 @@ public class CircularColorView extends View {
 
     public void setCircularColor(int circularColor){
         this.circularColor = circularColor;
+        this.invalidate();
     }
 
     public int getCircularColor(){
