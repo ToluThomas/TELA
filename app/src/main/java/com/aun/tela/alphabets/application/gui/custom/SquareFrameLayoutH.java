@@ -11,7 +11,12 @@ import android.widget.FrameLayout;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
+
+/**
+ * An implementation of {@link FrameLayout} whose width will always matches its height
+ */
 public class SquareFrameLayoutH extends FrameLayout {
+
     public SquareFrameLayoutH(Context context) {
         super(context);
     }

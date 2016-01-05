@@ -11,6 +11,10 @@ import android.widget.FrameLayout;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
+
+/**
+ * This implementation of {@link FrameLayout}'s height is always same as its width
+ */
 public class SquareFrameLayoutW extends FrameLayout {
     public SquareFrameLayoutW(Context context) {
         super(context);

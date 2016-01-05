@@ -23,20 +23,39 @@ import io.meengle.util.Value;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
+
+/**
+ * A class for simple Animations using static methods
+ */
 public class ViewAnimator {
 
     public static final class Constants {
 
-        public static final double DEFAULT_TENSION = 800;
-        public static final double DEFAULT_DAMPER = 40;
+        public static final double DEFAULT_TENSION = 800; //default tension for spring.
+        public static final double DEFAULT_DAMPER = 40; //default friction for spring.
 
     }
 
-    public static void springify(View view, View.OnClickListener listener){
-        springify(view, listener, Constants.DEFAULT_TENSION, Constants.DEFAULT_DAMPER);
+    /**
+     * Make a view execute a springy animation when touched.
+     * @param view the view to animate
+     * @param onClickListener the onClickListener to be notified when this view is touched
+     *                        @see http://facebook.github.io/rebound/
+     */
+    public static void springify(View view, View.OnClickListener onClickListener){
+        springify(view, onClickListener, Constants.DEFAULT_TENSION, Constants.DEFAULT_DAMPER);
     }
 
-    public static void springify(final View view, final View.OnClickListener clicklistener, double tension, double damper){
+    /**
+     *
+     * Make a view execute a springy animation when touched.
+     * @param view the view to animate
+     * @param onClickListener the listener to be notified when this view is touched
+     * @param tension the tension for this spring animation
+     * @param damper the friction for this spring animation
+     *               @see http://facebook.github.io/rebound/
+     */
+    public static void springify(final View view, final View.OnClickListener onClickListener, double tension, double damper){
 
         SpringSystem springSystem = SpringSystem.create();
         final Spring spring = springSystem.createSpring();
@@ -76,11 +95,11 @@ public class ViewAnimator {
                         break;
                     case MotionEvent.ACTION_UP:
                         spring.setEndValue(0f);
-                        if(!Value.NULL(clicklistener)){
+                        if(!Value.NULL(onClickListener)){
                             v.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    clicklistener.onClick(v);
+                                    onClickListener.onClick(v);
                                 }
                             }, 50);
                         }
@@ -95,10 +114,17 @@ public class ViewAnimator {
         spring.addListener(listener);
     }
 
-    public static void upDownify(View v, float extra, long startDelay, long duration){
+    /**
+     * Animate a view periodically going up and down
+     * @param v the view to animate
+     * @param offset the offset to and from which this view would be moved
+     * @param startDelay
+     * @param duration
+     */
+    public static void upDownify(View v, float offset, long startDelay, long duration){
         float ty = v.getTranslationY();
-        //PropertyValuesHolder x = PropertyValuesHolder.ofFloat("translationX", tx, tx + extra);
-        PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationY", ty, ty + extra);
+        //PropertyValuesHolder x = PropertyValuesHolder.ofFloat("translationX", tx, tx + offset);
+        PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationY", ty, ty + offset);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, y);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -108,6 +134,13 @@ public class ViewAnimator {
         animator.start();
     }
 
+    /**
+     * Animate a view by fading it out of visibility
+     * @param v the view to fade out
+     * @param startDelay
+     * @param duration
+     * @return
+     */
     public static ValueAnimator fadeOut(View v, long startDelay, long duration){
         ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 0f);
         animator.setStartDelay(startDelay);
@@ -117,6 +150,13 @@ public class ViewAnimator {
         return animator;
     }
 
+    /**
+     * Animate a view by fading it into visibility
+     * @param v the view to be faded in
+     * @param startDelay
+     * @param duration
+     * @return
+     */
     public static ValueAnimator fadeIn(View v, long startDelay, long duration){
         ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 1f);
         animator.setStartDelay(startDelay);
@@ -126,6 +166,13 @@ public class ViewAnimator {
         return animator;
     }
 
+    /**
+     * Animate a view by 'popping' it into visibility
+     * @param v the view to be popped into visibility
+     * @param startDelay
+     * @param duration
+     * @return
+     */
     public static ValueAnimator popIn(View v, long startDelay, long duration){
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", v.getAlpha(), 1f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", v.getScaleX(), 1f);
@@ -138,6 +185,13 @@ public class ViewAnimator {
         return animator;
     }
 
+    /**
+     * Animate a view by 'pooping' it out of visibility
+     * @param v the view to be popped out of visibility
+     * @param startDelay
+     * @param duration
+     * @return
+     */
     public static ValueAnimator popOut(View v, long startDelay, long duration){
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", v.getAlpha(), 0f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", v.getScaleX(), 0f);
@@ -178,6 +232,16 @@ public class ViewAnimator {
         return animator;
     }
 
+    /**
+     * Change the color of a view by animating it
+     * @param v
+     * @param property the color property to change
+     * @param startDelay
+     * @param duration
+     * @param from
+     * @param to
+     * @return
+     */
     public static ValueAnimator color(View v, String property, long startDelay, long duration, int from, int to){
         ValueAnimator animator = ObjectAnimator.ofInt(v, property, from, to);
         animator.setEvaluator(new ArgbEvaluator());
@@ -187,6 +251,11 @@ public class ViewAnimator {
         return animator;
     }
 
+    /**
+     * Animate a view by doing a springy pop animation.
+     * @param view the view to be animated
+     * @param finishCollector
+     */
     public static void pop(final View view, final Collector<View> finishCollector){
         SpringSystem springSystem = SpringSystem.create();
         final Spring spring = springSystem.createSpring();

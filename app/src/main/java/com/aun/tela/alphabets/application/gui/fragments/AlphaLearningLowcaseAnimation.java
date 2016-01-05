@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
-import com.aun.tela.alphabets.application.generic.Consumer;
+import com.aun.tela.alphabets.application.generic.Retriever;
 import com.aun.tela.alphabets.application.util.Log;
 import com.aun.tela.alphabets.application.util.Speech;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 
-public class AlphaLearning2 extends Fragtivity implements Collector<View> {
+public class AlphaLearningLowcaseAnimation extends Fragtivity implements Collector<View> {
 
     TextView alphabetCenter, alphabetUppercaseCenter, alphabetLowercaseCenter;
     Factory.Alphabets.Alphabet alphabet;
@@ -33,24 +33,24 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
     Collector<Boolean> finishCollector;
     Map<String, Boolean> states = new HashMap<>();
 
-    public static AlphaLearning2 getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
-        AlphaLearning2 f = new AlphaLearning2().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishCollector(finishCollector);
+    public static AlphaLearningLowcaseAnimation getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
+        AlphaLearningLowcaseAnimation f = new AlphaLearningLowcaseAnimation().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishCollector(finishCollector);
         return f;
     }
 
-    public AlphaLearning2 setAlphabet(Factory.Alphabets.Alphabet alphabet){
+    public AlphaLearningLowcaseAnimation setAlphabet(Factory.Alphabets.Alphabet alphabet){
         this.alphabet = alphabet; return this;
     }
 
-    public AlphaLearning2 setTextColor(int color){
+    public AlphaLearningLowcaseAnimation setTextColor(int color){
         this.textColor = color; return this;
     }
 
-    public AlphaLearning2 setBorderColor(int color){
+    public AlphaLearningLowcaseAnimation setBorderColor(int color){
         this.borderColor = color; return this;
     }
 
-    public AlphaLearning2 setFinishCollector(Collector<Boolean> finishCollector){
+    public AlphaLearningLowcaseAnimation setFinishCollector(Collector<Boolean> finishCollector){
         this.finishCollector = finishCollector; return this;
     }
 
@@ -133,12 +133,17 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         return false;
     }
 
+    /**
+     * Method to shift the Uppercase Alphabet from the center of the view to a suitable position on its
+     * left, to make space for the lowercase alphabet which is then popped into visibility. This method is
+     * tied to the playShiftAnimate method and only when they both finish is the next method called
+     */
     void shiftAnimate(){
         final String animate = "shiftAnimate";
         final String sound = "playShiftAnimate";
-        final Consumer<Boolean> finishConsumer = new Consumer<Boolean>() {
+        final Retriever<Boolean> finishListener = new Retriever<Boolean>() {
             @Override
-            public Boolean consume() {
+            public Boolean retrieve() {
                 return states.get(animate) && states.get(sound);
             }
         };
@@ -157,7 +162,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playShiftAnimate(new Speech.VoiceCallback() {
+                playShiftAnimate(new Speech.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -166,7 +171,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
                     @Override
                     public void onDone(String id) {
                         states.put(sound, true);
-                        if (finishConsumer.consume())
+                        if (finishListener.retrieve()) //if sound and animation finished, move to next method
                             getRootView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -196,7 +201,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         states.put(animate, true);
-                        if (finishConsumer.consume())
+                        if (finishListener.retrieve())
                             getRootView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -230,10 +235,18 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         animator.start();
     }
 
-    void playShiftAnimate(Speech.VoiceCallback voiceCallback){
-        Speech.play(alphabet.presentation, null, voiceCallback);
+    /**
+     * Play sound for the shifting animation
+     * @param playbackListener
+     */
+    void playShiftAnimate(Speech.PlaybackListener playbackListener){
+        Speech.play(alphabet.aLLASound1, null, playbackListener);
     }
 
+    /**
+     * Show the lowercase letter by popping it into visiblity
+     * @param listener
+     */
     void popLowercase(Animator.AnimatorListener listener){
         alphabetLowercaseCenter.setAlpha(0f);
         alphabetLowercaseCenter.setVisibility(View.VISIBLE);
@@ -241,12 +254,17 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         animator.addListener(listener);
     }
 
+    /**
+     * Do a simple animation of color while information about the alphabet is being said.
+     * This method is tied to the playAnimateInfo method and only when they both finish
+     * is the next method called
+     */
     void animateInfo(){
         final String animate = "animateInfo";
         final String sound = "playAnimateInfo";
-        final Consumer<Boolean> finishConsumer = new Consumer<Boolean>() {
+        final Retriever<Boolean> finishListener = new Retriever<Boolean>() {
             @Override
-            public Boolean consume() {
+            public Boolean retrieve() {
                 return states.get(animate) && states.get(sound);
             }
         };
@@ -262,7 +280,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         cap.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playInfo(new Speech.VoiceCallback() {
+                playInfo(new Speech.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -271,7 +289,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
                     @Override
                     public void onDone(String id) {
                         states.put(sound, true);
-                        if (finishConsumer.consume())
+                        if (finishListener.retrieve())//if sound and animation finished, move to next method
                             getRootView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -313,7 +331,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
             @Override
             public void onAnimationEnd(Animator animation) {
                 states.put(animate, true);
-                if(finishConsumer.consume())
+                if(finishListener.retrieve())
                 getRootView().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -336,10 +354,17 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
         low.start();
     }
 
-    void playInfo(Speech.VoiceCallback voiceCallback){
-        Speech.play(alphabet.presentationInfo, null, voiceCallback);
+    /**
+     * Play sound for info animation
+     * @param playbackListener
+     */
+    void playInfo(Speech.PlaybackListener playbackListener){
+        Speech.play(alphabet.aLLASound2, null, playbackListener);
     }
 
+    /**
+     * Move the alphabets (uppercase and lowercase) to the top of the view.
+     */
     void animateUp(){
         float top = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         float size = getResources().getInteger(R.integer.text_size_display3);
@@ -397,7 +422,7 @@ public class AlphaLearning2 extends Fragtivity implements Collector<View> {
     }
 
     private void finish(){
-        ((AlphaLearning)getParentFragment()).nextStateAndBuild();
+        ((AlphaLearningFragment)getParentFragment()).nextStateAndBuild();
     }
 
 }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
-import com.aun.tela.alphabets.application.generic.Consumer;
+import com.aun.tela.alphabets.application.generic.Retriever;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.util.Log;
 import com.aun.tela.alphabets.application.util.Speech;
@@ -22,7 +22,8 @@ import java.util.Map;
 
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 
-public class AlphaLearning1 extends Fragtivity implements Collector<View>{
+
+public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collector<View>{
 
     TextView alphabetText;
     Factory.Alphabets.Alphabet alphabet;
@@ -30,24 +31,24 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
     Map<String, Boolean> states = new HashMap<>();
     Collector<Boolean> finishCollector;
 
-    public static AlphaLearning1 getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
-        AlphaLearning1 f = new AlphaLearning1().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishCollector(finishCollector);
+    public static AlphaLearningUpcaseAnimation getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
+        AlphaLearningUpcaseAnimation f = new AlphaLearningUpcaseAnimation().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishCollector(finishCollector);
         return f;
     }
 
-    public AlphaLearning1 setFinishCollector(Collector<Boolean> finishCollector){
+    public AlphaLearningUpcaseAnimation setFinishCollector(Collector<Boolean> finishCollector){
         this.finishCollector = finishCollector; return this;
     }
 
-    public AlphaLearning1 setAlphabet(Factory.Alphabets.Alphabet alphabet){
+    public AlphaLearningUpcaseAnimation setAlphabet(Factory.Alphabets.Alphabet alphabet){
         this.alphabet = alphabet; return this;
     }
 
-    public AlphaLearning1 setTextColor(int color){
+    public AlphaLearningUpcaseAnimation setTextColor(int color){
         this.textColor = color; return this;
     }
 
-    public AlphaLearning1 setBorderColor(int color){
+    public AlphaLearningUpcaseAnimation setBorderColor(int color){
         this.borderColor = color; return this;
     }
 
@@ -108,6 +109,11 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
         return false;
     }
 
+    /**
+     * Make the textView holding the alphabet appear and animate it.
+     * This method is tied to the method playAppearAndAnimate, so that
+     * no other method is called until they both finish. That's what the listeners are for.
+     */
     void appearAndAnimate(){
         final String animate = "appearAndAnimate";
         final String sound = "playAppearAndAnimate";
@@ -120,9 +126,9 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
         ValueAnimator animator = ObjectAnimator.ofFloat(alphabetText, "textSize", from, to);
         animator.setDuration(1000);
         animator.setStartDelay(200);
-        final Consumer<Boolean> finishConsumer = new Consumer<Boolean>() {
+        final Retriever<Boolean> finishedListener = new Retriever<Boolean>() {
             @Override
-            public Boolean consume() {
+            public Boolean retrieve() {
                 Log.d("Checking finish");
                 return states.get(animate) && states.get(sound);
             }
@@ -130,7 +136,7 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playAppearAndAnimate(new Speech.VoiceCallback() {
+                playAppearAndAnimate(new Speech.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -139,7 +145,7 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
                     @Override
                     public void onDone(String id) {
                         states.put(sound, true);
-                        if(finishConsumer.consume()){
+                        if(finishedListener.retrieve()){ //if sound and animation finished, move to next method
                             getRootView().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -159,7 +165,7 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
             @Override
             public void onAnimationEnd(Animator animation) {
                 states.put(animate, true);
-                if(finishConsumer.consume()){
+                if(finishedListener.retrieve()){ //if sound and animation finished, move to next method
                     getRootView().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -183,19 +189,23 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
         animator.start();
     }
 
-    void playAppearAndAnimate(Speech.VoiceCallback voiceCallback){
-        Speech.play(alphabet.intro, null, voiceCallback);
+    void playAppearAndAnimate(Speech.PlaybackListener playbackListener){
+        Speech.play(alphabet.aLUASound1, null, playbackListener);
     }
 
+    /**
+     *  Do a springy animation for the uppercase letter, and play a sound with it. This method is
+     *  tied to the playPopAnimate method below and the next method is only called after they have both finished
+     */
     void popAnimate(){
         Log.d("pop animating");
         final String animate = "popAndAnimate";
         final String sound = "playPopAndAnimate";
         states.put(animate, false);
         states.put(sound, false);
-        final Consumer<Boolean> finishConsumer = new Consumer<Boolean>() {
+        final Retriever<Boolean> finishListener = new Retriever<Boolean>() {
             @Override
-            public Boolean consume() {
+            public Boolean retrieve() {
                 return states.get(animate) && states.get(sound);
             }
         };
@@ -203,12 +213,12 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
             @Override
             public void collect(View view) {
                 states.put(animate, true);
-                if(finishConsumer.consume()){
+                if(finishListener.retrieve()){
                     end();
                 }
             }
         });
-        playPopAnimate(new Speech.VoiceCallback() {
+        playPopAnimate(new Speech.PlaybackListener() {
             @Override
             public void onStart(String id) {
 
@@ -218,7 +228,7 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
             public void onDone(String id) {
                 Log.d("Played Pop Animate");
                 states.put(sound, true);
-                if(finishConsumer.consume()){
+                if(finishListener.retrieve()){
                     end();
                 }
             }
@@ -230,9 +240,9 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
         });
     }
 
-    void playPopAnimate(Speech.VoiceCallback voiceCallback){
+    void playPopAnimate(Speech.PlaybackListener playbackListener){
         Log.d("Playing pop animate");
-        Speech.play(alphabet.introInfo, null, voiceCallback);
+        Speech.play(alphabet.aLUASound2, null, playbackListener);
     }
 
     void end(){
@@ -249,6 +259,6 @@ public class AlphaLearning1 extends Fragtivity implements Collector<View>{
                 ViewAnimator.popOutZero(view, 0, 200);
             }
         });
-        ((AlphaLearning)getParentFragment()).nextStateAndBuild();
+        ((AlphaLearningFragment)getParentFragment()).nextStateAndBuild();
     }
 }

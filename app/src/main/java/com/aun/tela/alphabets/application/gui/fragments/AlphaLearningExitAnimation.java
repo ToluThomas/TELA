@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
-import com.aun.tela.alphabets.application.generic.Consumer;
+import com.aun.tela.alphabets.application.generic.Retriever;
 import com.aun.tela.alphabets.application.util.Speech;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
 
@@ -23,7 +23,11 @@ import java.util.Map;
 
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 
-public class AlphaLearning6 extends Fragtivity implements Collector<View> {
+/**
+ * This class handles the last alphabet animation based on the script. The alphabet animates from the top
+ * of the view to the center of the view, during which it's textSize is also changed and increased
+ */
+public class AlphaLearningExitAnimation extends Fragtivity implements Collector<View> {
 
 
     TextView alphabetUppercaseTop, alphabetLowercaseTop, alphabetUppercaseCenter, alphabetLowercaseCenter;
@@ -32,24 +36,24 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
     int textColor, borderColor;
     Map<String, Boolean> states = new HashMap<>();
 
-    public static AlphaLearning6 getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
-        AlphaLearning6 f = new AlphaLearning6().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishListener(finishCollector);
+    public static AlphaLearningExitAnimation getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor, Collector<Boolean> finishCollector){
+        AlphaLearningExitAnimation f = new AlphaLearningExitAnimation().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor).setFinishListener(finishCollector);
         return f;
     }
 
-    public AlphaLearning6 setAlphabet(Factory.Alphabets.Alphabet alphabet){
+    public AlphaLearningExitAnimation setAlphabet(Factory.Alphabets.Alphabet alphabet){
         this.alphabet = alphabet; return this;
     }
 
-    public AlphaLearning6 setFinishListener(Collector<Boolean> finishCollector){
+    public AlphaLearningExitAnimation setFinishListener(Collector<Boolean> finishCollector){
         this.finishCollector = finishCollector; return this;
     }
 
-    public AlphaLearning6 setTextColor(int color){
+    public AlphaLearningExitAnimation setTextColor(int color){
         this.textColor = color; return this;
     }
 
-    public AlphaLearning6 setBorderColor(int color){
+    public AlphaLearningExitAnimation setBorderColor(int color){
         this.borderColor = color; return this;
     }
 
@@ -135,21 +139,26 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
     }
 
 
+    /**
+     * Animate textView to center
+     */
     void animateCenter(){
         final String animate = "animateCenter";
         final String sound = "playAnimateCenter";
         states.put(animate, false);
         states.put(sound, false);
-        final Consumer<Boolean> finishedConsumer = new Consumer<Boolean>() {
+
+        //consumer which checks to see if both animation and sound have finished
+        final Retriever<Boolean> finishedConsumer = new Retriever<Boolean>() {
             @Override
-            public Boolean consume() {
+            public Boolean retrieve() {
                 return states.get(animate) && states.get(sound);
             }
         };
         int size = getResources().getInteger(R.integer.text_size_display4);
         int from = getResources().getInteger(R.integer.text_size_display3);
-        PropertyValuesHolder uts = PropertyValuesHolder.ofFloat("textSize", from, size);
-        PropertyValuesHolder lts = PropertyValuesHolder.ofFloat("textSize", from, size);
+        PropertyValuesHolder uts = PropertyValuesHolder.ofFloat("textSize", from, size); //animator the textSize of uppercase textview
+        PropertyValuesHolder lts = PropertyValuesHolder.ofFloat("textSize", from, size); //animate the textSize of the lowercase textView
         int rem = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         PropertyValuesHolder uty = PropertyValuesHolder.ofFloat("Y", alphabetUppercaseTop.getY(), alphabetUppercaseCenter.getY() - rem);
         PropertyValuesHolder lty = PropertyValuesHolder.ofFloat("Y", alphabetLowercaseTop.getY(), alphabetLowercaseCenter.getY() - rem);
@@ -163,7 +172,7 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
         cap.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playAnimateCenter(new Speech.VoiceCallback() {
+                playAnimateCenter(new Speech.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -172,7 +181,7 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
                     @Override
                     public void onDone(String id) {
                         states.put(sound, true);
-                        if (finishedConsumer.consume())
+                        if (finishedConsumer.retrieve()) //if animation complete and sound complete, call end method
                             end();
                     }
 
@@ -207,7 +216,7 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
             @Override
             public void onAnimationEnd(Animator animation) {
                 states.put(animate, true);
-                if (finishedConsumer.consume())
+                if (finishedConsumer.retrieve())
                     end();
             }
 
@@ -225,8 +234,9 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
         low.start();
     }
 
-    void playAnimateCenter(Speech.VoiceCallback voiceCallback){
-        Speech.play(alphabet.outro, null, voiceCallback);
+    //play the sound for animating the view to the center
+    void playAnimateCenter(Speech.PlaybackListener playbackListener){
+        Speech.play(alphabet.aLEASound1, null, playbackListener);
     }
 
     void end(){
@@ -241,6 +251,6 @@ public class AlphaLearning6 extends Fragtivity implements Collector<View> {
                 ViewAnimator.popOutZero(view, 0, 200);
             }
         });
-        ((AlphaLearning)getParentFragment()).nextStateAndBuild();
+        ((AlphaLearningFragment)getParentFragment()).nextStateAndBuild();
     }
 }

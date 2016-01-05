@@ -5,6 +5,15 @@ package com.aun.tela.alphabets.application.generic;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public interface TripleRetriever<T, U, V, W> {
-    T retrieve(U u, V v, W w);
+
+/**
+ * A simple generic interface that retrieves three different data types
+ * @param <T> the first data type to be retrieved
+ * @param <U> the second data type to be retrieved
+ * @param <V> the thrid data type to be retrieved
+ */
+public interface TripleRetriever<T, U, V> {
+    T consumeFirst();
+    U consumeSecond();
+    V consumeThird();
 }

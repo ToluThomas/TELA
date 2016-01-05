@@ -5,6 +5,11 @@ package com.aun.tela.alphabets.application.generic;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public interface Retriever<T, V> {
-    T retrieve(V v);
+
+/**
+ * A simple generic interface that retrieves a value
+ * @param <T> the data type to be retrieved
+ */
+public interface Retriever<T> {
+    T retrieve();
 }

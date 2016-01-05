@@ -14,7 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
@@ -24,8 +23,8 @@ import android.widget.TextView;
 import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
-import com.aun.tela.alphabets.application.generic.DoubleRetriever;
-import com.aun.tela.alphabets.application.generic.QuatroConsumer;
+import com.aun.tela.alphabets.application.generic.DoubleConsumer;
+import com.aun.tela.alphabets.application.generic.QuatroCollector;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.gui.adapter.GenericRecyclerViewItemAdapter;
 import com.aun.tela.alphabets.application.gui.custom.CircularColorView;
@@ -45,22 +44,27 @@ import io.meengle.util.Value;
  * Project name : TELA.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener {
 
-    public static AlphaLearning getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor){
-        AlphaLearning f = new AlphaLearning().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor);
+/**
+ * This is the main fragment where the animations for learning alphabets take place, even though these animations
+ * happen in other fragments, those fragments are held and switched by this fragment
+ */
+public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener {
+
+    public static AlphaLearningFragment getInstance(Factory.Alphabets.Alphabet alphabet, int textColor, int borderColor){
+        AlphaLearningFragment f = new AlphaLearningFragment().setAlphabet(alphabet).setTextColor(textColor).setBorderColor(borderColor);
         return f;
     }
 
-    public AlphaLearning setAlphabet(Factory.Alphabets.Alphabet alphabet){
+    public AlphaLearningFragment setAlphabet(Factory.Alphabets.Alphabet alphabet){
         this.alphabet = alphabet; return this;
     }
 
-    public AlphaLearning setTextColor(int color){
+    public AlphaLearningFragment setTextColor(int color){
         this.textColor = color; return this;
     }
 
-    public AlphaLearning setBorderColor(int color){
+    public AlphaLearningFragment setBorderColor(int color){
         this.borderColor = color; return this;
     }
 
@@ -112,24 +116,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
         leftCircularColorView = (CircularColorView) findViewById(R.id.leftCircularView);
         rightCircularColorView = (CircularColorView) findViewById(R.id.rightCircularView);
     }
-
-    ViewTreeObserver.OnGlobalLayoutListener layoutListener;
-
     @Override
     public void setupViews() {
-        /*layoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
-                }else{
-                    getRootView().getViewTreeObserver().removeGlobalOnLayoutListener(layoutListener);
-                }
-                setup();
-            }
-        };
-        getRootView().getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
-        */
         setup();
     }
 
@@ -184,32 +172,34 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
         items.add(0, "");
         items.add("");
         final Random rand = new Random();
+
+        //create an adapter for the list that shows up at the bottom of the list.
         adapter = GenericRecyclerViewItemAdapter.<String, ViewHolder>getInstance()
-                .setIdRetriever(new DoubleRetriever<Long, String, Integer>() {
+                .setIdConsumer(new DoubleConsumer<Long, String, Integer>() {
                     @Override
-                    public Long retrieve(String s, Integer integer) {
+                    public Long consume(String s, Integer integer) {
                         return integer.longValue();
                     }
-                }).setViewConsumer(new QuatroConsumer<ViewHolder, String, Integer, Boolean>() {
+                }).setViewCollector(new QuatroCollector<ViewHolder, String, Integer, Boolean>() {
                     @Override
-                    public void consume(ViewHolder viewHolder, final String s, final Integer integer, Boolean aBoolean) {
+                    public void collect(ViewHolder viewHolder, final String s, final Integer integer, Boolean aBoolean) {
                         ViewHolder.setup(viewHolder, s, integer, aBoolean);
                         viewHolder.itemView.setScaleX(1f);
                         viewHolder.itemView.setScaleY(1f);
                         ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                exit(s, integer, v);
+                                animateToLetter(s, v);
                             }
                         });
-                        if(Value.NULL(viewHolder.itemView.getAnimation())) {
-                            Log.d("Animation null, starting for view : "+viewHolder.itemView.toString());
+                        if (Value.NULL(viewHolder.itemView.getAnimation())) {
+                            Log.d("Animation null, starting for view : " + viewHolder.itemView.toString());
                             ViewAnimator.upDownify(viewHolder.itemView, 10, rand.nextInt(500), 800 + rand.nextInt(200));
                         }
                     }
-                }).setViewRetriever(new DoubleRetriever<ViewHolder, ViewGroup, Integer>() {
+                }).setViewConsumer(new DoubleConsumer<ViewHolder, ViewGroup, Integer>() {
                     @Override
-                    public ViewHolder retrieve(ViewGroup viewGroup, Integer integer) {
+                    public ViewHolder consume(ViewGroup viewGroup, Integer integer) {
                         return ViewHolder.inflateDefault(viewGroup);
                     }
                 }).setItems(items);
@@ -219,6 +209,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
         slidingLayout.setParallaxOffset(slidingContentHeight);
     }
 
+    //change the color of our buttons, but by animation
     void color(){
         Activity.setColor(borderColor);
         ViewAnimator.color(backCircularColorView, "circularColor", 0, 500, backCircularColorView.getCircularColor(), textColor);
@@ -253,6 +244,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
     public boolean shouldWatchKeyboard() {
         return false;
     }
+
 
     public void add(Fragment fragment){
         getChildFragmentManager().beginTransaction().add(R.id.container, fragment).addToBackStack(null).commitAllowingStateLoss();
@@ -330,7 +322,15 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
         }
     }
 
-    private void exit(final String string, int position, View view){
+    /**
+     * Create an animation for this alphabet {@param string} entering the screen from view {@param view}
+     * It's the same process as from {@link AlphaChoiceFragment}. Take {@param view}'s position on screen, duplicate
+     * it, pick the textview inside and then animate the clone to the center of screen while it's background scales
+     * up to the size of the screen
+     * @param string
+     * @param view
+     */
+    private void animateToLetter(final String string, View view){
         final CircularColorView circularColorView = (CircularColorView) view.findViewById(R.id.circularView);
         TextView textView = (TextView) view.findViewById(R.id.text);
 
@@ -419,8 +419,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                 state = State.PENDING;
                 ((FrameLayout)getRootView()).removeView(finalView);
                 ((FrameLayout)getRootView()).removeView(finalTextView);
-                AlphaLearning.this.textColor = textColor;
-                AlphaLearning.this.borderColor = circularColorView.getBorderColor();
+                AlphaLearningFragment.this.textColor = textColor;
+                AlphaLearningFragment.this.borderColor = circularColorView.getBorderColor();
                 color();
                 build();
             }
@@ -445,7 +445,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
     }
 
     static enum State {
-        PENDING, UPPERCASE_ENTRANCE, LOWERCASE_ENTRANCE, PICTURE_ENTRANCE_1, PICTURE_ENTRANCE_2, PICTURE_ENTRANCE_3, EXIT;
+        PENDING, AlphaLearningUpcaseAnimation, AlphaLearningLowcaseAnimation, AlphaLearningWordAnimation1,
+        AlphaLearningWordAnimation2, AlphaLearningWordAnimation3, AlphaLearningExitAnimation;
     }
 
     public void setStateAndBuild(State state){
@@ -460,10 +461,16 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
 
     //.
     Fragtivity f;
+
+    /**
+     * This method switches to the next animation fragment based on the currently animating fragment, this is
+     * based on the currently assigned state (type {@link com.aun.tela.alphabets.application.gui.fragments.AlphaLearningFragment.State})
+     *
+     */
     void build(){
         switch (state){
             case PENDING:
-                f = AlphaLearning1.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
+                f = AlphaLearningUpcaseAnimation.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -477,8 +484,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case UPPERCASE_ENTRANCE:
-                f = AlphaLearning2.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
+            case AlphaLearningUpcaseAnimation:
+                f = AlphaLearningLowcaseAnimation.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -492,8 +499,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case LOWERCASE_ENTRANCE:
-                f = AlphaLearning3.getInstance(alphabet, 0,textColor, borderColor, new Collector<Boolean>() {
+            case AlphaLearningLowcaseAnimation:
+                f = AlphaLearningWordAnimation.getInstance(alphabet, 0, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -507,8 +514,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case PICTURE_ENTRANCE_1:
-                f = AlphaLearning3.getInstance(alphabet, 1,textColor, borderColor, new Collector<Boolean>() {
+            case AlphaLearningWordAnimation1:
+                f = AlphaLearningWordAnimation.getInstance(alphabet, 1, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -522,8 +529,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case PICTURE_ENTRANCE_2:
-                f = AlphaLearning3.getInstance(alphabet, 2,textColor, borderColor, new Collector<Boolean>() {
+            case AlphaLearningWordAnimation2:
+                f = AlphaLearningWordAnimation.getInstance(alphabet, 2, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -537,8 +544,8 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case PICTURE_ENTRANCE_3:
-                f = AlphaLearning6.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
+            case AlphaLearningWordAnimation3:
+                f = AlphaLearningExitAnimation.getInstance(alphabet, textColor, borderColor, new Collector<Boolean>() {
                     @Override
                     public void collect(Boolean aBoolean) {
                         showNext();
@@ -552,7 +559,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                     }
                 });
                 break;
-            case EXIT:
+            case AlphaLearningExitAnimation:
                 if(alphabet.getLowerCase().equals("z")){
                     Activity.replace(AlphaChoiceFragment.getInstance(textColor, borderColor));
                 }else{
@@ -563,6 +570,9 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
     }
 
 
+    /**
+     * Show the next button
+     */
     void showNext(){
         Log.d("Nexting");
         right.post(new Runnable() {
@@ -606,7 +616,7 @@ public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.Pa
                                 Log.d("V is : " + (Value.NULL(v) ? "Null" : v.toString()));
                                 View view = v.itemView;
 
-                                exit(Factory.Alphabets.getAlphabetsUppercase().get(nextPosition), nextPosition, view);
+                                animateToLetter(Factory.Alphabets.getAlphabetsUppercase().get(nextPosition), view);
                             }
                         }, 500);
                     }

@@ -11,6 +11,10 @@ import io.meengle.util.Value;
  */
 public class Color {
 
+    /**
+     * Map of colors from www.flatuicolorpicker.com
+     */
+
     public static BiMap<String, String> COLORS = new BiMap<String, String>(){
 
         {
@@ -110,6 +114,9 @@ public class Color {
 
     };
 
+    /**
+     * @return a random color
+     */
     public static Integer random(){
         return android.graphics.Color.parseColor(Value.As.LIST(COLORS.keySet()).get(new Random().nextInt(COLORS.size())));
     }
