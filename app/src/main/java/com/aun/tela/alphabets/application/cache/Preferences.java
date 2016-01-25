@@ -28,7 +28,7 @@ public class Preferences extends SecureSharedPreferences {
     AES encryption, Hashing and cryptography in general.
      */
 
-    private static Preferences INSTANCE = null; //Hold a static globall instance. Make this volatile in
+    private static Preferences INSTANCE = null; //Hold a static global instance. Make this volatile in
     // lieu of multithreading issues
 
     private String name, password; //the name with which the preferences would be saved. The password
@@ -47,7 +47,7 @@ public class Preferences extends SecureSharedPreferences {
      * Initialize a global instance for the application. You can call this method as many times without any
      * issues but is usually called once, usually from your {@link android.app.Application} subclass
      *
-     * @param context the context to be used for intialization.
+     * @param context the context to be used for initialization.
      */
     public static void init(Context context) {
         setInstance(new Preferences(context, Constants.NAME, Constants.PASSWORD));

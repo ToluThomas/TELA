@@ -34,6 +34,7 @@ import io.meengle.util.Value;
 /**
  * This class handles the animation for Alphabets and the words associated with them and images. Note
  */
+
 public class AlphaLearningWordAnimation extends Fragtivity implements Collector<View> {
 
     Factory.Alphabets.Alphabet alphabet;

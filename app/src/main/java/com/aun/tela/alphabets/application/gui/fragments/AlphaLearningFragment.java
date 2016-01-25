@@ -39,16 +39,6 @@ import java.util.Random;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 import io.meengle.util.Value;
 
-<<<<<<< HEAD:app/src/main/java/com/aun/tela/alphabets/application/gui/fragments/AlphaLearning.java
-public class AlphaLearning extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener {
-=======
-/**
- * Created by Joseph Dalughut on 31/12/15 at 9:12 AM.
- * Project name : TELA.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
->>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a:app/src/main/java/com/aun/tela/alphabets/application/gui/fragments/AlphaLearningFragment.java
-
 /**
  * This is the main fragment where the animations for learning alphabets take place, even though these animations
  * happen in other fragments, those fragments are held and switched by this fragment

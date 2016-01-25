@@ -171,7 +171,6 @@ public class BarColorView extends View {
      */
     public int getBorderColor(){return this.borderColor;}
 
-<<<<<<< HEAD
     /*
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -220,7 +219,3 @@ public class BarColorView extends View {
         return (result + 2);
     }
 }
-=======
-
-}
->>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a

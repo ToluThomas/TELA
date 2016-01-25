@@ -12,20 +12,11 @@ import java.util.List;
 
 import io.meengle.util.Value;
 
-<<<<<<< HEAD
-public class GenericItemAdapter<T, ViewHolderImpl extends RecyclerView.ViewHolder> extends BaseAdapter {
-=======
-/**
- * Created by Joseph Dalughut on 29/12/15 at 10:48 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
->>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a
 
 /**
  * A generic adapter for adapter views such as a {@link android.widget.ListView} or {@link android.widget.GridView}
  * @param <T> the item type for this adapter
- * @param <ViewHolderImpl> the ViewHolder implentation. Must be a subclass of {@link android.support.v7.widget.RecyclerView.ViewHolder}
+ * @param <ViewHolderImpl> the ViewHolder implementation. Must be a subclass of {@link android.support.v7.widget.RecyclerView.ViewHolder}
  */
 public class GenericItemAdapter<T, ViewHolderImpl extends RecyclerView.ViewHolder> extends BaseAdapter {
 

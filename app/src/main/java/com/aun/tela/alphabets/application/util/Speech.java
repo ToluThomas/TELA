@@ -24,7 +24,7 @@ public class Speech {
     }
 
     /**
-     * Play a sound by it's resource id. Note that only one {@link MediaPlayer} is used, as such consequent
+     * Play a sound by it's resource id. Note that only one {@link MediaPlayer} is used. As such, consequent
      * sounds would stop current playback
      * @param resid the resource id of the sound to be played
      * @param utteranceId a unique id for this playback

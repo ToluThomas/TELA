@@ -15,18 +15,9 @@ import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 import io.meengle.util.Value;
 
-<<<<<<< HEAD
-=======
-/**
- * Created by Joseph Dalughut on 29/12/15 at 6:59 PM.
- * Project name : Alphabets.
- * Copyright (c) 2015 Meengle. All rights reserved.
- */
-
 /**
  * A class for simple Animations using static methods
  */
->>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a
 public class ViewAnimator {
 
     public static final class Constants {
