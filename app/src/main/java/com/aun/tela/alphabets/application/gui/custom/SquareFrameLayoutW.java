@@ -6,6 +6,18 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+<<<<<<< HEAD
+=======
+/**
+ * Created by Joseph Dalughut on 29/12/15 at 10:37 PM.
+ * Project name : Alphabets.
+ * Copyright (c) 2015 Meengle. All rights reserved.
+ */
+
+/**
+ * This implementation of {@link FrameLayout}'s height is always same as its width
+ */
+>>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a
 public class SquareFrameLayoutW extends FrameLayout {
     public SquareFrameLayoutW(Context context) {
         super(context);

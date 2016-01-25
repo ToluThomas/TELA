@@ -13,6 +13,7 @@
     </declare-styleable>
 
     <declare-styleable name="BarColorView">
+        <attr name="bar_radius" format="dimension"/>
         <attr name="bar_border_width" format="dimension"/>
         <attr name="bar_border_color" format="color|enum">
             <enum name="random" value="0"/>

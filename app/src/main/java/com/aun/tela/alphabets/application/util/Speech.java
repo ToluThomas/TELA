@@ -1,41 +1,37 @@
 package com.aun.tela.alphabets.application.util;
 
-import android.annotation.TargetApi;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.os.Build;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 
 import com.aun.tela.alphabets.application.Application;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import io.meengle.util.Value;
 
 public class Speech {
 
-    static TextToSpeech tts;
     static MediaPlayer player;
 
-    public static void init(){
-        tts = new TextToSpeech(Application.getInstance(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                tts.setLanguage(Locale.UK);
-            }
-        });
-    }
-
-    public static interface VoiceCallback {
+    /**
+     * An interface for playback callback
+     */
+    public static interface PlaybackListener {
         public void onStart(String id);
         public void onDone(String id);
         public void onError(String id, Integer errorCode);
 
     }
 
-    public static void play(int resid, String utteranceId, final VoiceCallback callback){
+    /**
+     * Play a sound by it's resource id. Note that only one {@link MediaPlayer} is used, as such consequent
+     * sounds would stop current playback
+     * @param resid the resource id of the sound to be played
+     * @param utteranceId a unique id for this playback
+     * @param callback an instance of {@link PlaybackListener} to
+     *                  receive play callbacks
+     */
+    public static void play(int resid, String utteranceId, final PlaybackListener callback){
         try {
             if (!Value.NULL(player)) {
                 try {
@@ -69,37 +65,6 @@ public class Speech {
             Log.d("Exception "+e.getMessage());
             callback.onDone("");
         }
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
-    private static UtteranceProgressListener toUPL(final VoiceCallback callback){
-        return new UtteranceProgressListener() {
-            @Override
-            public void onStart(String utteranceId) {
-                callback.onStart(utteranceId);
-            }
-
-            @Override
-            public void onDone(String utteranceId) {
-                Log.d("Done speaking");
-                callback.onDone(utteranceId);
-            }
-
-            @Override
-            public void onError(String utteranceId) {
-                callback.onError(utteranceId, null);
-            }
-        };
-    }
-
-
-    private static TextToSpeech.OnUtteranceCompletedListener toOUCL(final VoiceCallback callback){
-        return new TextToSpeech.OnUtteranceCompletedListener() {
-            @Override
-            public void onUtteranceCompleted(String utteranceId) {
-                callback.onDone(utteranceId);
-            }
-        };
     }
 
 }

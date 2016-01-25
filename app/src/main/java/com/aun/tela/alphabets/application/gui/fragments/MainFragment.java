@@ -15,8 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.aun.tela.alphabets.R;
-import com.aun.tela.alphabets.application.generic.DoubleRetriever;
-import com.aun.tela.alphabets.application.generic.QuatroConsumer;
+import com.aun.tela.alphabets.application.generic.DoubleConsumer;
+import com.aun.tela.alphabets.application.generic.QuatroCollector;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.gui.adapter.GenericItemAdapter;
 import com.aun.tela.alphabets.application.gui.custom.BarColorView;
@@ -31,15 +31,29 @@ import java.util.Random;
 import io.meengle.androidutil.gui.fragment.Fragtivity;
 import io.meengle.util.Value;
 
+<<<<<<< HEAD
+=======
+/**
+ * Created by Joseph Dalughut on 03/01/16 at 11:12 AM.
+ * Project name : TELA.
+ * Copyright (c) 2015 Meengle. All rights reserved.
+ */
+
+/**
+ * First fragment that is shown when activity starts. It contains a listView of items which direct the
+ * user to a suitable learning screen
+ */
+>>>>>>> 6f985d95ba92fb5c71815fabe8a04fe66a0f7d7a
 public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.PanelSlideListener{
 
-    View back, scrollDown, scrollUp;
-    CircularColorView backCircularColorView, scrollDownCircularColorView, scrollUpCircularColorView;
-    ImageButton chevron;
+    View scrollDownButton, scrollUpButton;
+    CircularColorView scrollDownButtonCircularColorView, scrollUpButtonCircularColorView;
+    ImageButton bottomListRevealButton;
     SlidingUpPanelLayout slidingUpPanelLayout;
     BarColorView titleBar;
     TextView title;
-    ListView list;
+    ListView listView;
+    int textColor, borderColor;
     GenericItemAdapter<AdapterItem, ViewHolder> adapter;
 
     @Override
@@ -64,23 +78,26 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
 
     @Override
     public void findViews() {
-        scrollDown = findViewById(R.id.scrollDown);
-        scrollUp = findViewById(R.id.scrollUp);
-        chevron = (ImageButton) findViewById(R.id.chevron);
+        scrollDownButton = findViewById(R.id.scrollDown);
+        scrollUpButton = findViewById(R.id.scrollUp);
+        bottomListRevealButton = (ImageButton) findViewById(R.id.chevron);
         slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.slidingLayout);
         titleBar = (BarColorView) findViewById(R.id.titleBar);
         title = (TextView) findViewById(R.id.title);
-        list = (ListView) findViewById(R.id.list);
-        scrollDownCircularColorView = (CircularColorView) findViewById(R.id.scrollDownCircularView);
-        scrollUpCircularColorView = (CircularColorView) findViewById(R.id.scrollUpCircularView);    }
+        listView = (ListView) findViewById(R.id.list);
+        scrollDownButtonCircularColorView = (CircularColorView) findViewById(R.id.scrollDownCircularView);
+        scrollUpButtonCircularColorView = (CircularColorView) findViewById(R.id.scrollUpCircularView);    }
 
     ViewTreeObserver.OnGlobalLayoutListener listener;
 
     @Override
     public void setupViews() {
-        listener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        listener = new ViewTreeObserver.OnGlobalLayoutListener() { //this listener receives a callback when the view is
+        // attched to the window. At this point, layoutAttributes like height and width should be ready, so we can setup
+        // our views here, especially the ones which depend on layoutAttributes of other layouts.
             @Override
             public void onGlobalLayout() {
+                //when we receive the first callback, remove the listener so as to prevent unexpected behaviour
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(listener);
                 }else{
@@ -92,33 +109,43 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
         getRootView().getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
 
+    /**
+     * This is the method which sets up the views for this layout
+     */
     void setup(){
-        int a = Color.random();
-        int b = Color.random();
-        Activity.setColor(b);
+        textColor = Color.random();
+        borderColor = Color.random();
+        Activity.setColor(borderColor); //set the color for the status bar on android versions >= Kitkat
 
-        scrollDownCircularColorView.setBorderColor(b);
-        scrollDownCircularColorView.setCircularColor(a);
-        scrollUpCircularColorView.setCircularColor(a);
-        scrollUpCircularColorView.setBorderColor(b);
+        //apply the same colors to other views
+        scrollDownButtonCircularColorView.setBorderColor(borderColor);
+        scrollDownButtonCircularColorView.setCircularColor(textColor);
+        scrollUpButtonCircularColorView.setCircularColor(textColor);
+        scrollUpButtonCircularColorView.setBorderColor(borderColor);
 
-        ViewAnimator.springify(scrollDown, new View.OnClickListener() {
+        //apply spring animation to our buttons
+        ViewAnimator.springify(scrollDownButton, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollDown();
             }
         });
-        ViewAnimator.springify(scrollUp, new View.OnClickListener() {
+        ViewAnimator.springify(scrollUpButton, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollUp();
             }
         });
-        scrollUp.setAlpha(0);
-        ViewAnimator.upDownify(scrollDown, -10, 500, 700);
-        ViewAnimator.upDownify(scrollUp, 10, 500, 700);
 
-        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+        //make scrollUpButton invisible, since at start the list will always be at it's topmost position, so no scrollingUp for now
+        scrollUpButton.setAlpha(0);
+
+        //apply up-down animation movement for our buttons
+        ViewAnimator.upDownify(scrollDownButton, -10, 500, 700);
+        ViewAnimator.upDownify(scrollUpButton, 10, 500, 700);
+
+        //register an onscrollListener, so that we can make the scrollUp and scrollDown buttons visible when they need to be.
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -126,45 +153,47 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                ValueAnimator a = Value.Same.INTEGER(firstVisibleItem, 0) && scrollUp.getAlpha() < 1 ? ViewAnimator.popOut(scrollUp, 0, 300) : ViewAnimator.popIn(scrollUp, 0, 300);
-                ValueAnimator b = Value.Same.INTEGER(firstVisibleItem + visibleItemCount, totalItemCount) && scrollDown.getAlpha() < 1 ? ViewAnimator.popOut(scrollDown, 0, 300) : ViewAnimator.popIn(scrollDown, 0, 300);
+                ValueAnimator a = Value.Same.INTEGER(firstVisibleItem, 0) && scrollUpButton.getAlpha() < 1 ? ViewAnimator.popOut(scrollUpButton, 0, 300) : ViewAnimator.popIn(scrollUpButton, 0, 300);
+                ValueAnimator b = Value.Same.INTEGER(firstVisibleItem + visibleItemCount, totalItemCount) && scrollDownButton.getAlpha() < 1 ? ViewAnimator.popOut(scrollDownButton, 0, 300) : ViewAnimator.popIn(scrollDownButton, 0, 300);
             }
         });
 
+        //set slidingUpPanelLayout's parallax offset to the views height so that when it's scrolled up,
+        // the whole view moves up, kinda like pagination
         slidingUpPanelLayout.setParallaxOffset(getRootView().getHeight());
 
 
         slidingUpPanelLayout.setEnabled(false);
-       // ViewAnimator.popInZero(chevron, 500, 300);
-       // ViewAnimator.upDownify(chevron, 10, 400, 700);
+       // ViewAnimator.popInZero(bottomListRevealButton, 500, 300);
+       // ViewAnimator.upDownify(bottomListRevealButton, 10, 400, 700);
         slidingUpPanelLayout.setPanelSlideListener(this);
         ViewAnimator.upDownify(findViewById(R.id.titleBarLayout), 10, 500, 1000);
-        title.setTextColor(a);
+        title.setTextColor(textColor);
         titleBar.setBarColor(0xFFFFFFFF);
-        titleBar.setBorderColor(b);
-        chevron.setClickable(false);
-        slidingUpPanelLayout.setDragView(chevron);
-        List<AdapterItem> items = Value.As.<AdapterItem>LIST(new AdapterItem(0, getString(R.string.alphabets), a, b)/*, new AdapterItem(1, getString(R.string.vowels), a, b), new AdapterItem(2, getString(R.string.numbers), a, b)*/);
+        titleBar.setBorderColor(borderColor);
+        bottomListRevealButton.setClickable(false);
+        slidingUpPanelLayout.setDragView(bottomListRevealButton);
+
+        //create an adapter instance and set it to our listview.
+        List<AdapterItem> items = Value.As.<AdapterItem>LIST(new AdapterItem(0, getString(R.string.alphabets), textColor, borderColor)/*, new AdapterItem(1, getString(R.string.vowels), textColor, b), new AdapterItem(2, getString(R.string.numbers), textColor, b)*/);
         final Random rand = new Random();
         adapter = GenericItemAdapter.<AdapterItem, ViewHolder>getInstance()
                 .setItems(items)
-                .setIdRetriever(new DoubleRetriever<Long, AdapterItem, Integer>() {
+                .setIdConsumer(new DoubleConsumer<Long, AdapterItem, Integer>() {
                     @Override
-                    public Long retrieve(AdapterItem adapterItem, Integer integer) {
+                    public Long consume(AdapterItem adapterItem, Integer integer) {
                         return integer.longValue();
                     }
                 })
-                .setViewConsumer(new QuatroConsumer<ViewHolder, AdapterItem, Integer, Boolean>() {
+                .setViewCollector(new QuatroCollector<ViewHolder, AdapterItem, Integer, Boolean>() {
                     @Override
-                    public void consume(ViewHolder viewHolder, final AdapterItem adapterItem, Integer integer, Boolean aBoolean) {
-                        ViewHolder.setup(viewHolder,adapterItem, integer, aBoolean );
-                        viewHolder.itemView.setScaleX(1f);
-                        viewHolder.itemView.setScaleY(1f);
+                    public void collect(ViewHolder viewHolder, final AdapterItem adapterItem, Integer integer, Boolean aBoolean) {
+                        ViewHolder.setup(viewHolder, adapterItem, integer, aBoolean);
                         viewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
                             @Override
                             public boolean onTouch(View v, MotionEvent event) {
-                                BarColorView titleBar = (BarColorView)v.findViewById(R.id.titleBar);
-                                switch (event.getAction()){
+                                BarColorView titleBar = (BarColorView) v.findViewById(R.id.titleBar);
+                                switch (event.getAction()) {
                                     case MotionEvent.ACTION_DOWN:
                                         titleBar.setBarColor(titleBar.getBorderColor());
                                         break;
@@ -181,20 +210,23 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
                                 exit(adapterItem, v);
                             }
                         });
-                        if(Value.NULL(viewHolder.itemView.getAnimation())) {
+                        if (Value.NULL(viewHolder.itemView.getAnimation())) {
                             ViewAnimator.upDownify(viewHolder.itemView, 4, rand.nextInt(500), 800 + rand.nextInt(200));
                         }
                     }
                 })
-                .setViewRetriever(new DoubleRetriever<ViewHolder, ViewGroup, Integer>() {
+                .setViewConsumer(new DoubleConsumer<ViewHolder, ViewGroup, Integer>() {
                     @Override
-                    public ViewHolder retrieve(ViewGroup viewGroup, Integer integer) {
+                    public ViewHolder consume(ViewGroup viewGroup, Integer integer) {
                         return ViewHolder.inflateDefault(viewGroup);
                     }
                 });
-        list.setAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
+    /**
+     * Simple class to represent a listview item.
+     */
     class AdapterItem {
         public int id;
         public String title;
@@ -264,7 +296,7 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
 
     @Override
     public void onPanelSlide(View panel, float slideOffset) {
-        chevron.setRotation(slideOffset * 180f);
+        bottomListRevealButton.setRotation(slideOffset * 180f);
     }
 
     @Override
@@ -287,75 +319,17 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
 
     }
 
+    /**
+     * Exit the fragment to a destination fragment based on the adapterItem that was selected
+     * @param adapterItem
+     * @param view
+     */
     void exit(final AdapterItem adapterItem, View view){
         final BarColorView bar = (BarColorView) view.findViewById(R.id.titleBar);
         TextView title = (TextView) view.findViewById(R.id.title);
         final int textColor = title.getCurrentTextColor();
         final int borderColor = bar.getBorderColor();
 
-        /*
-        Rect viewRect = new Rect();
-        view.getGlobalVisibleRect(viewRect);
-        int top = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) * 2;
-        int to = getResources().getInteger(R.integer.text_size_display3);
-        int from = getResources().getInteger(R.integer.text_size_display2);
-        TextView textView = new TextView(getContext());
-
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.TOP | Gravity.LEFT;
-        textView.setText(title.getText());
-        textView.setTextSize(from);
-        textView.setTypeface(null, Typeface.BOLD);
-        textView.setTextColor(title.getCurrentTextColor());
-
-        ((FrameLayout)getRootView()).addView(textView, ((FrameLayout) getRootView()).getChildCount(), params);
-        textView.setTranslationX(title.getX());
-        textView.setTranslationY(title.getY());
-        title = textView;
-        ValueAnimator animator = ObjectAnimator.ofFloat(title, "translationY", title.getY(), top);
-        Log.d("Y "+view.getY());
-        Log.d("translation Y: "+view.getTranslationY());
-        Log.d("title Y"+title.getY());
-        Log.d("title translation Y"+title.getTranslationY());
-        Log.d("bar Y" + bar.getY());
-        Log.d("bar translation Y" + bar.getTranslationY());
-        ValueAnimator textSizeAnimator  = ObjectAnimator.ofFloat(title, "textSize", from, to);
-        textSizeAnimator.setDuration(800);
-        animator.setInterpolator(new AnticipateOvershootInterpolator());
-        animator.setDuration(800);
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                getRootView().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        switch (adapterItem.id) {
-                            case 0:
-                                Activity.replace(AlphaChoiceFragment.getInstance(textColor, borderColor));
-                                break;
-                        }
-                    }
-                }, 200);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-        textSizeAnimator.start();
-        animator.start();
-        */
         switch (adapterItem.id) {
             case 0:
                 Activity.replace(AlphaChoiceFragment.getInstance(textColor, borderColor));
@@ -364,10 +338,10 @@ public class MainFragment extends Fragtivity implements SlidingUpPanelLayout.Pan
     }
 
     void scrollDown(){
-        list.smoothScrollToPosition(list.getLastVisiblePosition() + 1);
+        listView.smoothScrollToPosition(listView.getLastVisiblePosition() + 1);
     }
 
     void scrollUp(){
-        list.smoothScrollToPosition(list.getFirstVisiblePosition() - 1);
+        listView.smoothScrollToPosition(listView.getFirstVisiblePosition() - 1);
     }
 }

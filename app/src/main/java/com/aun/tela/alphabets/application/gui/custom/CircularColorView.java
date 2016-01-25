@@ -16,8 +16,8 @@ import io.meengle.util.Value;
 
 public class CircularColorView extends View {
 
-    Paint paint;
-    Paint borderPaint;
+    Paint paint; //paint object to draw the bar
+    Paint borderPaint; //paint object to draw the border'
     int borderWidth = 0;
     int borderColor = 0xFFFFFFFF;
     int circularColor = 0xFFFFFFFF;
@@ -90,37 +90,65 @@ public class CircularColorView extends View {
 
     }
 
+    /**
+     * Add a shadow for this view
+     */
     public void addShadow() {
         setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
         borderPaint.setShadowLayer(8.0f, 0.0f, 4.0f, 0x20000000);
     }
+
+    /**
+     * Remove the shadow for this view
+     */
     public void removeShadow() {
         setLayerType(LAYER_TYPE_SOFTWARE, borderPaint);
         borderPaint.setShadowLayer(0, 0, 4, Color.TRANSPARENT);
     }
 
+    /**
+     * Set the circularColor for this view
+     * @param circularColor the circularColor for this view
+     */
     public void setCircularColor(int circularColor){
         this.circularColor = circularColor;
         this.invalidate();
     }
 
+    /**
+     * @return the circularView for this view
+     */
     public int getCircularColor(){
         return this.circularColor;
     }
 
+    /**
+     * Set the borderColor for this view
+     * @param borderColor the borderColor for this view
+     */
     public void setBorderColor(int borderColor){
         this.borderColor = borderColor;
         this.invalidate();
     }
 
+    /**
+     * Set the borderWitch for this view
+     * @param borderWidth
+     */
     public void setBorderWidth(int borderWidth){
         this.borderWidth = borderWidth;
         this.requestLayout();
         this.invalidate();
     }
 
+    /**
+     * @return the borderWidth for this view
+     */
     public int getBorderWidth(){return this.borderWidth;}
 
+    /**
+     * @return the borderColor for this view
+     */
     public int getBorderColor(){return this.borderColor;}
 
     @Override
