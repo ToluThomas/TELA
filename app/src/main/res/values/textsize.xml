@@ -14,6 +14,7 @@
     <dimen name="text_size_display2">45sp</dimen>
     <dimen name="text_size_display3">56sp</dimen>
     <dimen name="text_size_display4">112sp</dimen>
+    <dimen name="text_size_display5">300sp</dimen>
 
     <integer name="text_size_tiny">8</integer>
     <integer name="text_size_small">10</integer>

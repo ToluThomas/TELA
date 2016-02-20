@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.aun.tela.alphabets.application.gui.custom.SquareImageViewH
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:src="@drawable/pen_background"
+        android:layout_height="match_parent" />
+
+    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_size_display3"
+        android:layout_height="wrap_content" />
+
+    <com.aun.tela.alphabets.application.gui.custom.SquareImageViewH
+        android:id="@+id/image2"
+        android:layout_width="match_parent"
+        android:layout_margin="40dp"
+        android:src="@drawable/pen_trace"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

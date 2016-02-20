@@ -195,12 +195,12 @@
 
     <com.aun.tela.alphabets.application.gui.custom.CircularColorView
         android:id="@+id/back"
-        android:alpha="0"
         android:clickable="false"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="@dimen/buttonSize"
         android:layout_height="@dimen/buttonSize"
         app:circular_color="random"
+        android:alpha="0"
         app:shadow="true"
         app:border_width="@dimen/border_width_small_button"
         app:border_color="@color/white"
@@ -212,7 +212,8 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:background="@color/transparent"
-            android:src="@mipmap/ic_action_navigation_back"
+            android:src="@drawable/arrow_back"
+            android:tint="@color/white"
             android:layout_height="match_parent" />
 
 

@@ -306,7 +306,7 @@ public class LetterTraceNavigationFragment extends Fragtivity {
      * @param view the view that would be used for the animation
      */
     private void exit(final String string, final View view){
-        Activity.replace(LetterIdentificationFragment.getInstance(Factory.Alphabets.build(string), textColor, borderColor, new Collector() {
+        Activity.replace(LetterTraceFragment.getInstance(textColor, borderColor, Factory.Alphabets.build(string), new Collector() {
             @Override
             public void collect(Object o) {
                 Activity.replace(LetterTraceNavigationFragment.getInstance(textColor, borderColor, new Collector() {
