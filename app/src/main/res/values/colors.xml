@@ -10,4 +10,11 @@
     <color name="alice_blue">#E4F1FE</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="eee">#eeeeee</color>
+    <color name="half_black">#80000000</color>
+    <color name="overlay">#CC000000</color>
+    <color name="background">#C7E9C8</color>
+    <color name="half_white">#80FFFFFF</color>
+    <color name="ddd">#ddd</color>
+    <color name="ccc">#ccc</color>
+    <color name="gold">#E87E04</color>
 </resources>

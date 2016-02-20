@@ -24,4 +24,9 @@
         <attr name="bar_shadow" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="BunnyImageView">
+        <attr name="animate" format="boolean"/>
+        <attr name="interval" format="integer"/>
+    </declare-styleable>
+
 </resources>

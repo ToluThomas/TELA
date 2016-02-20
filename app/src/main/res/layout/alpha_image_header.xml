@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:src="@drawable/girl1"
+        android:layout_gravity="center"
+        android:layout_height="200dp" />
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+       <com.aun.tela.alphabets.application.gui.custom.SquareImageView
+           android:layout_width="100dp"
+           android:id="@+id/detailImage"
+           android:clickable="true"
+           android:src="@drawable/letter_identification_bevel"
+           android:layout_height="100dp" />
+
+    </FrameLayout>
+
+</FrameLayout>

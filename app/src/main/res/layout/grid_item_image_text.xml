@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.aun.tela.alphabets.application.gui.custom.SquareImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:translationX="-30dp"
+        android:translationY="30dp"
+        android:textSize="@dimen/text_size_display3"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

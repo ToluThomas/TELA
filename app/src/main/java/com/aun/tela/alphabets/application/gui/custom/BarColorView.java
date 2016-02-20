@@ -4,11 +4,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.aun.tela.alphabets.R;
 
@@ -19,13 +19,13 @@ import io.meengle.util.Value;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public class BarColorView extends View {
+public class BarColorView extends FrameLayout {
 
     Paint paint; //paint object to draw the bar
     Paint borderPaint; //paint object to draw the border
     int borderWidth = 0; //width of the border to be drawn
-    int borderColor = 0xFFFFFFFF; //color of the border to be drawn
-    int barColor = 0xFFFFFFFF; //color of the bar to be drawn
+    int borderColor = Color.WHITE; //color of the border to be drawn
+    int barColor = Color.WHITE; //color of the bar to be drawn
     Integer radius; //radius of the view
 
     public BarColorView(Context context) {
@@ -54,6 +54,7 @@ public class BarColorView extends View {
     }
 
     private void init(AttributeSet attributeSet){
+        setWillNotDraw(false);
         paint = new Paint();
         borderPaint = new Paint();
         paint.setAntiAlias(true);
@@ -72,7 +73,7 @@ public class BarColorView extends View {
             if (Value.Same.INTEGER(array.getInteger(R.styleable.BarColorView_bar_color, -1), 0))
                 setBarColor(com.aun.tela.alphabets.application.util.Color.random());
             else
-                barColor = array.getColor(R.styleable.BarColorView_bar_color, 0xFFFFFFFF);
+                barColor = array.getColor(R.styleable.BarColorView_bar_color, Color.WHITE);
             array.recycle();
         }
     }
@@ -85,7 +86,7 @@ public class BarColorView extends View {
 
         int borderRadius = Value.NULL(radius) ? canvasHeight / 2 : radius; //if no radius has been set, set
         // it to half the canvas height. To make this view have square corners, set radius to 0
-        int barRadius = borderRadius - borderWidth; //set the bar radius to the borders radius - the width of the border
+        int barRadius = borderRadius; //set the bar radius to the borders radius - the width of the border
 
         //initialize drawing properties and style
         borderPaint.setStyle(Paint.Style.STROKE);
@@ -93,17 +94,19 @@ public class BarColorView extends View {
         borderPaint.setColor(borderColor);
         borderPaint.setStrokeWidth((float) borderWidth);
         paint.setColor(barColor);
-
-        int left = getLeft();
-        int top = getTop();
-        int right = getRight();
-        int bottom = getBottom();
+        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
+        int left =  /*getPaddingLeft() +*/ params.leftMargin + borderWidth;
+        int top =  /*getPaddingTop() +*/ params.topMargin + borderWidth;
+        int right = canvasWidth /*- getPaddingRight()*/ - params.rightMargin - borderWidth;
+        int bottom = getHeight() /*-  getPaddingBottom()*/ - params.bottomMargin - borderWidth;
 
         //draw bar
-        canvas.drawRoundRect(new RectF(left + borderWidth, top + borderWidth, right - borderWidth, bottom - borderWidth), barRadius, barRadius, paint);
+        canvas.drawRoundRect(left, top, right, bottom, barRadius, barRadius, paint);
 
         //draw border
-        canvas.drawRoundRect(new RectF(left + borderWidth, top + borderWidth, right - borderWidth, bottom - borderWidth), borderRadius, borderRadius, borderPaint);
+        canvas.drawRoundRect(left, top, right, bottom, borderRadius, borderRadius, borderPaint);
+
+        //Log.d("left : " + left + " top : " + top + " right : " + right + " bottom : " + bottom);
 
     }
 

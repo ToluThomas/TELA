@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -14,18 +15,20 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
+import com.aun.tela.alphabets.application.generic.Collector;
 import com.aun.tela.alphabets.application.generic.DoubleConsumer;
 import com.aun.tela.alphabets.application.generic.QuatroCollector;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.gui.adapter.GenericItemAdapter;
-import com.aun.tela.alphabets.application.gui.custom.BarColorView;
 import com.aun.tela.alphabets.application.gui.custom.CircularColorView;
 import com.aun.tela.alphabets.application.gui.custom.HeaderFooterGridView;
-import com.aun.tela.alphabets.application.util.Color;
+import com.aun.tela.alphabets.application.gui.custom.SquareImageView;
+import com.aun.tela.alphabets.application.util.Log;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
 
 import java.util.List;
@@ -43,29 +46,33 @@ import io.meengle.util.Value;
 /**
  * This fragment displays a grid of alphabets from which the user can select an alphabet to learn about
  */
-public class AlphaChoiceFragment extends Fragtivity {
+public class LetterWatchFragment extends Fragtivity {
 
-    View backButton, scrollDownButton, scrollUpButton;
-    CircularColorView backCircularColorView, scrollDownCircularColorView, scrollUpCircularColorView;
+    CircularColorView back, scrollDown, scrollUp;
     HeaderFooterGridView alphabetGrid;
     int textColor, borderColor;
     GenericItemAdapter<String, ViewHolder> adapter;
+    Collector backCollector;
 
-    public static AlphaChoiceFragment getInstance(int textColor, int borderColor){
-        return new AlphaChoiceFragment().setTextColor(textColor).setBorderColor(borderColor);
+    public static LetterWatchFragment getInstance(int textColor, int borderColor, Collector backCollector){
+        return new LetterWatchFragment().setTextColor(textColor).setBorderColor(borderColor).setBackCollector(backCollector);
     }
 
-    public AlphaChoiceFragment setTextColor(int textColor){
+    public LetterWatchFragment setBackCollector(Collector backCollector){
+        this.backCollector = backCollector; return this;
+    }
+
+    public LetterWatchFragment setTextColor(int textColor){
         this.textColor = textColor; return this;
     }
 
-    public AlphaChoiceFragment setBorderColor(int borderColor){
+    public LetterWatchFragment setBorderColor(int borderColor){
         this.borderColor = borderColor; return this;
     }
 
     @Override
     public int layoutId() {
-        return R.layout.fragment_alphabet_layout;
+        return R.layout.fragment_watch_letter;
     }
 
     @Override
@@ -85,13 +92,10 @@ public class AlphaChoiceFragment extends Fragtivity {
 
     @Override
     public void findViews() {
-        backButton = findViewById(R.id.back);
-        scrollDownButton = findViewById(R.id.scrollDown);
-        scrollUpButton = findViewById(R.id.scrollUp);
+        back = (CircularColorView) findViewById(R.id.back);
         alphabetGrid = (HeaderFooterGridView) findViewById(R.id.alphaGrid);
-        backCircularColorView = (CircularColorView) findViewById(R.id.backCircularView);
-        scrollDownCircularColorView = (CircularColorView) findViewById(R.id.scrollDownCircularView);
-        scrollUpCircularColorView = (CircularColorView) findViewById(R.id.scrollUpCircularView);
+        scrollDown = (CircularColorView) findViewById(R.id.scrollDown);
+        scrollUp = (CircularColorView) findViewById(R.id.scrollUp);
     }
 
     @Override
@@ -100,38 +104,43 @@ public class AlphaChoiceFragment extends Fragtivity {
         Activity.setColor(borderColor); //set our statusbar color
 
         //set the color of our buttons based on the two colors that were passed
-        backCircularColorView.setBorderColor(borderColor);
-        backCircularColorView.setCircularColor(textColor);
-        scrollDownCircularColorView.setBorderColor(borderColor);
-        scrollDownCircularColorView.setCircularColor(textColor);
-        scrollUpCircularColorView.setCircularColor(textColor);
-        scrollUpCircularColorView.setBorderColor(borderColor);
+        //back.setBorderColor(borderColor);
+        back.setCircularColor(textColor);
+        //scrollDown.setBorderColor(borderColor);
+        scrollDown.setCircularColor(textColor);
+        scrollUp.setCircularColor(textColor);
+        //scrollUp.setBorderColor(borderColor);
 
         //add spring animations to our buttons
-        ViewAnimator.springify(backButton, new View.OnClickListener() {
+        ViewAnimator.springify(back, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity.replace(new MainFragment());
+                Activity.replace(LetterNavigationFragment.getInstance(textColor, borderColor, new Collector() {
+                    @Override
+                    public void collect(Object o) {
+                        Activity.replace(new NavigationFragment());
+                    }
+                }));
             }
         });
-        ViewAnimator.springify(scrollDownButton, new View.OnClickListener() {
+        ViewAnimator.springify(scrollDown, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollDown();
             }
         });
-        ViewAnimator.springify(scrollUpButton, new View.OnClickListener() {
+        ViewAnimator.springify(scrollUp, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollUp();
             }
         });
-        scrollUpButton.setAlpha(0);
 
         //add up-down animation to our buttons
-        ViewAnimator.upDownify(backButton, 20, 300, 700);
-        ViewAnimator.upDownify(scrollDownButton, -20, 500, 700);
-        ViewAnimator.upDownify(scrollUpButton, 20, 500, 700);
+        ViewAnimator.upDownify(back, 20, 300, 700);
+        ViewAnimator.upDownify(scrollDown, -20, 500, 700);
+        ViewAnimator.upDownify(scrollUp, 20, 500, 700);
+        ViewAnimator.popInZero(back, 20, 300);
 
         //get a copy of the alphabets from Factory class
         List<String> items = Factory.Alphabets.copyAlphabetsUppercase();
@@ -154,7 +163,7 @@ public class AlphaChoiceFragment extends Fragtivity {
                     @Override
                     public void collect(ViewHolder viewHolder, final String s, final Integer integer, Boolean aBoolean) {
                         ViewHolder.setup(viewHolder, s, integer, aBoolean);
-                        ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
+                        ViewAnimator.springifyScalable(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 exit(s, v);
@@ -170,9 +179,6 @@ public class AlphaChoiceFragment extends Fragtivity {
         addHeader(textColor, borderColor); // attach a header to the top of our gridview
 
         //set our created adapter to our gridView
-        alphabetGrid.setAdapter(adapter);
-
-        //register a scroll listener to our gridview so we can show scrollUIp and scrollDown buttons only when needed
         alphabetGrid.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -181,10 +187,44 @@ public class AlphaChoiceFragment extends Fragtivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                ValueAnimator a = Value.Same.INTEGER(firstVisibleItem, 0) && scrollUpButton.getAlpha() < 1 ? ViewAnimator.popOut(scrollUpButton, 0, 300) : ViewAnimator.popIn(scrollUpButton, 0, 300);
-                ValueAnimator b = Value.Same.INTEGER(firstVisibleItem + visibleItemCount, totalItemCount) && scrollDownButton.getAlpha() < 1 ? ViewAnimator.popOut(scrollDownButton, 0, 300) : ViewAnimator.popIn(scrollDownButton, 0, 300);
+                if(firstVisibleItem != 0 ){
+                    if(scrollUp.getAlpha() < 1){
+                        ViewAnimator.popInZero(scrollUp, 0, 300);
+                    }
+                }else{
+                    if(scrollUp.getAlpha() > 0){
+                        ViewAnimator.popOutZero(scrollUp, 0, 300);
+                    }
+                }
+                if(view.getLastVisiblePosition()+1 != totalItemCount ){
+                    if(scrollDown.getAlpha() < 1){
+                        ViewAnimator.popInZero(scrollDown, 0, 300);
+                    }
+                }else{
+                    if(scrollDown.getAlpha() > 0){
+                        ViewAnimator.popOutZero(scrollDown, 0, 300);
+                    }
+                }
             }
         });
+        alphabetGrid.setAdapter(adapter);
+        alphabetGrid.smoothScrollToPosition(0);
+
+        alphabetGrid.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(alphabetGrid.getLastVisiblePosition()+1 != adapter.getCount() ){
+                    if(scrollDown.getAlpha() < 1){
+                        ViewAnimator.popInZero(scrollDown, 0, 300);
+                    }
+                }else{
+                    if(scrollDown.getAlpha() > 0){
+                        ViewAnimator.popOutZero(scrollDown, 0, 300);
+                    }
+                }
+            }
+        }, 500);
+        //register a scroll listener to our gridview so we can show scrollUIp and scrollDown buttons only when needed
     }
 
     /**
@@ -193,21 +233,15 @@ public class AlphaChoiceFragment extends Fragtivity {
      * @param borderColor
      */
     void addHeader(int color, int borderColor){
-        View v = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.alpha_choice_header, null, false); //inflate a layout from resources
+        View v = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.alpha_image_header, null, false); //inflate a layout from resources
 
         //the inflated layout contains a textview and a barColorView which we use here
-
-        TextView textView = (TextView) v.findViewById(R.id.text);
-        textView.setTextColor(color);
-        BarColorView barColorView = (BarColorView) v.findViewById(R.id.barColorView);
-        barColorView.setBorderColor(borderColor);
-        barColorView.setBarColor(0xFFFFFFFF);
+        SquareImageView i =  (SquareImageView) v.findViewById(R.id.detailImage);
+        i.setImageResource(R.drawable.letter_watch_bevel);
         alphabetGrid.addHeaderView(v);
-        ViewAnimator.upDownify(v, 10, 500, 1000);
-        View u = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.alpha_choice_header, null, false);
-        TextView t = (TextView) u.findViewById(R.id.text);
-        u.findViewById(R.id.barColorView).setVisibility(View.INVISIBLE);
-        t.setTextColor(getColor(R.color.transparent));
+        ViewAnimator.springify(i, null);
+        //ViewAnimator.upDownify(v, 10, 500, 1000);
+        View u = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.alpha_empty_footer, null, false);
         alphabetGrid.addFooterView(u);
     }
 
@@ -253,12 +287,12 @@ public class AlphaChoiceFragment extends Fragtivity {
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView text;
-        CircularColorView circularColorView;
+        ImageView image;
 
         public ViewHolder(View itemView) {
             super(itemView);
             text = (TextView) findViewById(R.id.text);
-            circularColorView = (CircularColorView) findViewById(R.id.circularView);
+            image = (ImageView) findViewById(R.id.image);
         }
 
         View findViewById(int resId){
@@ -266,15 +300,29 @@ public class AlphaChoiceFragment extends Fragtivity {
         }
 
         public static ViewHolder inflateDefault(ViewGroup parent){
-            return new ViewHolder(LayoutInflater.from(Activity.getInstance()).inflate(R.layout.item_alpha_w, parent, false));
+            return new ViewHolder(LayoutInflater.from(Activity.getInstance()).inflate(R.layout.grid_item_image_text, parent, false));
         }
 
         public static ViewHolder setup(ViewHolder viewHolder, String string, Integer position, Boolean isLast){
             viewHolder.text.setText(string.toUpperCase());
-            viewHolder.text.setTextColor(Color.random());
+            viewHolder.text.setTextColor(viewHolder.text.getCurrentTextColor() == Color.WHITE ? com.aun.tela.alphabets.application.util.Color.random() : viewHolder.text.getCurrentTextColor());
             viewHolder.itemView.setClickable(true);
             viewHolder.text.setTag(position);
-            viewHolder.circularColorView.setTag(position);
+            int cs = Math.abs(((position+5)%4)-4);
+            switch (cs){
+                case 4:
+                    viewHolder.image.setImageResource(R.drawable.tv_blue);
+                    break;
+                case 1:
+                    viewHolder.image.setImageResource(R.drawable.tv_brown);
+                    break;
+                case 2:
+                    viewHolder.image.setImageResource(R.drawable.tv_green);
+                    break;
+                case 3:
+                    viewHolder.image.setImageResource(R.drawable.tv_purple);
+                    break;
+            }
             return viewHolder;
         }
 
@@ -285,30 +333,23 @@ public class AlphaChoiceFragment extends Fragtivity {
      * @param string the selected alphabet
      * @param view the view that would be used for the animation
      */
-    private void exit(final String string, View view){
-        adapter.notifyDataSetChanged();
+    private void exit(final String string, final View view){
         alphabetGrid.setEnabled(false);
-        final CircularColorView circularColorView = (CircularColorView) view.findViewById(R.id.circularView);
         final TextView textView = (TextView) view.findViewById(R.id.text);
 
-        //hide our buttons
-        scrollUpButton.setClickable(false);
-        scrollDownButton.setClickable(false);
-        backButton.setClickable(false);
-        ViewAnimator.popOut(scrollUpButton, 0, 200);
-        ViewAnimator.popOut(scrollDownButton, 0, 200);
-        ViewAnimator.popOut(backButton, 0, 200);
+        ViewAnimator.popOutZero(scrollUp, 0, 200);
+        ViewAnimator.popOutZero(scrollDown, 0, 200);
+        ViewAnimator.popOutZero(back, 0, 200);
 
         //get center coordinates of the view.
         int x = (getRootView().getWidth() / 2);
         int y = (getRootView().getHeight()/ 2);
-        float textX = textView.getX();
-        float textY = textView.getY();
 
         float midX = view.getX() + (view.getWidth() / 2) - getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin) + getResources().getDimensionPixelSize(R.dimen.buttonSize);
         float midY = view.getY() + (view.getHeight() / 2);
 
         ((FrameLayout) view).removeView(textView);
+        adapter.notifyDataSetChanged();
         alphabetGrid.removeViewInLayout(view);
 
         //create a new view at the selected views x and y coordinates, then animate it into the next view
@@ -318,27 +359,25 @@ public class AlphaChoiceFragment extends Fragtivity {
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) textView.getLayoutParams();
         params.gravity = Gravity.TOP | Gravity.START | Gravity.LEFT;
-        CircularColorView newView = new CircularColorView(getContext());
-        newView.setCircularColor(circularColorView.getCircularColor());
-        newView.setBorderColor(circularColorView.getBorderColor());
-        newView.addShadow();
-        newView.setBorderWidth((circularColorView.getBorderWidth()));
+        //ImageView newView = new SquareImageView(getContext());
+
         FrameLayout.LayoutParams paramsNew = new FrameLayout.LayoutParams(view.getWidth(), view.getHeight());
         paramsNew.height = view.getHeight();
         paramsNew.width = view.getWidth();
         paramsNew.gravity = Gravity.TOP | Gravity.START | Gravity.LEFT;
-        newView.setLayoutParams(paramsNew);
-
-        view.setVisibility(View.GONE);
-        view = newView;
+        //newView.setLayoutParams(paramsNew);
+        //view = newView;
         ((FrameLayout) getRootView()).addView(view, ((FrameLayout) getRootView()).getChildCount(), paramsNew);
         ((FrameLayout) getRootView()).addView(textView, ((FrameLayout) getRootView()).getChildCount(), params);
         view.setTranslationX(midX - (paramsNew.width / 2) + ((getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin)) * 2));
         view.setTranslationY(midY - (paramsNew.height / 2));
+
         textView.setTranslationX(midX - (textView.getWidth() / 2));
         textView.setTranslationY(midY - (textView.getWidth() / 2));
         float tvx = textView.getTranslationX();
         float tvy = textView.getTranslationY();
+        Log.d("View current Scale: "+view.getScaleX() + " : "+view.getScaleY());
+
         //float w = Math.abs(x - tvx);
         //float h = Math.abs(y - tvy);
         //Float hypotenuse =((Double)Math.sqrt( ((Float)((w * w) + (h * h))).doubleValue())).floatValue();
@@ -347,20 +386,46 @@ public class AlphaChoiceFragment extends Fragtivity {
         PropertyValuesHolder ty = PropertyValuesHolder.ofFloat("translationY", tvy, y  - textView.getHeight() / 2);
         PropertyValuesHolder vtx = PropertyValuesHolder.ofFloat("translationX", view.getTranslationX(), x  - view.getWidth() / 2);
         PropertyValuesHolder vty = PropertyValuesHolder.ofFloat("translationY", view.getTranslationY(), y  - view.getHeight() / 2);
-        PropertyValuesHolder vsx = PropertyValuesHolder.ofFloat("scaleX", view.getScaleX(), getRootView().getWidth() + paramsNew.width / paramsNew.width);
-        PropertyValuesHolder vsy = PropertyValuesHolder.ofFloat("scaleY", view.getScaleY(), getRootView().getHeight()+ paramsNew.height / paramsNew.height);
+        PropertyValuesHolder vsx = PropertyValuesHolder.ofFloat("scaleX", view.getScaleX(), getRootView().getWidth());
+        PropertyValuesHolder vsy = PropertyValuesHolder.ofFloat("scaleY", view.getScaleY(), getRootView().getHeight());
         int targetSX = getResources().getDimensionPixelSize(R.dimen.text_size_display4) / textView.getWidth();
         int targetSy = getResources().getDimensionPixelSize(R.dimen.text_size_display4) / textView.getHeight();
         PropertyValuesHolder sx = PropertyValuesHolder.ofFloat("scaleX", textView.getScaleX(), targetSX);
         PropertyValuesHolder sy = PropertyValuesHolder.ofFloat("scaleX", textView.getScaleY(), targetSy);
         ValueAnimator centerTextAnimator = ObjectAnimator.ofPropertyValuesHolder(textView, tx, ty);
-        ValueAnimator centerViewAnimator = ObjectAnimator.ofPropertyValuesHolder(view, vtx, vty, vsx, vsy);
+        final ValueAnimator centerViewAnimator = ObjectAnimator.ofPropertyValuesHolder(view, vtx, vty, vsx, vsy);
         centerViewAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        centerViewAnimator.setDuration(2500);
+        centerViewAnimator.setDuration(2000);
         centerTextAnimator.setInterpolator(new AnticipateOvershootInterpolator());
         centerTextAnimator.setDuration(durationByDistance);
-        Activity.setColor(circularColorView.getBorderColor());
-        centerViewAnimator.start();
+        Activity.setColor(textView.getCurrentTextColor());
+        centerViewAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Log.d("View current Scale: " + view.getScaleX() + " : " + view.getScaleY());
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        getRootView().post(new Runnable() {
+            @Override
+            public void run() {
+                centerViewAnimator.start();
+            }
+        });
         centerTextAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -369,7 +434,7 @@ public class AlphaChoiceFragment extends Fragtivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                Activity.replace(AlphaLearningFragment.getInstance(Factory.Alphabets.build(string), textView.getCurrentTextColor(), circularColorView.getBorderColor()));
+                Activity.replace(AlphaLearningFragment.getInstance(Factory.Alphabets.build(string), textView.getCurrentTextColor(), textView.getCurrentTextColor()));
             }
 
             @Override

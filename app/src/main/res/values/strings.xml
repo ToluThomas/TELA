@@ -36,4 +36,6 @@
     <string name="tela_learning">Tela Learning</string>
     <string name="vowels">Vowels</string>
     <string name="numbers">Numbers</string>
+    <string name="about">About</string>
+    <string name="games">Games</string>
 </resources>

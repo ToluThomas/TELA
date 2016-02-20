@@ -5,7 +5,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -21,8 +20,9 @@ import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
 import com.aun.tela.alphabets.application.generic.Retriever;
+import com.aun.tela.alphabets.application.gui.custom.ArialTextView;
 import com.aun.tela.alphabets.application.util.Log;
-import com.aun.tela.alphabets.application.util.Speech;
+import com.aun.tela.alphabets.application.util.Playback;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
 
 import java.util.HashMap;
@@ -84,7 +84,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
 
     @Override
     public void destroy() {
-
+        Playback.release();
     }
 
     @Override
@@ -113,18 +113,17 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         alphabetUppercaseTop.setTextColor(textColor);
         alphabetUppercaseTop.setText(alphabet.getUppercase());
         alphabetLowercaseTop.setText(alphabet.getLowerCase());
-
         build();
     }
 
     @Override
     public void pause() {
-
+        Playback.pause();
     }
 
     @Override
     public void resume() {
-
+        Playback.resume();
     }
 
     @Override
@@ -157,7 +156,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
             }
         };
         Factory.Alphabets.Alphabet.WordImagePair wordImagePair = alphabet.getWordImagePairMap().get(position);
-        playBuild(wordImagePair, new Speech.PlaybackListener() {
+        playBuild(wordImagePair, new Playback.PlaybackListener() {
             @Override
             public void onStart(String id) {
 
@@ -188,10 +187,10 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         for(int i = 0; i < count; i++){ /** for each alphabet in the word */
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.gravity = Gravity.BOTTOM;
-            TextView textView = new TextView(getContext());
+            TextView textView = new ArialTextView(getContext());
             textView.setTextColor(borderColor);
             textView.setTextSize(itemTextSize);
-            textView.setTypeface(null, Typeface.BOLD);
+            //textView.setTypeface(null, Typeface.BOLD);
             textView.setGravity(Gravity.BOTTOM);
             textView.setLayoutParams(params);
             texts.addView(textView, params); /** add a textView and set its text to the current alphabet in the loop */
@@ -211,18 +210,41 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         int animatedCount = 0;
         for(int i = 0; i < count; i++){ /** for each of the alphabets in our word now */
             if(!positions.containsKey(i)){ /**  if the word isn't the same as the alphabet were dealing with, make it visible by animating */
-                ViewAnimator.popIn(texts.getChildAt(i), animatedCount * 50l, 200);
+                ValueAnimator a = ViewAnimator.popInZero(texts.getChildAt(i), animatedCount * 50l, 200);
+                a.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        Playback.uncommit(animation);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                Playback.play(a);
                 animatedCount++;
             }
         }
-        ViewAnimator.popIn(image, count - positions.size() * 50l, 200).addListener(new Animator.AnimatorListener() { /** make the image visible by animating it into visibility */
-            @Override
-            public void onAnimationStart(Animator animation) {
+        ValueAnimator a = ViewAnimator.popInZero(image, count - positions.size() * 50l, 200);
+        a.addListener(new Animator.AnimatorListener() { /** make the image visible by animating it into visibility */
+        @Override
+        public void onAnimationStart(Animator animation) {
 
-            }
+        }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(animation);
                 states.put(animate, true);
                 if(finishListener.retrieve())
                     if(finishListener.retrieve())
@@ -244,7 +266,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
 
             }
         });
-
+        Playback.play(a);
     }
 
     /**
@@ -252,20 +274,20 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
      * @param info
      * @param callback
      */
-    void playBuild(Factory.Alphabets.Alphabet.WordImagePair info, Speech.PlaybackListener callback){
+    void playBuild(Factory.Alphabets.Alphabet.WordImagePair info, Playback.PlaybackListener callback){
         int res = 0;
         switch (position){
             case 0:
-                res = alphabet.aLWAWord1Sound1;
+                res = alphabet.audio_res_find_1;
                 break;
             case 1:
-                res = alphabet.aLWAWord2Sound1;
+                res = alphabet.audio_res_find_2;
                 break;
             case 2:
-                res = alphabet.aLWAWord3Sound1;
+                res = alphabet.audio_res_find_3;
                 break;
         }
-        Speech.play(res, null, callback);
+        Playback.play(res, null, callback);
     }
 
     /**
@@ -329,11 +351,11 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
          * Add a textView to the same position as the upperCase Alphabet at the top
          */
         final float size = getResources().getInteger(R.integer.text_size_display3);
-        final TextView textView = new TextView(getContext());
+        final TextView textView = new ArialTextView(getContext());
         textView.setTextColor(textColor);
         textView.setText(alphabetUppercaseTop.getText());
         textView.setTextSize(size);
-        textView.setTypeface(null, Typeface.BOLD);
+        ///textView.setTypeface(null, Typeface.BOLD);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.TOP | Gravity.LEFT;
         textView.setLayoutParams(params);
@@ -350,6 +372,27 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         PropertyValuesHolder tx = PropertyValuesHolder.ofFloat("X", textView.getX(), texts.getChildAt(position).getX());
         PropertyValuesHolder ts = PropertyValuesHolder.ofFloat("textSize", size, itemTextSize);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(textView, tx, ts);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(animation);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         ValueAnimator y = ObjectAnimator.ofFloat(textView, "Y", textView.getY(), texts.getY());
         animator.setStartDelay(delay);
         y.setStartDelay(delay + 550);
@@ -360,12 +403,12 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         y.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                ((TextView)texts.getChildAt(position)).setTextColor(textView.getCurrentTextColor());
+                Playback.uncommit(animation);
+                ((TextView) texts.getChildAt(position)).setTextColor(textView.getCurrentTextColor());
                 texts.getChildAt(position).setAlpha(1);
                 ((FrameLayout) getRootView()).removeView(textView);
             }
@@ -382,8 +425,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         });
         if(!Value.NULL(listener))
             y.addListener(listener);
-        animator.start();
-        y.start();
+        Playback.play(y, animator);
     }
 
     /**
@@ -398,11 +440,11 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
          * Add a textView to the same position as the upperCase Alphabet at the top
          */
         final float size = getResources().getInteger(R.integer.text_size_display3);
-        final TextView textView = new TextView(getContext());
+        final TextView textView = new ArialTextView(getContext());
         textView.setTextColor(textColor);
         textView.setText(alphabetLowercaseTop.getText());
         textView.setTextSize(size);
-        textView.setTypeface(null, Typeface.BOLD);
+        //textView.setTypeface(null, Typeface.BOLD);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.TOP | Gravity.LEFT;
         textView.setLayoutParams(params);
@@ -420,6 +462,26 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(textView, tx, ts);
         ValueAnimator y = ObjectAnimator.ofFloat(textView, "Y", textView.getY(), texts.getY());
         animator.setStartDelay(delay);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(animation);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         y.setStartDelay(delay + 550);
         y.setDuration(800);
         y.setInterpolator(new AnticipateOvershootInterpolator());
@@ -433,7 +495,8 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                ((TextView)texts.getChildAt(position)).setTextColor(textView.getCurrentTextColor());
+                Playback.uncommit(animation);
+                ((TextView) texts.getChildAt(position)).setTextColor(textView.getCurrentTextColor());
                 texts.getChildAt(position).setAlpha(1);
                 ((FrameLayout) getRootView()).removeView(textView);
             }
@@ -450,8 +513,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         });
         if(!Value.NULL(listener))
             y.addListener(listener);
-        animator.start();
-        y.start();
+        Playback.play(y, animator);
     }
 
     /**
@@ -471,15 +533,42 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         for(int i=0; i<texts.getChildCount(); i++){
             TextView t = (TextView) texts.getChildAt(i);
             int currentTextColor = t.getCurrentTextColor();
-            ValueAnimator a = ObjectAnimator.ofInt(t, "textColor", currentTextColor, textColor, currentTextColor);
-            a.setDuration(800);
-            a.setStartDelay(i * 25l);
+            PropertyValuesHolder tc = PropertyValuesHolder.ofInt("textColor", currentTextColor, textColor);
+            tc.setEvaluator(new ArgbEvaluator());
+            float ty = t.getTranslationY();
+            PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationY", ty, ty - 10f);
+            ValueAnimator a = ObjectAnimator.ofPropertyValuesHolder(t, tc, y);
+            a.setRepeatMode(ValueAnimator.REVERSE);
+            a.setRepeatCount(1);
+            a.setDuration(400);
+            a.setStartDelay(i * 100l);
             a.setEvaluator(new ArgbEvaluator());
+            a.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    Playback.uncommit(animation);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            Playback.play(a);
             if(i == texts.getChildCount()-1)
                 a.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        playVocalize(new Speech.PlaybackListener() {
+                        playVocalize(new Playback.PlaybackListener() {
                             @Override
                             public void onStart(String id) {
 
@@ -520,28 +609,39 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
         }
     }
 
-    void playVocalize(Speech.PlaybackListener playbackListener){
-        int res = 0;
-        switch (position){
-            case 0:
-                res = alphabet.aLWAWord1Sound2;
-                break;
-            case 1:
-                res = alphabet.aLWAWord2Sound2;
-                break;
-            case 2:
-                res = alphabet.aLWAWord3Sound2;
-                break;
-        }
-        Speech.play(res, null, playbackListener);
+    void playVocalize(Playback.PlaybackListener playbackListener){
+        Factory.Alphabets.Alphabet.WordImagePair wordImagePair = alphabet.getWordImagePairMap().get(position);
+        Playback.play(wordImagePair.audioRes, null, playbackListener);
     }
 
     void popOut(){
         for(int i=0; i<texts.getChildCount(); i++){
             TextView t = (TextView) texts.getChildAt(i);
-            ViewAnimator.popOut(t, i * 25l, 200);
+            ValueAnimator a = ViewAnimator.popOutZero(t, i * 25l, 200);
+            a.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    Playback.uncommit(animation);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            Playback.play(a);
         }
-        ViewAnimator.popOut(image, texts.getChildCount() * 25l, 200).addListener(new Animator.AnimatorListener() {
+        ValueAnimator animator = ViewAnimator.popOutZero(image, texts.getChildCount() * 25l, 200);
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -550,6 +650,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
             @Override
             public void onAnimationEnd(Animator animation) {
                 ((AlphaLearningFragment) getParentFragment()).nextStateAndBuild();
+                Playback.uncommit(animation);
             }
 
             @Override
@@ -562,6 +663,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
 
             }
         });
+        Playback.play(animator);
     }
 
     void end(){

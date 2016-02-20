@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ui_land_detail"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:id="@+id/grass4"
+            android:scaleType="center"
+            android:src="@drawable/ui_grass_4"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:scaleType="center"
+            android:id="@+id/grass3"
+            android:src="@drawable/ui_grass_3"
+            android:layout_height="wrap_content" />
+
+        <com.aun.tela.alphabets.application.gui.custom.BunnyImageView
+            android:id="@+id/bunny1"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ui_bunny_umbrella"
+            app:animate="true"
+            android:translationY="200dp"
+            android:layout_gravity="bottom|right"
+            android:layout_height="200dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:scaleType="center"
+            android:id="@+id/grass2"
+            android:src="@drawable/ui_grass_2"
+            android:layout_height="wrap_content" />
+
+        <com.aun.tela.alphabets.application.gui.custom.BunnyImageView
+            android:id="@+id/bunny2"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ui_bunny_icecream"
+            android:layout_gravity="bottom|left"
+            app:animate="true"
+            app:interval="7000"
+            android:layout_height="200dp" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+            android:id="@+id/back"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
+            app:circular_color="random"
+            android:alpha="0"
+            app:shadow="true"
+            app:border_width="@dimen/border_width_small_button"
+            android:clickable="false"
+            app:border_color="@color/white"
+            >
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:background="@color/transparent"
+                android:src="@mipmap/ic_action_navigation_back"
+                android:layout_height="match_parent" />
+
+        </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/actionBarSizeHalf"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/animationBar"
+                android:layout_width="match_parent"
+                app:bar_border_width="10dp"
+                app:bar_border_color="random"
+                app:bar_color="@color/background"
+                android:padding="14dp"
+                app:bar_radius="6dp"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/letter_id_ex_layer_0"
+                        android:layout_height="300dp" />
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/letter_id_ex_layer_1"
+                        android:layout_height="300dp" />
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:id="@+id/basketAlpha1"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_display1"
+                        android:textColor="@color/white"
+                        android:translationY="32dp"
+                        android:translationX="-45dp"
+                        android:rotation="-1"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/letter_id_ex_layer_2"
+                        android:layout_height="300dp" />
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:id="@+id/basketAlpha2"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_display1"
+                        android:textColor="@color/white"
+                        android:translationY="70dp"
+                        android:translationX="4dp"
+                        android:rotation="17"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/letter_id_ex_layer_3"
+                        android:layout_height="300dp" />
+
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:id="@+id/basketAlpha3"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_display1"
+                        android:textColor="@color/white"
+                        android:translationY="60dp"
+                        android:translationX="-100dp"
+                        android:rotation="-10"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:id="@+id/basketAlpha4"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_display1"
+                        android:textColor="@color/white"
+                        android:translationY="80dp"
+                        android:translationX="-50dp"
+                        android:rotation="-16"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:id="@+id/basketAlpha5"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_display1"
+                        android:textColor="@color/white"
+                        android:translationY="74dp"
+                        android:translationX="44dp"
+                        android:rotation="-125"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+
+                    <FrameLayout
+                        android:id="@+id/animationContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+                    </FrameLayout>
+
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/letter_id_ex_layer_4"
+                        android:layout_height="300dp" />
+
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_width="@dimen/buttonSize"
+            android:layout_height="@dimen/buttonSize"
+            app:circular_color="random"
+            android:visibility="invisible"
+            android:alpha="0"
+            app:shadow="true"
+            app:border_width="@dimen/border_width_small_button"
+            android:clickable="false"
+            app:border_color="random"
+            >
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:background="@color/transparent"
+                android:layout_height="match_parent" />
+
+        </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_gravity="top|right"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <com.aun.tela.alphabets.application.gui.custom.BarColorView
+            android:id="@+id/starBar"
+            android:layout_width="wrap_content"
+            app:bar_color="@color/white"
+            app:bar_border_color="random"
+            app:bar_radius="4dp"
+            app:bar_border_width="6dp"
+            android:alpha="0"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/star1"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/star_50"
+                    android:background="@color/transparent"
+                    android:tint="@color/ccc"
+                    android:layout_height="wrap_content" />
+
+                <ImageButton
+                    android:id="@+id/star2"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/star_50"
+                    android:background="@color/transparent"
+                    android:tint="@color/ccc"
+                    android:layout_height="wrap_content" />
+
+                <ImageButton
+                    android:id="@+id/star3"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/star_50"
+                    android:background="@color/transparent"
+                    android:tint="@color/ccc"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:scaleType="center"
+        android:id="@+id/grass1"
+        android:src="@drawable/ui_grass_1"
+        android:layout_height="wrap_content" />
+
+
+    <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+        android:id="@+id/prev"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
+        android:alpha="0"
+        app:circular_color="random"
+        app:shadow="true"
+        android:layout_gravity="bottom|left"
+        app:border_width="@dimen/border_width_small_button"
+        android:clickable="false"
+        app:border_color="@color/white"
+        >
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@drawable/chevron_left"
+            android:tint="@color/white"
+            android:layout_height="match_parent" />
+
+    </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+    <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+        android:id="@+id/next"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
+        android:alpha="0"
+        app:circular_color="random"
+        app:shadow="true"
+        android:layout_gravity="bottom|right"
+        app:border_width="@dimen/border_width_small_button"
+        android:clickable="false"
+        app:border_color="@color/white"
+        >
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@drawable/chevron_right"
+            android:tint="@color/white"
+            android:layout_height="match_parent" />
+
+    </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+
+</FrameLayout>

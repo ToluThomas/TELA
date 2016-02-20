@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     >
 
-    <TextView
+    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
         android:id="@+id/alphabetCenter"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
@@ -25,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetUppercaseCenter"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center|right"
@@ -41,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetLowercaseCenter"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center|left"

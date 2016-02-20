@@ -2,9 +2,11 @@ package com.aun.tela.alphabets.application.entities;
 
 import com.aun.tela.alphabets.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import io.meengle.util.Value;
 
@@ -34,6 +36,30 @@ public class Factory {
         public static final List<String> ALPHABETS_LOWERCASE = Value.As.<String>LIST("a", "b", "c", "d",
                 "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
                 "v", "w", "x", "y", "z");
+
+        public static Map<Integer, String> getPaddedLettersFrom(String alphabet, int max){
+            Random random = new Random();
+            int randPosition = random.nextInt(max);
+            Map<Integer, String> map = new HashMap<>();
+            map.put(randPosition, alphabet.toLowerCase());
+            List<String> alphabets = copyAlphabetsLowercase();
+            alphabets.remove(alphabet.toLowerCase());
+            int added = randPosition == 0 ? 1 : 0;
+            while(added < max){
+                if(added != randPosition) {
+                    if (alphabets.size() < 1) {
+                        map.put(map.size(), alphabet);
+                    } else {
+                        int curr = alphabets.size();
+                        int position = random.nextInt(curr);
+                        String randomAlphabet = alphabets.get(position);
+                        map.put(added, alphabets.remove(position));
+                    }
+                }
+                added++;
+            }
+            return map;
+        }
 
         /**
          * @return the list containing the 26 alphabets in uppercase
@@ -77,92 +103,23 @@ public class Factory {
          */
         public static class Alphabet {
             private String letter;
-            public Integer aLUASound1, aLUASound2, aLLASound1, aLLASound2, aLWAWord1Sound1, aLWAWord1Sound2, aLWAWord2Sound1,
-                    aLWAWord2Sound2, aLWAWord3Sound1, aLWAWord3Sound2, aLEASound1;
+            public Integer audio_res_intro, audio_res_ident, audio_res_cap_ident, audio_res_low_ident, audio_res_cap_low_desc,
+            audio_res_find_1, audio_res_find_2, audio_res_find_3, audio_res_exit;
             private Map<Integer, WordImagePair> wordImagePairMap;
 
-            /**
-             * Set AlphaLearningUpcaseSound 1
-             * @param aLUASound1 the resourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLUASound1(Integer aLUASound1){
-                this.aLUASound1 = aLUASound1; return this;
-            }
-            /**
-             * Set AlphaLearningUpcaseSound 2
-             * @param aLUASound2 the resourceId of this sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLUASound2(Integer aLUASound2){
-                this.aLUASound2 = aLUASound2; return this;
-            }
-
-            /**
-             * Set AlphaLearningLowCaseSound 1
-             * @param aLLASound1 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLLASound1(Integer aLLASound1){
-                this.aLLASound1 = aLLASound1; return this;
-            }
-
-            /**
-             * Set AlphaLearningLowCaseSound 2
-             * @param aLLASound2 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLLASound2(Integer aLLASound2){this.aLLASound2 = aLLASound2; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 1 Sound 1
-             * @param aLWAWord1Sound1 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord1Sound1(Integer aLWAWord1Sound1){this.aLWAWord1Sound1 = aLWAWord1Sound1; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 1 Sound 2
-             * @param aLWAWord1Sound2 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord1Sound2(Integer aLWAWord1Sound2){this.aLWAWord1Sound2 = aLWAWord1Sound2; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 2 Sound 1
-             * @param aLWAWord2Sound1 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord2Sound1(Integer aLWAWord2Sound1){this.aLWAWord2Sound1 = aLWAWord2Sound1; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 2 Sound 2
-             * @param aLWAWord2Sound2 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord2Sound2(Integer aLWAWord2Sound2){this.aLWAWord2Sound2 = aLWAWord2Sound2; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 3 Sound 1
-             * @param aLWAWord3Sound1 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord3Sound1(Integer aLWAWord3Sound1){this.aLWAWord3Sound1 = aLWAWord3Sound1; return this;}
-
-            /**
-             * Set AlphaLearningWordAnimation Word 3 Sound 2
-             * @param aLWAWord3Sound2 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLWAWord3Sound2(Integer aLWAWord3Sound2){this.aLWAWord3Sound2 = aLWAWord3Sound2; return this;}
-
-            /**
-             * Set AlphaLearningExitAnimation Sound 1
-             * @param aLEASound1 the rsourceId of the sound to set
-             * @return the current {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
-             */
-            public Alphabet setaLEASound1(Integer aLEASound1){
-                this.aLEASound1 = aLEASound1; return this;
+            public Alphabet setAudioRes(int audio_res_intro, int audio_res_ident, int audio_res_cap_ident, int audio_res_low_ident,
+                                        int audio_res_cap_low_desc, int audio_res_find_1, int audio_res_find_2, int audio_res_find_3,
+                                        int audio_res_exit){
+                this.audio_res_intro = audio_res_intro;
+                this.audio_res_ident = audio_res_ident;
+                this.audio_res_cap_ident = audio_res_cap_ident;
+                this.audio_res_low_ident = audio_res_low_ident;
+                this.audio_res_cap_low_desc = audio_res_cap_low_desc;
+                this.audio_res_find_1 = audio_res_find_1;
+                this.audio_res_find_2 = audio_res_find_2;
+                this.audio_res_find_3 = audio_res_find_3;
+                this.audio_res_exit = audio_res_exit;
+                return this;
             }
 
             /**
@@ -220,13 +177,15 @@ public class Factory {
              */
             public static class WordImagePair {
                 String word; // the word for this pair
-                int imageRes; // the resourceId for this image tied to this word
+                int imageRes = 0; // the resourceId for this image tied to this word
+                public int audioRes = 0;
 
                 /**
                  * Constructor to create a new WordImagePair
                  * @param word the word for this pair
                  * @param imageRes the resourceId for the image for this pair
                  */
+                public WordImagePair(String word, int imageRes, int audioRes){this.word = word; this.imageRes = imageRes; this.audioRes = audioRes;}
                 public WordImagePair(String word, int imageRes){this.word = word; this.imageRes = imageRes;}
 
                 /**
@@ -262,210 +221,469 @@ public class Factory {
          * @return the created instance of {@link com.aun.tela.alphabets.application.entities.Factory.Alphabets.Alphabet}
          */
         public static Alphabet build(String alphabet){
-            Map<Integer, Alphabet.WordImagePair> wordImagePairMap = null;
-            Integer aLUASound1 = null, aLUASound2 = null, aLLASound1 = null, aLLASound2 = null, aLWAWord1Sound1 = null,
-                    aLLWAWord1Sound2 = null, aLLWAWord2Sound1 = null, aLLWAWord2Sound2 = null, aLLWAWord3Sound1 = null, aLLWAWord3Sound2 = null,
-                    aLEASound1 = null;
+            HashMap<Integer, Alphabet.WordImagePair> wordImagePairMap = new HashMap<>();
+            List<Alphabet.WordImagePair> pairs = new ArrayList<>();
+            Integer  audio_res_intro, audio_res_ident, audio_res_cap_ident, audio_res_low_ident, audio_res_cap_low_desc,
+                    audio_res_find_1, audio_res_find_2, audio_res_find_3, audio_res_exit;
             switch (alphabet.toLowerCase()){
                 case "a":
-                    wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Apple", R.drawable.apple));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Ant", R.drawable.ant));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Plate", R.drawable.plate));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                   // pairs.add(new Alphabet.WordImagePair("Abacus", R.drawable.abacus));
+                    //pairs.add(new Alphabet.WordImagePair("Adaptor", R.drawable.adaptor));
+                    //pairs.add(new Alphabet.WordImagePair("Alms", R.drawable.alms));
+                    //pairs.add(new Alphabet.WordImagePair("Angry", R.drawable.angry));
+                    pairs.add(new Alphabet.WordImagePair("Ant", R.drawable.ant, R.raw.tela_audio_alpha_a_ant));
+                    pairs.add(new Alphabet.WordImagePair("Apple", R.drawable.apple, R.raw.tela_audio_alpha_a_apple));
+                    pairs.add(new Alphabet.WordImagePair("Plate", R.drawable.plate, R.raw.tela_audio_alpha_a_plate));
+                    //pairs.add(new Alphabet.WordImagePair("Apex", R.drawable.apex));
+                    //pairs.add(new Alphabet.WordImagePair("Arch", R.drawable.arch));
+                    //pairs.add(new Alphabet.WordImagePair("Arm", R.drawable.arm));
+                    //pairs.add(new Alphabet.WordImagePair("Army", R.drawable.army));
+                    //pairs.add(new Alphabet.WordImagePair("Axe", R.drawable.axe));
+                    buildWordImagePairHash(wordImagePairMap, pairs, 3);
+                    audio_res_intro = R.raw.tela_audio_alpha_a_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_a_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_a_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_a_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_a_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_a_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_a_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_a_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_a_exit;
                     break;
                 case "b":
-                    wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Bicycle", R.drawable.bicycle));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Bird", R.drawable.bird));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Football", R.drawable.football));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    //pairs.add(new Alphabet.WordImagePair("Bag", R.drawable.bag));
+                    //pairs.add(new Alphabet.WordImagePair("Balance", R.drawable.balance));
+                    //pairs.add(new Alphabet.WordImagePair("Bandage", R.drawable.bandage));
+                    //pairs.add(new Alphabet.WordImagePair("Battery", R.drawable.battery));
+                    //pairs.add(new Alphabet.WordImagePair("Bed", R.drawable.bed));
+                    //pairs.add(new Alphabet.WordImagePair("Bee", R.drawable.bee));
+                    //pairs.add(new Alphabet.WordImagePair("Bell", R.drawable.bell));
+                    //pairs.add(new Alphabet.WordImagePair("Bicycle", R.drawable.bicycle));
+                    //pairs.add(new Alphabet.WordImagePair("Big", R.drawable.big));
+                    //pairs.add(new Alphabet.WordImagePair("Bleach", R.drawable.bleach));
+                    //pairs.add(new Alphabet.WordImagePair("Bomb", R.drawable.bomb));
+                    pairs.add(new Alphabet.WordImagePair("Book", R.drawable.book, R.raw.tela_audio_alpha_b_book));
+                    pairs.add(new Alphabet.WordImagePair("Broom", R.drawable.broom, R.raw.tela_audio_alpha_b_broom));
+                    pairs.add(new Alphabet.WordImagePair("Table", R.drawable.table,  R.raw.tela_audio_alpha_b_table));
+                    buildWordImagePairHash(wordImagePairMap, pairs, 3);
+                    audio_res_intro = R.raw.tela_audio_alpha_b_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_b_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_b_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_b_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_b_cap_low_ident;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_b_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_b_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_b_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_b_exit;
                     break;
                 case "c":
-                    wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Cake", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Cutlass", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Circle", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    /*pairs.add(new Alphabet.WordImagePair("Cabbage", R.drawable.cabbage));
+                    pairs.add(new Alphabet.WordImagePair("Cage", R.drawable.cage));
+                    pairs.add(new Alphabet.WordImagePair("Calf", R.drawable.calf));
+                    pairs.add(new Alphabet.WordImagePair("Can", R.drawable.can));
+                    pairs.add(new Alphabet.WordImagePair("Cap", R.drawable.cap));
+                    pairs.add(new Alphabet.WordImagePair("Car", R.drawable.car));
+                    pairs.add(new Alphabet.WordImagePair("Cargo", R.drawable.cargo));
+                    pairs.add(new Alphabet.WordImagePair("Carrot", R.drawable.carrot));
+                    pairs.add(new Alphabet.WordImagePair("Cat", R.drawable.cat));
+                    pairs.add(new Alphabet.WordImagePair("Clap", R.drawable.clap));
+                    pairs.add(new Alphabet.WordImagePair("Clown", R.drawable.clown));
+                    pairs.add(new Alphabet.WordImagePair("Coat", R.drawable.coat));
+                    pairs.add(new Alphabet.WordImagePair("Cow", R.drawable.cow));
+                    pairs.add(new Alphabet.WordImagePair("Crack", R.drawable.crack));*/
+                    pairs.add(new Alphabet.WordImagePair("Cat", R.drawable.cat, R.raw.tela_audio_alpha_c_cat));
+                    pairs.add(new Alphabet.WordImagePair("Bucket", R.drawable.bucket, R.raw.tela_audio_alpha_c_bucket));
+                    pairs.add(new Alphabet.WordImagePair("Cup", R.drawable.cup, R.raw.tela_audio_alpha_c_cup));
+                    buildWordImagePairHash(wordImagePairMap, pairs, 3);
+                    audio_res_intro = R.raw.tela_audio_alpha_c_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_c_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_c_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_c_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_c_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_c_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_c_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_c_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_c_exit;
                     break;
                 case "d":
-                    wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Deer", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Door", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Diet coke",0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    /*pairs.add(new Alphabet.WordImagePair("Dig", R.drawable.dig));
+                    pairs.add(new Alphabet.WordImagePair("Dollar", R.drawable.dollar));
+                    pairs.add(new Alphabet.WordImagePair("Dolphin", R.drawable.dolphin));
+                    pairs.add(new Alphabet.WordImagePair("Dove", R.drawable.dove));
+                    pairs.add(new Alphabet.WordImagePair("Drag", R.drawable.drag));
+                    pairs.add(new Alphabet.WordImagePair("Dress", R.drawable.dress));
+                    pairs.add(new Alphabet.WordImagePair("Drill", R.drawable.drill));
+                    pairs.add(new Alphabet.WordImagePair("Drive", R.drawable.drive));*/
+                    pairs.add(new Alphabet.WordImagePair("Duck", R.drawable.duck, R.raw.tela_audio_alpha_d_duck));
+                    pairs.add(new Alphabet.WordImagePair("Door", R.drawable.door, R.raw.tela_audio_alpha_d_door));
+                    pairs.add(new Alphabet.WordImagePair("Window", R.drawable.window, R.raw.tela_audio_alpha_d_window));
+                    buildWordImagePairHash(wordImagePairMap, pairs, 3);
+                    audio_res_intro = R.raw.tela_audio_alpha_d_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_d_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_d_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_d_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_d_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_d_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_d_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_d_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_d_exit;
                     break;
                 case "e":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Egg", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Ferry", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Earth", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Egg", R.drawable.egg, R.raw.tela_audio_alpha_e_egg));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Elephant", R.drawable.elephant, R.raw.tela_audio_alpha_e_elephant));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Machet", R.drawable.machet, R.raw.tela_audio_alpha_e_machet));
+                    audio_res_intro = R.raw.tela_audio_alpha_e_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_e_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_e_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_e_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_e_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_e_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_e_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_e_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_e_exit;
                     break;
                 case "f":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Food", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Foot", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Football", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Finger", R.drawable.finger, R.raw.tela_audio_alpha_f_finger));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Fish", R.drawable.fish, R.raw.tela_audio_alpha_f_fish));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Leaf", R.drawable.leaf, R.raw.tela_audio_alpha_f_leaf));
+                    audio_res_intro = R.raw.tela_audio_alpha_f_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_f_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_f_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_f_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_f_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_f_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_f_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_f_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_f_exit;
                     break;
                 case "g":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Game", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Goat", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Giggle", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Goat", R.drawable.goat, R.raw.tela_audio_alpha_g_goat));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Grass", R.drawable.grass, R.raw.tela_audio_alpha_g_grass));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Bag", R.drawable.bag, R.raw.tela_audio_alpha_g_bag));
+                    audio_res_intro = R.raw.tela_audio_alpha_g_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_g_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_g_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_g_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_g_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_g_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_g_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_g_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_g_exit;
                     break;
                 case "h":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("House", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Hunter", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Hair", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Horn", R.drawable.horn, R.raw.tela_audio_alpha_h_horn));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Hush", R.drawable.hush, R.raw.tela_audio_alpha_h_hut));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Brush", R.drawable.brush, R.raw.tela_audio_alpha_h_brush));
+                    audio_res_intro = R.raw.tela_audio_alpha_h_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_h_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_h_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_h_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_h_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_h_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_h_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_h_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_h_exit;
                     break;
                 case "i":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Idol", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Ice", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Ice-cream", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Ice", R.drawable.ice, R.raw.tela_audio_alpha_i_ice));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Ink", R.drawable.ink, R.raw.tela_audio_alpha_i_ink));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Rice", R.drawable.rice, R.raw.tela_audio_alpha_i_rice));
+                    audio_res_intro = R.raw.tela_audio_alpha_i_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_i_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_i_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_i_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_i_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_i_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_i_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_i_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_i_exit;
                     break;
                 case "j":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Jug", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Jam", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Jail", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Jug", R.drawable.jug, R.raw.tela_audio_alpha_j_jug));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Jump", R.drawable.jump, R.raw.tela_audio_alpha_j_jump));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Judge", R.drawable.judge, R.raw.tela_audio_alpha_j_judge));
+                    audio_res_intro = R.raw.tela_audio_alpha_j_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_j_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_j_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_j_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_j_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_j_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_j_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_j_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_j_exit;
                     break;
                 case "k":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Kite", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Kettle", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Brick", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Kettle", R.drawable.kettle, R.raw.tela_audio_alpha_k_kettle));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Kite", R.drawable.kite, R.raw.tela_audio_alpha_k_kite));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Ankle", R.drawable.ankle, R.raw.tela_audio_alpha_k_ankle));
+                    audio_res_intro = R.raw.tela_audio_alpha_k_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_k_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_k_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_k_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_k_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_k_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_k_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_k_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_k_exit;
                     break;
                 case "l":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Light bulb", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Bubble", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Bicycle", R.drawable.bicycle));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Lion", R.drawable.lion, R.raw.tela_audio_alpha_l_lion));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Lemon", R.drawable.lemon, R.raw.tela_audio_alpha_l_lemon));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Doll", R.drawable.doll, R.raw.tela_audio_alpha_l_doll));
+                    audio_res_intro = R.raw.tela_audio_alpha_l_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_l_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_l_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_l_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_l_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_l_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_l_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_l_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_l_exit;
                     break;
                 case "m":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Machine", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Match", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Meat", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Monkey", R.drawable.monkey, R.raw.tela_audio_alpha_m_monkey));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Man", R.drawable.man, R.raw.tela_audio_alpha_m_man));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Lamp", R.drawable.lamp, R.raw.tela_audio_alpha_m_lamp));
+                    audio_res_intro = R.raw.tela_audio_alpha_m_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_m_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_m_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_m_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_m_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_m_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_m_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_m_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_m_exit;
                     break;
                 case "n":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Nest", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Nut", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Fence", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Nail", R.drawable.nail, R.raw.tela_audio_alpha_n_nail));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Nest", R.drawable.nest, R.raw.tela_audio_alpha_n_nest));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Money", R.drawable.money, R.raw.tela_audio_alpha_n_money));
+                    audio_res_intro = R.raw.tela_audio_alpha_n_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_n_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_n_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_n_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_n_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_n_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_n_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_n_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_n_exit;
                     break;
                 case "o":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Ocean", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Orange", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Football", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Orange", R.drawable.orange, R.raw.tela_audio_alpha_o_orange));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Owl", R.drawable.owl, R.raw.tela_audio_alpha_o_owl));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Bowl", R.drawable.bowl, R.raw.tela_audio_alpha_o_bowl));
+                    wordImagePairMap.put(3, new Alphabet.WordImagePair("Boy", R.drawable.boy, R.raw.tela_audio_alpha_o_bowl));
+                    audio_res_intro = R.raw.tela_audio_alpha_o_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_o_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_o_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_o_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_o_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_o_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_o_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_o_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_o_exit;
                     break;
                 case "p":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Pet", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Pear", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Penny", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Pineapple", R.drawable.pineapple, R.raw.tela_audio_alpha_p_pineapple));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Pot", R.drawable.pot, R.raw.tela_audio_alpha_p_pot));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Shop", R.drawable.shop, R.raw.tela_audio_alpha_p_shop));
+                    audio_res_intro = R.raw.tela_audio_alpha_p_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_p_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_p_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_p_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_p_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_p_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_p_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_p_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_p_exit;
                     break;
                 case "q":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Queen", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Queue", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Quartz", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Queen", R.drawable.queen, R.raw.tela_audio_alpha_q_queen));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Quarter", R.drawable.quarter, R.raw.tela_audio_alpha_q_quarter));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Mosque", R.drawable.mosque, R.raw.tela_audio_alpha_q_mosque));
+                    audio_res_intro = R.raw.tela_audio_alpha_q_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_q_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_q_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_q_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_q_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_q_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_q_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_q_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_q_exit;
                     break;
                 case "r":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Rabbit", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Rat", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Rake", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Rat", R.drawable.rat, R.raw.tela_audio_alpha_r_rat));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Roof", R.drawable.roof, R.raw.tela_audio_alpha_r_roof));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Car", R.drawable.car, R.raw.tela_audio_alpha_r_car));
+                    audio_res_intro = R.raw.tela_audio_alpha_r_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_r_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_r_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_r_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_r_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_r_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_r_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_r_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_r_exit;
                     break;
                 case "s":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Saddle",0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Sand", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Share", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Stone", R.drawable.stone, R.raw.tela_audio_alpha_s_stone));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Bus", R.drawable.bus, R.raw.tela_audio_alpha_s_bus));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Nest", R.drawable.nest, R.raw.tela_audio_alpha_s_nest));
+                    audio_res_intro = R.raw.tela_audio_alpha_s_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_s_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_s_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_s_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_s_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_s_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_s_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_s_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_s_exit;
                     break;
                 case "t":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Tent", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Table", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Taste", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Tap", R.drawable.tap, R.raw.tela_audio_alpha_t_tap));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Train", R.drawable.train, R.raw.tela_audio_alpha_t_train));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Seat", R.drawable.seat, R.raw.tela_audio_alpha_t_seat));
+                    audio_res_intro = R.raw.tela_audio_alpha_t_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_t_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_t_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_t_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_t_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_t_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_t_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_t_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_t_exit;
                     break;
                 case "u":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Umbrella", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Pull", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Under", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Umbrella", R.drawable.umbrella, R.raw.tela_audio_alpha_u_umbrella));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("University", R.drawable.university, R.raw.tela_audio_alpha_u_university));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Soup", R.drawable.soup, R.raw.tela_audio_alpha_u_soup));
+                    audio_res_intro = R.raw.tela_audio_alpha_u_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_u_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_u_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_u_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_u_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_u_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_u_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_u_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_u_exit;
                     break;
                 case "v":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Veteran", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Vapor", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Violet", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Van", R.drawable.van, R.raw.tela_audio_alpha_v_van));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Village", R.drawable.village, R.raw.tela_audio_alpha_v_village));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("River", R.drawable.river, R.raw.tela_audio_alpha_v_river));
+                    audio_res_intro = R.raw.tela_audio_alpha_v_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_v_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_v_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_v_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_v_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_v_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_v_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_v_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_v_exit;
                     break;
                 case "w":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Wall", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Waste", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Water", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Water", R.drawable.water, R.raw.tela_audio_alpha_w_water));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Well", R.drawable.well, R.raw.tela_audio_alpha_w_well));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Towel", R.drawable.towel, R.raw.tela_audio_alpha_w_towel));
+                    audio_res_intro = R.raw.tela_audio_alpha_w_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_w_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_w_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_w_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_w_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_w_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_w_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_w_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_w_exit;
                     break;
                 case "x":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Xylophone", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("X-ray", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Next", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Xylophone", R.drawable.xylophone, R.raw.tela_audio_alpha_x_xylophone));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Axe", R.drawable.axe, R.raw.tela_audio_alpha_x_axe));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Box", R.drawable.box, R.raw.tela_audio_alpha_x_box));
+                    audio_res_intro = R.raw.tela_audio_alpha_x_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_x_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_x_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_x_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_x_cap_low_ident;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_x_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_x_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_x_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_x_exit;
                     break;
                 case "y":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Young", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Bicycle", 0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Yatch", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Yam", R.drawable.yam, R.raw.tela_audio_alpha_y_yam));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Baby", R.drawable.baby, R.raw.tela_audio_alpha_y_baby));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Butterfly", R.drawable.butterfly, R.raw.tela_audio_alpha_y_butterfly));
+                    audio_res_intro = R.raw.tela_audio_alpha_y_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_y_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_y_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_y_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_y_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_y_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_y_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_y_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_y_exit;
                     break;
                 case "z":
                     wordImagePairMap = new HashMap<>();
-                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Zebra", 0));
-                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Zig-zag",0));
-                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Zipper", 0));
-                    aLUASound1 = aLUASound2 = aLLASound1 = aLLASound2 = aLWAWord1Sound1 = aLLWAWord1Sound2 = aLLWAWord2Sound1 = aLLWAWord2Sound2 = aLLWAWord3Sound1 = aLLWAWord3Sound2 = aLEASound1 = R.raw.a1;
+                    wordImagePairMap.put(0, new Alphabet.WordImagePair("Zebra", R.drawable.zebra, R.raw.tela_audio_alpha_z_zebra));
+                    wordImagePairMap.put(1, new Alphabet.WordImagePair("Zip", R.drawable.zipper, R.raw.tela_audio_alpha_z_zip));
+                    wordImagePairMap.put(2, new Alphabet.WordImagePair("Freezer", R.drawable.freezer, R.raw.tela_audio_alpha_z_freezer));
+                    audio_res_intro = R.raw.tela_audio_alpha_z_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_z_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_z_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_z_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_z_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_z_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_z_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_z_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_z_exit;
                     break;
-
+                default:
+                    audio_res_intro = R.raw.tela_audio_alpha_a_intro;
+                    audio_res_ident = R.raw.tela_audio_alpha_a_ident;
+                    audio_res_cap_ident = R.raw.tela_audio_alpha_a_cap_ident;
+                    audio_res_low_ident = R.raw.tela_audio_alpha_a_low_ident;
+                    audio_res_cap_low_desc = R.raw.tela_audio_alpha_a_cap_low_desc;
+                    audio_res_find_1 = R.raw.tela_audio_alpha_a_find_1;
+                    audio_res_find_2 = R.raw.tela_audio_alpha_a_find_2;
+                    audio_res_find_3 = R.raw.tela_audio_alpha_a_find_3;
+                    audio_res_exit = R.raw.tela_audio_alpha_a_exit;
+                    break;
             }
+            //buildWordImagePairHash(wordImagePairMap, pairs, 3);
             return new Alphabet()
                     .setLetter(alphabet)
                     .setWordImagePairMap(wordImagePairMap)
-                    .setaLUASound1(aLUASound1)
-                    .setaLUASound2(aLUASound2)
-                    .setaLLASound1(aLLASound1)
-                    .setaLLASound2(aLLASound2)
-                    .setaLWAWord1Sound1(aLWAWord1Sound1)
-                    .setaLWAWord1Sound2(aLLWAWord1Sound2)
-                    .setaLWAWord2Sound1(aLLWAWord2Sound1)
-                    .setaLWAWord2Sound2(aLLWAWord2Sound2)
-                    .setaLWAWord3Sound1(aLLWAWord3Sound1)
-                    .setaLWAWord3Sound2(aLLWAWord3Sound2)
-                    .setaLEASound1(aLEASound1);
+                    .setAudioRes(audio_res_intro, audio_res_ident, audio_res_cap_ident, audio_res_low_ident, audio_res_cap_low_desc, audio_res_find_1, audio_res_find_2, audio_res_find_3, audio_res_exit);
 
+        }
+
+        static void buildWordImagePairHash(HashMap<Integer, Alphabet.WordImagePair> map, List<Alphabet.WordImagePair> list, int limit ){
+            Random random = new Random();
+            for(int i = 0; i < limit; i++){
+                map.put(i, list.remove(random.nextInt(list.size())));
+            }
         }
 
         /**

@@ -15,7 +15,8 @@ import com.aun.tela.alphabets.R;
 import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.Collector;
 import com.aun.tela.alphabets.application.generic.Retriever;
-import com.aun.tela.alphabets.application.util.Speech;
+import com.aun.tela.alphabets.application.util.Log;
+import com.aun.tela.alphabets.application.util.Playback;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
 
 import java.util.HashMap;
@@ -162,8 +163,8 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
         int rem = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
         PropertyValuesHolder uty = PropertyValuesHolder.ofFloat("Y", alphabetUppercaseTop.getY(), alphabetUppercaseCenter.getY() - rem);
         PropertyValuesHolder lty = PropertyValuesHolder.ofFloat("Y", alphabetLowercaseTop.getY(), alphabetLowercaseCenter.getY() - rem);
-        ValueAnimator cap = ObjectAnimator.ofPropertyValuesHolder(alphabetUppercaseTop, uts, uty);
-        ValueAnimator low = ObjectAnimator.ofPropertyValuesHolder(alphabetLowercaseTop, lts, lty);
+        final ValueAnimator cap = ObjectAnimator.ofPropertyValuesHolder(alphabetUppercaseTop, uts, uty);
+        final ValueAnimator low = ObjectAnimator.ofPropertyValuesHolder(alphabetLowercaseTop, lts, lty);
         low.setInterpolator(new AnticipateOvershootInterpolator());
         cap.setInterpolator(new AnticipateOvershootInterpolator());
         low.setStartDelay(25);
@@ -172,7 +173,7 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
         cap.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playAnimateCenter(new Speech.PlaybackListener() {
+                playAnimateCenter(new Playback.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -194,7 +195,6 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
             }
 
             @Override
@@ -215,6 +215,7 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(cap, low);
                 states.put(animate, true);
                 if (finishedConsumer.retrieve())
                     end();
@@ -230,13 +231,15 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
 
             }
         });
-        cap.start();
-        low.start();
+        Log.d("Exit Animation point reached");
+        Log.d("Playback state is "+ (Playback.paused() ? "paused" : "playing"));
+        Playback.play(cap, low);
+        Log.d("Playback state is " + (Playback.paused() ? "paused" : "playing"));
     }
 
     //play the sound for animating the view to the center
-    void playAnimateCenter(Speech.PlaybackListener playbackListener){
-        Speech.play(alphabet.aLEASound1, null, playbackListener);
+    void playAnimateCenter(Playback.PlaybackListener playbackListener){
+        Playback.play(alphabet.audio_res_exit, null, playbackListener);
     }
 
     void end(){

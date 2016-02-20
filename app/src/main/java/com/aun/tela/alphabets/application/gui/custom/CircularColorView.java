@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.aun.tela.alphabets.R;
 
@@ -19,13 +19,13 @@ import io.meengle.util.Value;
  * Project name : Alphabets.
  * Copyright (c) 2015 Meengle. All rights reserved.
  */
-public class CircularColorView extends View {
+public class CircularColorView extends FrameLayout {
 
     Paint paint; //paint object to draw the bar
     Paint borderPaint; //paint object to draw the border'
     int borderWidth = 0;
-    int borderColor = 0xFFFFFFFF;
-    int circularColor = 0xFFFFFFFF;
+    int borderColor = Color.WHITE;
+    int circularColor = Color.WHITE;
 
     int canvasSize;
 
@@ -55,6 +55,7 @@ public class CircularColorView extends View {
     }
 
     private void init(AttributeSet attributeSet){
+        setWillNotDraw(false);
         paint = new Paint();
         borderPaint = new Paint();
         paint.setAntiAlias(true);
@@ -76,10 +77,11 @@ public class CircularColorView extends View {
         }
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvasSize = canvas.getWidth();
+        canvasSize = canvas.getWidth() > canvas.getHeight() ? canvas.getWidth() : canvas.getHeight();
 
         int rad1 = canvasSize / 2;
         int rad2 = rad1 - borderWidth;
@@ -155,14 +157,6 @@ public class CircularColorView extends View {
      * @return the borderColor for this view
      */
     public int getBorderColor(){return this.borderColor;}
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = measureHeight(heightMeasureSpec);
-        int width = measureWidth(widthMeasureSpec);
-        int size = height > width ? height : width;
-        setMeasuredDimension(size, size);
-    }
 
     private int measureWidth(int measureSpec) {
         int result = 0;

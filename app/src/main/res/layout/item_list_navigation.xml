@@ -19,20 +19,22 @@
             android:id="@+id/titleBar"
             app:border_color="random"
             app:bar_color="random"
+            android:padding="@dimen/activity_horizontal_margin"
             app:bar_shadow="true"
-            app:bar_border_width="4dp"
-            android:layout_height="match_parent" />
+            app:bar_border_width="8dp"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            android:textSize="@dimen/text_size_display1"
-            android:layout_width="match_parent"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/activity_horizontal_margin_half"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/title"
+                android:textSize="@dimen/text_size_display1"
+                android:layout_width="wrap_content"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+        </com.aun.tela.alphabets.application.gui.custom.BarColorView>
 
     </FrameLayout>
 

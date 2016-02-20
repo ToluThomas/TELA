@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ui_land_detail"
+        android:layout_height="match_parent" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:id="@+id/grass4"
+        android:scaleType="center"
+        android:src="@drawable/ui_grass_4"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:scaleType="center"
+        android:id="@+id/grass3"
+        android:src="@drawable/ui_grass_3"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:scaleType="center"
+        android:id="@+id/grass2"
+        android:src="@drawable/ui_grass_2"
+        android:layout_height="wrap_content" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:scaleType="center"
+        android:id="@+id/grass1"
+        android:src="@drawable/ui_grass_1"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center|bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:src="@drawable/girl1"
+                android:layout_gravity="center"
+                android:layout_height="300dp" />
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content">
+
+                <com.aun.tela.alphabets.application.gui.custom.BarColorView
+                    android:layout_width="wrap_content"
+                    app:border_color="@color/white"
+                    app:bar_color="random"
+                    android:id="@+id/alphabets"
+                    android:clickable="true"
+                    app:bar_radius="10dp"
+                    android:layout_gravity="bottom|center"
+                    app:bar_shadow="false"
+                    app:bar_border_width="6dp"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content" >
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:textSize="@dimen/text_size_display3"
+                        android:layout_width="match_parent"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/white"
+                        android:text="ABC"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+
+
+                </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:src="@drawable/girl2"
+                android:layout_gravity="center|bottom"
+                android:layout_height="300dp" />
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content">
+
+                <com.aun.tela.alphabets.application.gui.custom.BarColorView
+                    android:id="@+id/numbers"
+                    android:layout_width="wrap_content"
+                    app:border_color="@color/white"
+                    app:bar_color="random"
+                    android:clickable="true"
+                    app:bar_radius="10dp"
+                    android:layout_gravity="bottom|center"
+                    app:bar_shadow="false"
+                    app:bar_border_width="6dp"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content" >
+
+                    <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+                        android:textSize="@dimen/text_size_display3"
+                        android:layout_width="match_parent"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/white"
+                        android:text="123"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+
+
+                </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+   <FrameLayout
+       android:layout_width="wrap_content"
+       android:layout_margin="?attr/actionBarSize"
+       android:layout_height="wrap_content">
+
+
+       <com.aun.tela.alphabets.application.gui.custom.BarColorView
+           android:layout_width="wrap_content"
+           android:id="@+id/titleBar"
+           app:border_color="random"
+           app:bar_color="random"
+           android:visibility="invisible"
+           app:bar_radius="10dp"
+           app:bar_shadow="true"
+           app:bar_border_width="@dimen/activity_horizontal_margin_half"
+           android:layout_height="wrap_content" >
+
+           <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+               android:id="@+id/title"
+               android:textSize="@dimen/text_size_display3"
+               android:layout_width="match_parent"
+               android:textAllCaps="true"
+               android:textColor="@color/white"
+               android:textStyle="bold"
+               android:layout_margin="@dimen/activity_horizontal_margin"
+               android:text="@string/app_name"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:layout_height="wrap_content" />
+
+
+       </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+
+   </FrameLayout>
+
+
+    <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+        android:id="@+id/back"
+        android:alpha="0"
+        android:clickable="false"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="@dimen/buttonSize"
+        android:layout_height="@dimen/buttonSize"
+        app:circular_color="random"
+        app:shadow="true"
+        app:border_width="@dimen/border_width_small_button"
+        app:border_color="@color/white"
+        >
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@color/transparent"
+            android:src="@mipmap/ic_action_navigation_back"
+            android:layout_height="match_parent" />
+
+
+    </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+
+</FrameLayout>

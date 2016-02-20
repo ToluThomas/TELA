@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
 import com.aun.tela.alphabets.R;
-import com.aun.tela.alphabets.application.gui.fragments.MainFragment;
+import com.aun.tela.alphabets.application.gui.fragments.NavigationFragment;
 
 import io.meengle.util.Value;
 
@@ -26,7 +26,8 @@ public class Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replace(new MainFragment());
+        //replace(new SelectFragment());
+        replace(new NavigationFragment());
     }
 
     /**
@@ -63,4 +64,8 @@ public class Activity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

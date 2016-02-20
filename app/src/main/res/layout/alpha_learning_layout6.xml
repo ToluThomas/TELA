@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent">
 
 
@@ -17,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetUppercaseTop"
                 android:layout_width="wrap_content"
                 android:layout_gravity="top|right"
@@ -33,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetLowercaseTop"
                 android:layout_width="wrap_content"
                 android:layout_gravity="top|left"
@@ -56,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetUppercaseCenter"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center|right"
@@ -73,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.aun.tela.alphabets.application.gui.custom.ArialTextView
                 android:id="@+id/alphabetLowercaseCenter"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center|left"

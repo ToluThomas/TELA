@@ -1,11 +1,14 @@
 package com.aun.tela.alphabets.application.gui.fragments;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.aun.tela.alphabets.R;
@@ -14,7 +17,7 @@ import com.aun.tela.alphabets.application.generic.Collector;
 import com.aun.tela.alphabets.application.generic.Retriever;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.util.Log;
-import com.aun.tela.alphabets.application.util.Speech;
+import com.aun.tela.alphabets.application.util.Playback;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
 
 import java.util.HashMap;
@@ -59,7 +62,7 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
 
     @Override
     public void destroy() {
-
+        Playback.release();
     }
 
     @Override
@@ -81,17 +84,17 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
     public void setupViews() {
         alphabetText.setText(alphabet.getUppercase());
         alphabetText.setTextColor(textColor);
-        appearAndAnimate();
+        playIntro();
     }
 
     @Override
     public void pause() {
-
+        Playback.pause();
     }
 
     @Override
     public void resume() {
-
+        Playback.resume();
     }
 
     @Override
@@ -109,12 +112,37 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
         return false;
     }
 
+    void playIntro(){
+        Playback.play(alphabet.audio_res_intro, null, new Playback.PlaybackListener() {
+            @Override
+            public void onStart(String id) {
+
+            }
+
+            @Override
+            public void onDone(String id) {
+                getRootView().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        appearAndAnimate();
+                    }
+                }, 300);
+            }
+
+            @Override
+            public void onError(String id, Integer errorCode) {
+
+            }
+        });
+    }
+
     /**
      * Make the textView holding the alphabet appear and animate it.
      * This method is tied to the method playAppearAndAnimate, so that
      * no other method is called until they both finish. That's what the listeners are for.
      */
     void appearAndAnimate(){
+
         final String animate = "appearAndAnimate";
         final String sound = "playAppearAndAnimate";
         states.put(animate, false);
@@ -123,7 +151,7 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
         Activity.getInstance().getWindow().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float from = getResources().getInteger(R.integer.text_size_display3);
         float to = getResources().getInteger(R.integer.text_size_display4);
-        ValueAnimator animator = ObjectAnimator.ofFloat(alphabetText, "textSize", from, to);
+        final ValueAnimator animator = ObjectAnimator.ofFloat(alphabetText, "textSize", from, to);
         animator.setDuration(1000);
         animator.setStartDelay(200);
         final Retriever<Boolean> finishedListener = new Retriever<Boolean>() {
@@ -136,7 +164,7 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                playAppearAndAnimate(new Speech.PlaybackListener() {
+                playAppearAndAnimate(new Playback.PlaybackListener() {
                     @Override
                     public void onStart(String id) {
 
@@ -164,6 +192,7 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(animator);
                 states.put(animate, true);
                 if(finishedListener.retrieve()){ //if sound and animation finished, move to next method
                     getRootView().postDelayed(new Runnable() {
@@ -186,11 +215,11 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
 
             }
         });
-        animator.start();
+        Playback.play(animator);
     }
 
-    void playAppearAndAnimate(Speech.PlaybackListener playbackListener){
-        Speech.play(alphabet.aLUASound1, null, playbackListener);
+    void playAppearAndAnimate(Playback.PlaybackListener playbackListener){
+        Playback.play(alphabet.audio_res_ident, null, playbackListener);
     }
 
     /**
@@ -209,40 +238,85 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
                 return states.get(animate) && states.get(sound);
             }
         };
-        ViewAnimator.pop(alphabetText, new Collector<View>() {
+        float t = alphabetText.getX();
+        //ValueAnimator scaleAnimSmallX = ObjectAnimator.ofFloat(alphabetText, "scaleX", 1f, 0.5f);
+        //ValueAnimator scaleAnimSmallY = ObjectAnimator.ofFloat(alphabetText, "scaleY", 1f, 0.5f);
+        ValueAnimator scaleAnimLargeX = ObjectAnimator.ofFloat(alphabetText, "scaleX", 1f, 1.5f);
+        ValueAnimator scaleAnimLargeY = ObjectAnimator.ofFloat(alphabetText, "scaleY", 1f, 1.5f);
+        ValueAnimator scaleAnimNormX = ObjectAnimator.ofFloat(alphabetText, "scaleX", 1.5f, 1f);
+        ValueAnimator scaleAnimNormY = ObjectAnimator.ofFloat(alphabetText, "scaleY", 1.5f, 1f);
+        //ValueAnimator rotAnim1 = ObjectAnimator.ofFloat(alphabetText, "rotation", -45);
+        //ValueAnimator rotAnim2 = ObjectAnimator.ofFloat(alphabetText, "rotation", 25);
+        ValueAnimator colorAnimator = ObjectAnimator.ofInt(alphabetText, "textColor", alphabetText.getCurrentTextColor(), borderColor);
+        colorAnimator.setEvaluator(new ArgbEvaluator());
+        //ValueAnimator rotAnim3 = ObjectAnimator.ofFloat(alphabetText, "rotation", 0);
+
+        //scaleAnimSmallX.setDuration(500); scaleAnimSmallX.setInterpolator(new LinearInterpolator());
+        //scaleAnimSmallY.setDuration(500); scaleAnimSmallX.setInterpolator(new LinearInterpolator());
+        scaleAnimLargeX.setDuration(1000); scaleAnimLargeX.setInterpolator(new LinearInterpolator());
+        scaleAnimLargeY.setDuration(1000); scaleAnimLargeY.setInterpolator(new LinearInterpolator());
+        scaleAnimNormX.setDuration(1000); scaleAnimNormX.setInterpolator(new LinearInterpolator());
+        scaleAnimNormY.setDuration(1000); scaleAnimNormY.setInterpolator(new LinearInterpolator());
+        scaleAnimNormX.setStartDelay(1000);
+        scaleAnimNormY.setStartDelay(1000);
+        colorAnimator.setDuration(1000);
+
+        //rotAnim1.setDuration(200); rotAnim1.setInterpolator(new DecelerateInterpolator());
+        //rotAnim2.setDuration(500); rotAnim2.setInterpolator(new BounceInterpolator()); rotAnim2.setStartDelay(200);
+        //rotAnim3.setDuration(200); rotAnim3.setInterpolator(new AnticipateOvershootInterpolator()); rotAnim3.setStartDelay(1000);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(colorAnimator, scaleAnimLargeX, scaleAnimLargeY, scaleAnimNormX, scaleAnimNormY);
+        animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
-            public void collect(View view) {
+            public void onAnimationStart(Animator animation) {
+                playPopAnimate(new Playback.PlaybackListener() {
+                    @Override
+                    public void onStart(String id) {
+
+                    }
+
+                    @Override
+                    public void onDone(String id) {
+                        Log.d("Played Pop Animate");
+                        states.put(sound, true);
+                        if (finishListener.retrieve()) {
+                            end();
+                        }
+                    }
+
+                    @Override
+                    public void onError(String id, Integer errorCode) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Playback.uncommit(animatorSet);
                 states.put(animate, true);
-                if(finishListener.retrieve()){
-                    end();
-                }
-            }
-        });
-        playPopAnimate(new Speech.PlaybackListener() {
-            @Override
-            public void onStart(String id) {
-
-            }
-
-            @Override
-            public void onDone(String id) {
-                Log.d("Played Pop Animate");
-                states.put(sound, true);
-                if(finishListener.retrieve()){
+                if (finishListener.retrieve()) {
                     end();
                 }
             }
 
             @Override
-            public void onError(String id, Integer errorCode) {
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
+        Playback.play(animatorSet);
     }
 
-    void playPopAnimate(Speech.PlaybackListener playbackListener){
+    void playPopAnimate(Playback.PlaybackListener playbackListener){
         Log.d("Playing pop animate");
-        Speech.play(alphabet.aLUASound2, null, playbackListener);
+        Playback.play(alphabet.audio_res_cap_ident, null, playbackListener);
     }
 
     void end(){

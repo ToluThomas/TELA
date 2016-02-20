@@ -1,5 +1,6 @@
 package com.aun.tela.alphabets.application.util;
 
+import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -95,13 +96,75 @@ public class ViewAnimator {
                         break;
                     case MotionEvent.ACTION_UP:
                         spring.setEndValue(0f);
+                        v.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(onClickListener!=null)
+                                onClickListener.onClick(v);
+                            }
+                        });
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        spring.setEndValue(0f);
+                        break;
+                }
+                return false;
+            }
+        });
+        spring.addListener(listener);
+    }
+
+
+    public static void springifyScalable(final View view, final View.OnClickListener onClickListener){
+
+        SpringSystem springSystem = SpringSystem.create();
+        final Spring spring = springSystem.createSpring();
+        SpringConfig config = new SpringConfig(Constants.DEFAULT_TENSION, Constants.DEFAULT_DAMPER);
+        spring.setSpringConfig(config);
+        final SpringListener listener = new SpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float value = (float) spring.getCurrentValue();
+                float scale = 1f - (value * 0.5f);
+                view.setScaleX(scale);
+                view.setScaleY(scale);
+            }
+
+            @Override
+            public void onSpringAtRest(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringActivate(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringEndStateChange(Spring spring) {
+
+            }
+        };
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        spring.setEndValue(1f);
+                        break;
+                    case MotionEvent.ACTION_UP:
                         if(!Value.NULL(onClickListener)){
-                            v.postDelayed(new Runnable() {
+                            if(!spring.isAtRest())
+                                spring.setAtRest();
+                            v.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     onClickListener.onClick(v);
                                 }
-                            }, 50);
+                            });
+                        }else{
+                            spring.setEndValue(0f);
                         }
                         break;
                     case MotionEvent.ACTION_CANCEL:
@@ -121,7 +184,7 @@ public class ViewAnimator {
      * @param startDelay
      * @param duration
      */
-    public static void upDownify(View v, float offset, long startDelay, long duration){
+    public static void upDownify(final View v, float offset, long startDelay, long duration){
         float ty = v.getTranslationY();
         //PropertyValuesHolder x = PropertyValuesHolder.ofFloat("translationX", tx, tx + offset);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationY", ty, ty + offset);
@@ -131,8 +194,66 @@ public class ViewAnimator {
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.start();
     }
+
+    public static void leftRightify(final View v, float offset, long startDelay, long duration){
+        float ty = v.getTranslationX();
+        //PropertyValuesHolder x = PropertyValuesHolder.ofFloat("translationX", tx, tx + offset);
+        PropertyValuesHolder y = PropertyValuesHolder.ofFloat("translationX", ty, ty + offset);
+        ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, y);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setStartDelay(startDelay);
+        animator.setDuration(duration);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.start();
+    }
+
 
     /**
      * Animate a view by fading it out of visibility
@@ -141,11 +262,54 @@ public class ViewAnimator {
      * @param duration
      * @return
      */
-    public static ValueAnimator fadeOut(View v, long startDelay, long duration){
+    public static ValueAnimator fadeOut(final View v, long startDelay, long duration){
         ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 0f);
         animator.setStartDelay(startDelay);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.setDuration(duration);
         animator.setInterpolator(new DecelerateInterpolator());
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.start();
         return animator;
     }
@@ -157,11 +321,34 @@ public class ViewAnimator {
      * @param duration
      * @return
      */
-    public static ValueAnimator fadeIn(View v, long startDelay, long duration){
+    public static ValueAnimator fadeIn(final View v, long startDelay, long duration){
+        v.setVisibility(View.VISIBLE);
         ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 1f);
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new AccelerateInterpolator());
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.start();
         return animator;
     }
@@ -173,7 +360,8 @@ public class ViewAnimator {
      * @param duration
      * @return
      */
-    public static ValueAnimator popIn(View v, long startDelay, long duration){
+    @Deprecated
+    public static ValueAnimator popIn_(final View v, long startDelay, long duration){
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", v.getAlpha(), 1f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", v.getScaleX(), 1f);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", v.getScaleY(), 1f);
@@ -181,6 +369,28 @@ public class ViewAnimator {
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new AccelerateInterpolator());
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.start();
         return animator;
     }
@@ -192,33 +402,121 @@ public class ViewAnimator {
      * @param duration
      * @return
      */
-    public static ValueAnimator popOut(View v, long startDelay, long duration){
+    @Deprecated
+    public static ValueAnimator popOut_(final View v, long startDelay, long duration){
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", v.getAlpha(), 0f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", v.getScaleX(), 0f);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", v.getScaleY(), 0f);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, a, x, y);
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.setInterpolator(new DecelerateInterpolator());
         animator.start();
         return animator;
     }
 
-    public static ValueAnimator popInZero(View v, long startDelay, long duration){
+    public static ValueAnimator popInZero(final View v, long startDelay, long duration){
+        v.setClickable(true);
+        v.setAlpha(0f);
+        v.setVisibility(View.VISIBLE);
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", 0f, 1f);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", 0f, 1f);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, a, x, y);
         animator.setStartDelay(startDelay);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.setDuration(duration);
         animator.setInterpolator(new AccelerateInterpolator());
-        v.setClickable(true);
         v.setEnabled(true);
         animator.start();
         return animator;
     }
 
-    public static ValueAnimator popOutZero(View v, long startDelay, long duration){
+    public static ValueAnimator popInZero(final View v, float scaleX, float scaleY, long startDelay, long duration){
+        v.setClickable(true);
+        v.setAlpha(0f);
+        v.setVisibility(View.VISIBLE);
+        PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", 0f, 1f);
+        PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", 0f, scaleX);
+        PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", 0f, scaleY);
+        ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, a, x, y);
+        animator.setStartDelay(startDelay);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.setDuration(duration);
+        animator.setInterpolator(new AccelerateInterpolator());
+        v.setEnabled(true);
+        animator.start();
+        return animator;
+    }
+
+    public static ValueAnimator popOutZero(final View v, long startDelay, long duration){
+        v.setClickable(false);
+        v.setAlpha(1f);
+        v.setVisibility(View.VISIBLE);
         PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", 1f, 0f);
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", 1f, 0f);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", 1f, 0f);
@@ -226,7 +524,28 @@ public class ViewAnimator {
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new DecelerateInterpolator());
-        v.setClickable(false);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         v.setEnabled(false);
         animator.start();
         return animator;
@@ -242,11 +561,33 @@ public class ViewAnimator {
      * @param to
      * @return
      */
-    public static ValueAnimator color(View v, String property, long startDelay, long duration, int from, int to){
+    public static ValueAnimator color(final View v, String property, long startDelay, long duration, int from, int to){
         ValueAnimator animator = ObjectAnimator.ofInt(v, property, from, to);
         animator.setEvaluator(new ArgbEvaluator());
         animator.setDuration(duration);
         animator.setStartDelay(startDelay);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
         animator.start();
         return animator;
     }
