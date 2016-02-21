@@ -8,4 +8,5 @@
     <dimen name="border_width_small_list_item">24dp</dimen>
     <dimen name="buttonSize">100dp</dimen>
     <dimen name="alpha_learning_list_content_height">200dp</dimen>
+    <dimen name="buttonSize_half">50dp</dimen>
 </resources>

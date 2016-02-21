@@ -97,6 +97,18 @@
 
 
             </com.aun.tela.alphabets.application.gui.custom.BarColorView>
+            
+            <ImageView
+                android:id="@+id/boy"
+                android:alpha="0"
+                android:layout_gravity="bottom|right"
+                android:layout_width="200dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:src="@drawable/boy2"
+                android:layout_height="200dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -247,13 +259,7 @@
 
     </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
 
-
-    <View
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
-        android:background="@color/transparent"
-        android:layout_height="match_parent"/>
+    
 
 
 

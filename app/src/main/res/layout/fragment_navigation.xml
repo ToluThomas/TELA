@@ -61,7 +61,7 @@
 
             <ImageView
                 android:layout_width="300dp"
-                android:src="@drawable/girl1"
+                android:src="@drawable/boy2"
                 android:layout_gravity="center"
                 android:layout_height="300dp" />
 
@@ -111,7 +111,7 @@
 
             <ImageView
                 android:layout_width="300dp"
-                android:src="@drawable/girl2"
+                android:src="@drawable/girl1"
                 android:layout_gravity="center|bottom"
                 android:layout_height="300dp" />
 

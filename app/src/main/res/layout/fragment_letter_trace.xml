@@ -115,6 +115,16 @@
                         android:layout_marginBottom="30dp"
                         android:layout_height="match_parent" />
 
+                    <ImageView
+                        android:id="@+id/boy"
+                        android:alpha="0"
+                        android:layout_gravity="bottom|right"
+                        android:layout_width="200dp"
+                        android:src="@drawable/boy2"
+                        android:clickable="true"
+                        android:layout_height="200dp" />
+
+
                 </com.aun.tela.alphabets.application.gui.custom.BarColorView>
 
 

@@ -15,7 +15,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -46,12 +45,13 @@ import io.meengle.androidutil.gui.fragment.Fragtivity;
 public class LetterIdentificationFragment extends Fragtivity {
 
     ImageView grass1, grass2, grass3, grass4;
-    CircularColorView back, next, prev;
+    CircularColorView back, next, prev, done_next, done_prev;
     int level = 5;
     Collector backCollector;
     FrameLayout animationContainer;
     ViewTreeObserver.OnGlobalLayoutListener layoutListener;
-    BarColorView animationBar, starBar;
+    BarColorView starBar, winPanel;
+    FrameLayout animationBar;
     Factory.Alphabets.Alphabet alphabet = Factory.Alphabets.build("a");
     ArialTextView basketAlpha1, basketAlpha2, basketAlpha3, basketAlpha4, basketAlpha5;
     int score = 0;
@@ -113,6 +113,10 @@ public class LetterIdentificationFragment extends Fragtivity {
         next = (CircularColorView) findViewById(R.id.next);
         prev = (CircularColorView) findViewById(R.id.prev);
         starBar = (BarColorView) findViewById(R.id.starBar);
+        winPanel = (BarColorView) findViewById(R.id.winPanel);
+        done_next = (CircularColorView) findViewById(R.id.done_next);
+        done_prev = (CircularColorView) findViewById(R.id.done_prev);
+        animationBar = (FrameLayout) findViewById(R.id.animationBar);
         animationContainer = (FrameLayout) findViewById(R.id.animationContainer);
         //animationBar = (BarColorView) findViewById(R.id.animationBar);
         //currentAlphabet = (ArialTextView) findViewById(R.id.currentAlphabet);
@@ -136,6 +140,9 @@ public class LetterIdentificationFragment extends Fragtivity {
         next.setCircularColor(textColor);
         prev.setCircularColor(textColor);
         back.setCircularColor(textColor);
+        winPanel.setBorderColor(textColor);
+        done_next.setCircularColor(textColor);
+        done_prev.setCircularColor(textColor);
 
         ViewAnimator.leftRightify(grass1, 4, 1000, 4000);
         ViewAnimator.leftRightify(grass2, 4, 450, 2500);
@@ -597,14 +604,39 @@ public class LetterIdentificationFragment extends Fragtivity {
 
     void passed(){
         Log.d("Passed");
-        PropertyValuesHolder stX = PropertyValuesHolder.ofFloat("translationX", starBar.getTranslationX(), 0);
-        PropertyValuesHolder stY = PropertyValuesHolder.ofFloat("translationY", starBar.getTranslationY(), 0);
+        if(alphabet.getLowerCase().equals("a")) {
+            done_prev.setVisibility(View.GONE);
+        }
+        if(alphabet.getLowerCase().equals("z")){
+            done_next.setVisibility(View.GONE);
+        }
+        ViewAnimator.upDownify(done_next, 10, 0, 1000);
+        ViewAnimator.upDownify(done_prev, 10, 0, 1000);
+        done_next.setClickable(true);
+        done_prev.setClickable(true);
+        ViewAnimator.popOutZero(animationContainer, 0, 300);
+        ViewAnimator.popOutZero(animationBar, 0, 300);
+        ViewAnimator.popOutZero(next, 0, 300);
+        ViewAnimator.popOutZero(prev, 0, 300);
+        ViewAnimator.popOutZero(starBar, 0, 400);
+        ViewAnimator.popInZero(findViewById(R.id.winView), 0, 400);
+        ViewAnimator.springify(done_next, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Factory.Alphabets.getPosition(alphabet.getLowerCase());
+                position++;
+                Activity.replace(LetterIdentificationFragment.getInstance(Factory.Alphabets.build(Factory.Alphabets.ALPHABETS_LOWERCASE.get(position)), textColor, borderColor, null));
+            }
+        });
 
-        ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(starBar, stX, stY);
-        animator.setDuration(1200);
-        animator.setInterpolator(new AnticipateOvershootInterpolator());
-        animator.setStartDelay(300);
-        animator.start();
+        ViewAnimator.springify(done_prev, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = Factory.Alphabets.getPosition(alphabet.getLowerCase());
+                position--;
+                Activity.replace(LetterIdentificationFragment.getInstance(Factory.Alphabets.build(Factory.Alphabets.ALPHABETS_LOWERCASE.get(position)), textColor, borderColor, null));
+            }
+        });
     }
 
     void reset(){

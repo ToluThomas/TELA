@@ -71,14 +71,14 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
         this.borderColor = color; return this;
     }
 
-    View slidingView, slidingContent, overlay;
+    View slidingView, slidingContent;
     RecyclerView recyclerView;
     SlidingUpPanelLayout slidingLayout;
     ImageButton chevron, pauseButton, replayButton;
     CircularColorView back, next, pause, dragView;
     boolean pausedByPanel = false;
     Factory.Alphabets.Alphabet alphabet;
-    ImageView grass4, grass3, grass2, grass1;
+    ImageView grass4, grass3, grass2, grass1, boy;
     int textColor, borderColor;
     BarColorView panel;
 
@@ -111,7 +111,6 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
         slidingView = findViewById(R.id.slidingView);
         slidingContent = findViewById(R.id.slidingContent);
         dragView = (CircularColorView) findViewById(R.id.dragView);
-        overlay = findViewById(R.id.overlay);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         slidingLayout = (SlidingUpPanelLayout) findViewById(R.id.slidingLayout);
         chevron = (ImageButton) findViewById(R.id.chevron);
@@ -124,6 +123,7 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
         grass1 = (ImageView) findViewById(R.id.grass1);
         grass2 = (ImageView) findViewById(R.id.grass2);
         grass3 = (ImageView) findViewById(R.id.grass3);
+        boy = (ImageView) findViewById(R.id.boy);
         grass4 = (ImageView) findViewById(R.id.grass4);
         panel = (BarColorView) findViewById(R.id.panel);
     }
@@ -163,6 +163,23 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
         PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", panel.getScaleX(), 1f);
         PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", panel.getScaleY(), 1f);
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(panel, x, y);
+        switch (new Random().nextInt(5)){
+            case 0:
+                boy.setImageResource(R.drawable.boy1);
+                break;
+            case 1:
+                boy.setImageResource(R.drawable.boy2);
+                break;
+            case 2:
+                boy.setImageResource(R.drawable.girl1);
+                break;
+            case 3:
+                boy.setImageResource(R.drawable.girl2);
+                break;
+            case 4:
+                boy.setImageResource(R.drawable.girl3);
+                break;
+        }
         animator.setDuration(500);
         animator.setInterpolator(new AnticipateOvershootInterpolator());
         animator.addListener(new Animator.AnimatorListener() {
@@ -173,6 +190,7 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                ViewAnimator.popInZero(boy, 700, 300);
                 //panel.setLayerType(View.LAYER_TYPE_NONE, null);
             }
 
@@ -323,15 +341,11 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
     @Override
     public void pause() {
         Playback.pause();
-        if(!Value.NULL(overlay))
-            overlay.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void resume() {
         Playback.resume();
-        if(!Value.NULL(overlay))
-            overlay.setVisibility(View.INVISIBLE);
     }
 
     @Override

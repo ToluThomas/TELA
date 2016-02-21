@@ -48,7 +48,7 @@ public class LetterTraceFragment extends Fragtivity implements SlidingUpPanelLay
     RecyclerView recyclerView;
     SlidingUpPanelLayout slidingLayout;
     GenericRecyclerViewItemAdapter<String, ViewHolder> adapter;
-    ImageView grass4, grass3, grass2, grass1;
+    ImageView grass4, grass3, grass2, grass1, boy;
 
     public static LetterTraceFragment getInstance(int textColor, int borderColor, Factory.Alphabets.Alphabet alphabet, Collector backCollector){
         return new LetterTraceFragment().setColors(textColor, borderColor).setAlphabet(alphabet).setCollector(backCollector);
@@ -100,6 +100,7 @@ public class LetterTraceFragment extends Fragtivity implements SlidingUpPanelLay
         grass2 = (ImageView) findViewById(R.id.grass2);
         grass3 = (ImageView) findViewById(R.id.grass3);
         grass4 = (ImageView) findViewById(R.id.grass4);
+        boy = (ImageView) findViewById(R.id.boy);
     }
 
     @Override
@@ -130,6 +131,25 @@ public class LetterTraceFragment extends Fragtivity implements SlidingUpPanelLay
         panelButton.setBorderColor(textColor);
 
         letterTraceView.setColor(textColor);
+        switch (new Random().nextInt(5)){
+            case 0:
+                boy.setImageResource(R.drawable.boy1);
+                break;
+            case 1:
+                boy.setImageResource(R.drawable.boy2);
+                break;
+            case 2:
+                boy.setImageResource(R.drawable.girl1);
+                break;
+            case 3:
+                boy.setImageResource(R.drawable.girl2);
+                break;
+            case 4:
+                boy.setImageResource(R.drawable.girl3);
+                break;
+        }
+
+        ViewAnimator.popInZero(boy, 700, 300);
 
         ViewAnimator.springify(back, new View.OnClickListener() {
             @Override
