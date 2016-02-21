@@ -15,6 +15,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -414,7 +415,7 @@ public class LetterIdentificationFragment extends Fragtivity {
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(starnimate, sX, sY);
         ValueAnimator alphaAnimator = ObjectAnimator.ofPropertyValuesHolder(starnimate, a);
         alphaAnimator.setDuration(300);
-        animator.setDuration(500);
+        animator.setDuration(1200);
         animator.setInterpolator(new BounceInterpolator());
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -460,7 +461,7 @@ public class LetterIdentificationFragment extends Fragtivity {
 
         ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(starnimate, x, y, sx, sy);
         animator.setInterpolator(new AnticipateInterpolator());
-        animator.setDuration(500);
+        animator.setDuration(1000);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -595,7 +596,15 @@ public class LetterIdentificationFragment extends Fragtivity {
     }
 
     void passed(){
+        Log.d("Passed");
+        PropertyValuesHolder stX = PropertyValuesHolder.ofFloat("translationX", starBar.getTranslationX(), 0);
+        PropertyValuesHolder stY = PropertyValuesHolder.ofFloat("translationY", starBar.getTranslationY(), 0);
 
+        ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(starBar, stX, stY);
+        animator.setDuration(1200);
+        animator.setInterpolator(new AnticipateOvershootInterpolator());
+        animator.setStartDelay(300);
+        animator.start();
     }
 
     void reset(){
@@ -608,7 +617,6 @@ public class LetterIdentificationFragment extends Fragtivity {
 
     @Override
     public void pause() {
-
     }
 
     @Override

@@ -109,6 +109,10 @@
                     <com.aun.tela.alphabets.application.gui.fragments.LetterTraceView
                         android:id="@+id/traceView"
                         android:layout_width="match_parent"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginRight="80dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:layout_height="match_parent" />
 
                 </com.aun.tela.alphabets.application.gui.custom.BarColorView>
