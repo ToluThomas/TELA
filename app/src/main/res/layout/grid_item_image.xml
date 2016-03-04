@@ -6,7 +6,6 @@
     <com.aun.tela.alphabets.application.gui.custom.SquareImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:src="@drawable/letter_identification_bevel"
         android:layout_height="match_parent" />
 
 </FrameLayout>

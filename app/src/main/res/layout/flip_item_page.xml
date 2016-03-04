@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+    <ProgressBar
+        android:layout_width="100dp"
+        android:id="@+id/progress"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        android:layout_height="100dp" />
+    
+    <com.aun.tela.alphabets.application.gui.custom.CircularColorView
+        android:layout_width="50dp"
+        app:border_color="@color/black"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="8dp"
+        app:border_width="4dp"
+        app:circular_color="@color/white"
+        android:layout_height="50dp">
+
+        <com.aun.tela.alphabets.application.gui.custom.ArialTextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_size_small"
+            android:id="@+id/pageNumber"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+
+    </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+</FrameLayout>

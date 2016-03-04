@@ -95,6 +95,9 @@ public class LetterNavigationFragment extends Fragtivity {
         items.add(new Item(0, R.drawable.letter_watch_bevel));
         items.add(new Item(1, R.drawable.letter_identification_bevel));
         items.add(new Item(2, R.drawable.letter_trace_bevel));
+        items.add(new Item(3, R.drawable.icon_letter_sounds));
+        items.add(new Item(6, R.drawable.icon_consonants));
+        items.add(new Item(7, R.drawable.icon_reading));
 
         ViewAnimator.popInZero(back, 200, 300);
         ViewAnimator.upDownify(back, 10, 200, 800);
@@ -231,6 +234,12 @@ public class LetterNavigationFragment extends Fragtivity {
         grid.addHeaderView(v);
         //ViewAnimator.upDownify(v, 10, 500, 1000);
         View u = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.alpha_empty_footer, grid, false);
+        ViewAnimator.springify(u.findViewById(R.id.image), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity.replace(new BookPreviewFragment());
+            }
+        });
         grid.addFooterView(u);
     }
 
@@ -259,6 +268,18 @@ public class LetterNavigationFragment extends Fragtivity {
                         Activity.replace(new LetterNavigationFragment());
                     }
                 }));
+                break;
+            case 3:
+                Activity.replace(LetterSoundNavigationFragment.getInstance(textColor, borderColor));
+                break;
+            case 5:
+                Activity.replace(VoweNavigationFragment.getInstance(textColor, borderColor));
+                break;
+            case 6:
+                Activity.replace(ConsonantNavigationFragment.getInstance(textColor, borderColor));
+                break;
+            case 7:
+                Activity.replace(ReadingNavigationFragment.getInstance(textColor, borderColor));
                 break;
         }
     }

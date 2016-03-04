@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/3dFlipLibrary/3dFlipLibrary.iml" filepath="$PROJECT_DIR$/3dFlipLibrary/3dFlipLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/TELA.iml" filepath="$PROJECT_DIR$/TELA.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

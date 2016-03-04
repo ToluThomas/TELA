@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 46,
+                    "endOffset": 97
+                },
+                "from": {
+                    "file": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/values/values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 46,
+                        "endOffset": 97
+                    }
+                }
+            }
+        ]
+    }
+]

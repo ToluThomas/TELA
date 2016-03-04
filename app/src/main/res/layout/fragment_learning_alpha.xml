@@ -8,7 +8,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:scaleType="fitXY"
-
         android:src="@drawable/ui_land_detail"
         android:layout_height="match_parent" />
 

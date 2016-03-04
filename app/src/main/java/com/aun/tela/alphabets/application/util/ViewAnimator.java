@@ -58,6 +58,7 @@ public class ViewAnimator {
      */
     public static void springify(final View view, final View.OnClickListener onClickListener, double tension, double damper){
 
+        view.setClickable(true);
         SpringSystem springSystem = SpringSystem.create();
         final Spring spring = springSystem.createSpring();
         SpringConfig config = new SpringConfig(tension, damper);
@@ -322,8 +323,9 @@ public class ViewAnimator {
      * @return
      */
     public static ValueAnimator fadeIn(final View v, long startDelay, long duration){
+        v.setAlpha(0);
         v.setVisibility(View.VISIBLE);
-        ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", v.getAlpha(), 1f);
+        ValueAnimator animator = ObjectAnimator.ofFloat(v, "alpha", 0f, 1f);
         animator.setStartDelay(startDelay);
         animator.setDuration(duration);
         animator.setInterpolator(new AccelerateInterpolator());

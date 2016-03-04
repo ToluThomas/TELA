@@ -390,8 +390,6 @@ public class LetterWatchFragment extends Fragtivity {
         PropertyValuesHolder vsy = PropertyValuesHolder.ofFloat("scaleY", view.getScaleY(), getRootView().getHeight());
         int targetSX = getResources().getDimensionPixelSize(R.dimen.text_size_display4) / textView.getWidth();
         int targetSy = getResources().getDimensionPixelSize(R.dimen.text_size_display4) / textView.getHeight();
-        PropertyValuesHolder sx = PropertyValuesHolder.ofFloat("scaleX", textView.getScaleX(), targetSX);
-        PropertyValuesHolder sy = PropertyValuesHolder.ofFloat("scaleX", textView.getScaleY(), targetSy);
         ValueAnimator centerTextAnimator = ObjectAnimator.ofPropertyValuesHolder(textView, tx, ty);
         final ValueAnimator centerViewAnimator = ObjectAnimator.ofPropertyValuesHolder(view, vtx, vty, vsx, vsy);
         centerViewAnimator.setInterpolator(new AccelerateDecelerateInterpolator());

@@ -564,7 +564,11 @@ public class LetterIdentificationFragment extends Fragtivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        removeCurrentLetter(scoreOrFail);
+                        try {
+                            removeCurrentLetter(scoreOrFail);
+                        }catch (Exception e){
+
+                        }
                     }
 
                     @Override

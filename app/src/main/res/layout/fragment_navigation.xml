@@ -48,6 +48,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/ui"
         android:layout_width="match_parent"
         android:layout_gravity="center|bottom"
         android:orientation="horizontal"
@@ -192,6 +193,11 @@
 
    </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/hud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <com.aun.tela.alphabets.application.gui.custom.CircularColorView
         android:id="@+id/back"
@@ -218,6 +224,8 @@
 
 
     </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
+
+        </FrameLayout>
 
 
 </FrameLayout>

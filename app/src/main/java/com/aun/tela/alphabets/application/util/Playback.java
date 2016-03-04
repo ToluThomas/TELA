@@ -79,16 +79,20 @@ public class Playback {
 
     public static void release(){
         try {
-            if (!Value.NULL(player)) {
-                player.stop();
-                player.release();
-                player.reset();
+            try {
+                if (!Value.NULL(player)) {
+                    player.stop();
+                    player.release();
+                    player.reset();
+                }
+            } catch (IllegalStateException e) {
+
             }
-        }catch (IllegalStateException e){
+            stopAnimators();
+            animators.clear();
+        }catch (Exception e){
 
         }
-        stopAnimators();
-        animators.clear();
     }
 
     public static void stopAnimators(){
@@ -147,8 +151,10 @@ public class Playback {
     public static void play(Animator... animators){
         commit(animators);
         paused = false;
-        for(Animator animator: animators)
+        for(Animator animator: animators) {
+            if(!animator.isRunning())
             animator.start();
+        }
     }
 
     public static void playEvenIfPaused(Animator... animators){
@@ -182,9 +188,35 @@ public class Playback {
         return paused;
     }
 
-    private static void commit(Animator... animators){
-        for(Animator animator : animators)
+    private static void commit(final Animator... animators){
+        for(Animator animator : animators) {
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    try{
+                        uncommit(animation);
+                    }catch (Exception e){
+
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
             Playback.animators.add(animator);
+        }
     }
 
     public static void uncommit(Animator... animators){

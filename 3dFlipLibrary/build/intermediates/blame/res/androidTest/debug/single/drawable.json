@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/drawable/icon.png",
+        "source": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/drawable/icon.png"
+    },
+    {
+        "merged": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/drawable/world.gif",
+        "source": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/drawable/world.gif"
+    },
+    {
+        "merged": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/drawable/taipei_101.jpg",
+        "source": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/drawable/taipei_101.jpg"
+    },
+    {
+        "merged": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/drawable/obama.jpg",
+        "source": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/drawable/obama.jpg"
+    },
+    {
+        "merged": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/res/merged/androidTest/debug/drawable/road_rage.jpg",
+        "source": "/Users/Joey/Workspace/AndroidStudio/TELA/3dFlipLibrary/build/intermediates/bundles/debug/res/drawable/road_rage.jpg"
+    }
+]

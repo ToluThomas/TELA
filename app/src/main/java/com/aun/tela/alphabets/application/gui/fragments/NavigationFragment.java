@@ -1,5 +1,6 @@
 package com.aun.tela.alphabets.application.gui.fragments;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -129,6 +130,29 @@ public class NavigationFragment extends Fragtivity {
 
 
     void closeApp(){
+        View hud = findViewById(R.id.hud);
+        View ui = findViewById(R.id.ui);
+        ViewAnimator.fadeOut(hud, 0, 500);
+        ViewAnimator.fadeOut(ui, 200, 500).addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Activity.getInstance().finish();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 }
