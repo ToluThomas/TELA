@@ -30,6 +30,7 @@ public class NavigationFragment extends Fragtivity {
     int borderColor = Color.random();
     ImageView grass1, grass2, grass3, grass4;
 
+
     @Override
     public int layoutId() {
         return R.layout.fragment_navigation;

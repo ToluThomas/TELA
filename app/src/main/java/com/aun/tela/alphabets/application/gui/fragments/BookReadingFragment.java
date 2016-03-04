@@ -198,6 +198,7 @@ public class BookReadingFragment extends Fragtivity {
             }
         });
 
+
     }
 
     @Override

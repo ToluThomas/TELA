@@ -37,6 +37,7 @@ public class AlphaLearningLowcaseAnimation extends Fragtivity implements Collect
         return f;
     }
 
+
     public AlphaLearningLowcaseAnimation setAlphabet(Factory.Alphabets.Alphabet alphabet){
         this.alphabet = alphabet; return this;
     }

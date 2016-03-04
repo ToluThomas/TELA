@@ -44,6 +44,7 @@ public class LetterIdentificationNavigationFragment extends Fragtivity {
     GenericItemAdapter<String, ViewHolder> adapter;
     Collector backCollector;
 
+
     public static LetterIdentificationNavigationFragment getInstance(int textColor, int borderColor, Collector backCollector){
         return new LetterIdentificationNavigationFragment().setTextColor(textColor).setBorderColor(borderColor).setBackCollector(backCollector);
     }

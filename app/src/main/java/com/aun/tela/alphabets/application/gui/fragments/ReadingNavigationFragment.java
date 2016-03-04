@@ -33,6 +33,7 @@ public class ReadingNavigationFragment extends Fragtivity {
     HeaderFooterGridView grid;
     CircularColorView back, up, down;
     GenericItemAdapter<BookItem, ViewHolder> adapter;
+    
     int textColor, borderColor;
 
     public static ReadingNavigationFragment getInstance(int textColor, int borderColor){

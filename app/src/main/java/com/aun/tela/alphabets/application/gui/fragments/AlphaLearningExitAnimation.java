@@ -34,6 +34,7 @@ public class AlphaLearningExitAnimation extends Fragtivity implements Collector<
     TextView alphabetUppercaseTop, alphabetLowercaseTop, alphabetUppercaseCenter, alphabetLowercaseCenter;
     Collector<Boolean> finishCollector;
     Factory.Alphabets.Alphabet alphabet;
+
     int textColor, borderColor;
     Map<String, Boolean> states = new HashMap<>();
 

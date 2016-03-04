@@ -63,6 +63,7 @@ public class ViewAnimator {
         final Spring spring = springSystem.createSpring();
         SpringConfig config = new SpringConfig(tension, damper);
         spring.setSpringConfig(config);
+        
         final SpringListener listener = new SpringListener() {
             @Override
             public void onSpringUpdate(Spring spring) {

@@ -453,6 +453,7 @@ public class ConsonantAnimationFragment extends Fragtivity {
             @Override
             public void onStart(String id) {
 
+
             }
 
             @Override

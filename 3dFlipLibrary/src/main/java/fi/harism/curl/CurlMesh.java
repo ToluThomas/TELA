@@ -16,17 +16,17 @@
 
 package fi.harism.curl;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.opengles.GL10;
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.opengl.GLUtils;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Class implementing actual curl/page rendering.
@@ -34,6 +34,7 @@ import android.opengl.GLUtils;
  * @author harism
  */
 public class CurlMesh {
+
 
 	// Flag for rendering some lines used for developing. Shows
 	// curl position and one for the direction from the

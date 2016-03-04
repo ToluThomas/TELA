@@ -234,6 +234,7 @@ public class BookPreviewFragment extends Fragtivity {
                     break;
                     */
             //}
+
         }
 
     }

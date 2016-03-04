@@ -17,7 +17,6 @@
             android:src="@drawable/rainbow_background"
             android:layout_height="match_parent" />
 
-
     </FrameLayout>
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout

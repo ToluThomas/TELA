@@ -215,6 +215,7 @@ public class Playback {
 
                 }
             });
+
             Playback.animators.add(animator);
         }
     }

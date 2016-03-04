@@ -18,5 +18,4 @@
         android:translationY="30dp"
         android:textSize="@dimen/text_size_display3"
         android:layout_height="wrap_content" />
-
 </FrameLayout>

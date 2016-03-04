@@ -16,16 +16,16 @@
 
 package fi.harism.curl;
 
-import java.util.Vector;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
+
+import java.util.Vector;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Actual renderer class.
@@ -263,4 +263,5 @@ public class CurlRenderer implements GLSurfaceView.Renderer {
 		 */
 		public void onSurfaceCreated();
 	}
+
 }

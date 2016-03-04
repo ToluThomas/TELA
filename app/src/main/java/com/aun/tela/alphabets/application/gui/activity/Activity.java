@@ -12,6 +12,7 @@ import io.meengle.util.Value;
 
 public class Activity extends AppCompatActivity {
 
+
     /**
      * For now, this is the only activity on which the entire application is run.
      */

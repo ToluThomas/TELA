@@ -29,6 +29,7 @@ public class LetterTraceView extends View{
 
     public LetterTraceView(Context context) {
         super(context);
+
         init();
     }
 

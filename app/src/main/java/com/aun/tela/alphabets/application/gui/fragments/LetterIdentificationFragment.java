@@ -50,6 +50,7 @@ public class LetterIdentificationFragment extends Fragtivity {
     Collector backCollector;
     FrameLayout animationContainer;
     ViewTreeObserver.OnGlobalLayoutListener layoutListener;
+
     BarColorView starBar, winPanel;
     FrameLayout animationBar;
     Factory.Alphabets.Alphabet alphabet = Factory.Alphabets.build("a");

@@ -810,4 +810,5 @@ public class CurlView extends GLSurfaceView implements View.OnTouchListener,
 		public void onSizeChanged(int width, int height);
 	}
 
+
 }

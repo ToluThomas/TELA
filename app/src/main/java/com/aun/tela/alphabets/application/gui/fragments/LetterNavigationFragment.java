@@ -230,6 +230,7 @@ public class LetterNavigationFragment extends Fragtivity {
         bar.setBarColor(textColor);
         bar.setBorderColor(Color.WHITE);
         text.setTextColor(Color.WHITE);
+
         text.setText("ABC");
         grid.addHeaderView(v);
         //ViewAnimator.upDownify(v, 10, 500, 1000);

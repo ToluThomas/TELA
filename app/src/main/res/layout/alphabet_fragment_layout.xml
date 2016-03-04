@@ -7,7 +7,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
-
     <TextView
         android:id="@+id/letter_big"
         android:layout_width="wrap_content"

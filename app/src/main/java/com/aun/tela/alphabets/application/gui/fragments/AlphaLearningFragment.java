@@ -96,6 +96,7 @@ public class AlphaLearningFragment extends Fragtivity implements SlidingUpPanelL
         Playback.release();
     }
 
+
     @Override
     public void destroyView() {
 

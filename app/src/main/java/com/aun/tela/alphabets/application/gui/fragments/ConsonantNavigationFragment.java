@@ -118,6 +118,7 @@ public class ConsonantNavigationFragment extends Fragtivity {
                 left();
             }
         });
+
         ViewAnimator.springify(right, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

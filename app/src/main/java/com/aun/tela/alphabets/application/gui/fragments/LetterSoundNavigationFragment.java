@@ -224,6 +224,7 @@ public class LetterSoundNavigationFragment extends Fragtivity{
         }
     }
 
+
     void next(){
         try{
             recyclerView.smoothScrollBy(recyclerView.getChildAt(0).getWidth() * 3, 0);

@@ -44,6 +44,7 @@ public class LetterTraceFragment extends Fragtivity implements SlidingUpPanelLay
     LetterTraceView letterTraceView;
     TextView alphabetText;
     Collector backCollector;
+
     Factory.Alphabets.Alphabet alphabet;
     RecyclerView recyclerView;
     SlidingUpPanelLayout slidingLayout;

@@ -39,6 +39,7 @@ public class AlphaLearningUpcaseAnimation extends Fragtivity implements Collecto
         return f;
     }
 
+
     public AlphaLearningUpcaseAnimation setFinishCollector(Collector<Boolean> finishCollector){
         this.finishCollector = finishCollector; return this;
     }

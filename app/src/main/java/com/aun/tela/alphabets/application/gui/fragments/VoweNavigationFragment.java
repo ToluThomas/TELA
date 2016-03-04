@@ -43,6 +43,7 @@ public class VoweNavigationFragment extends Fragtivity {
     BarColorView headerBar;
     RecyclerView recyclerView;
     int textColor, borderColor;
+
     GenericRecyclerViewItemAdapter<String, ViewHolder> adapter;
     int state = 0;
     VowelAnimationFragment animationFragment;

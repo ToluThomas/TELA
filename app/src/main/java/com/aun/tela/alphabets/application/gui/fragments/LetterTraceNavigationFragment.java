@@ -41,6 +41,7 @@ public class LetterTraceNavigationFragment extends Fragtivity {
     HeaderFooterGridView alphabetGrid;
     int textColor, borderColor;
     GenericItemAdapter<String, ViewHolder> adapter;
+
     Collector backCollector;
 
     public static LetterTraceNavigationFragment getInstance(int textColor, int borderColor, Collector backCollector){

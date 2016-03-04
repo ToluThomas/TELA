@@ -24,6 +24,7 @@ public class PageAdapter<T extends Fragment> extends FragmentStatePagerAdapter {
         this.fragments = f;
     }
 
+
     public PageAdapter(FragmentManager fm, List<T> f, List<String> titles) {
         this(fm, f);
         this.titles = titles;

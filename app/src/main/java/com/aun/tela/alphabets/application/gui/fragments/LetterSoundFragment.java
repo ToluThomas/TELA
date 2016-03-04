@@ -417,6 +417,7 @@ public class LetterSoundFragment extends Fragtivity implements SlidingUpPanelLay
         animator.setRepeatCount(1);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.setDuration(500);
+
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

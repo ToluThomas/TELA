@@ -26,4 +26,5 @@
         android:src="@drawable/pen_trace"
         android:layout_height="match_parent" />
 
+
 </FrameLayout>

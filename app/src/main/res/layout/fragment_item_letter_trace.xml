@@ -15,7 +15,6 @@
         app:bar_radius="8dp"
         android:layout_height="match_parent">
 
-
     </com.aun.tela.alphabets.application.gui.custom.BarColorView>
 
 </FrameLayout>

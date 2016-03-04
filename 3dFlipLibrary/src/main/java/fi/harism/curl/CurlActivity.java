@@ -31,7 +31,6 @@ import android.os.Bundle;
  * @author harism
  */
 public class CurlActivity extends Activity {
-
 	private CurlView mCurlView;
 
 	@Override

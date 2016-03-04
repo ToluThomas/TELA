@@ -123,7 +123,6 @@ public class Factory {
                 }
                 return new LetterSound(alp, introIdentResId, introSoundResId, soundResId, wordIntroResId, words);
             }
-
         }
 
         /**

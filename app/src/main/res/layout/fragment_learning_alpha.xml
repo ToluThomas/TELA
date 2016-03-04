@@ -258,10 +258,6 @@
 
     </com.aun.tela.alphabets.application.gui.custom.CircularColorView>
 
-    
-
-
-
     <com.aun.tela.alphabets.application.gui.custom.CircularColorView
         android:id="@+id/pause"
         android:layout_width="@dimen/buttonSize"

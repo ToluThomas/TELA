@@ -95,6 +95,7 @@ public class LetterWatchFragment extends Fragtivity {
         back = (CircularColorView) findViewById(R.id.back);
         alphabetGrid = (HeaderFooterGridView) findViewById(R.id.alphaGrid);
         scrollDown = (CircularColorView) findViewById(R.id.scrollDown);
+
         scrollUp = (CircularColorView) findViewById(R.id.scrollUp);
     }
 

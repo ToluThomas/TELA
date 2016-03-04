@@ -198,6 +198,7 @@ public class AlphaLearningWordAnimation extends Fragtivity implements Collector<
             String t = String.valueOf(text[i]);
             textView.setText(i < 1 ? t.toUpperCase() : t);
 
+
             if(Value.Same.STRING(t.toLowerCase(), alphabet.getLowerCase())) {
                 textView.setTextColor(textColor); /** if the alphabet is one of the alphabets were working with, make its text color different */
                 positions.put(i, i < 1); /** the add the position to our map which holds the positions for our alphabet. If the position is 0, then it's going to be in uppercase */

@@ -41,6 +41,7 @@ public class VowelAnimationFragment extends Fragtivity {
     LinearLayout centerTextLayout;
     ImageView image;
 
+
     public static VowelAnimationFragment getInstance(int textColor, int borderColor, Factory.Alphabets.Consonant consonant){
         return new VowelAnimationFragment().setInstanceStuff(textColor, borderColor, consonant);
     }
