@@ -158,7 +158,7 @@ public class LetterSoundFragment extends Fragtivity implements SlidingUpPanelLay
         recyclerView.setLayoutManager(layoutManager);
         getRootView().getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
 
-        List<String> items = Factory.Alphabets.copyAlphabetsUppercase();
+        List<String> items = Factory.Alphabets.LetterSound.copyLetterSounds();
         final Random rand = new Random();
 
         //create an adapter for the list that shows up at the bottom of the list.
@@ -1122,21 +1122,11 @@ public class LetterSoundFragment extends Fragtivity implements SlidingUpPanelLay
     }
 
     void next(){
-        int currentPosition = Factory.Alphabets.getPosition(letterSound.alphabet);
-        if(currentPosition == 25){
+        int currentPosition = Factory.Alphabets.LetterSound.getPosition(letterSound.alphabet);
+        if(currentPosition == Factory.Alphabets.LetterSound.LETTER_SOUND_ALPHABETS.size()){
             return;
         }
         currentPosition++;
-        Factory.Alphabets.LetterSound l = Factory.Alphabets.LetterSound.build(Factory.Alphabets.getAlphabetsUppercase().get(currentPosition));
-        Activity.replace(LetterSoundFragment.getInstance(textColor, borderColor, l));
-    }
-
-    void prev(){
-        int currentPosition = Factory.Alphabets.getPosition(letterSound.alphabet);
-        if(currentPosition == 0){
-            return;
-        }
-        currentPosition--;
         Factory.Alphabets.LetterSound l = Factory.Alphabets.LetterSound.build(Factory.Alphabets.getAlphabetsUppercase().get(currentPosition));
         Activity.replace(LetterSoundFragment.getInstance(textColor, borderColor, l));
     }

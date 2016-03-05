@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.aun.tela.alphabets.R;
+import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.DoubleConsumer;
 import com.aun.tela.alphabets.application.generic.QuatroCollector;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
@@ -23,6 +24,7 @@ import com.aun.tela.alphabets.application.util.ViewAnimator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.meengle.androidutil.gui.fragment.Fragtivity;
@@ -38,15 +40,15 @@ public class BookReadingFragment extends Fragtivity {
     FlipView flipView;
     CircularColorView back, left, right;
     int textColor, borderColor;
-    ReadingNavigationFragment.Book book;
+    Factory.Book book;
     GenericItemAdapter<Integer, ViewHolder> adapter;
     boolean peaked = false;
 
-    public BookReadingFragment setInstanceStuff(int textColor, int borderColor, ReadingNavigationFragment.Book book){
+    public BookReadingFragment setInstanceStuff(int textColor, int borderColor, Factory.Book book){
         this.textColor = textColor; this.borderColor = borderColor; this.book = book; return this;
     }
 
-    public static BookReadingFragment getInstance(int textColor, int borderColor, ReadingNavigationFragment.Book book){
+    public static BookReadingFragment getInstance(int textColor, int borderColor, Factory.Book book){
         return new BookReadingFragment().setInstanceStuff(textColor, borderColor, book);
     }
 
@@ -112,7 +114,10 @@ public class BookReadingFragment extends Fragtivity {
             }
         });
 
-        List<Integer> images = book.pagesResId;
+        List<Integer> images = new ArrayList<>(book.getPageCount());
+        for(int i : book.getPages()){
+            images.add(i);
+        }
 
         adapter = GenericItemAdapter.<Integer, ViewHolder>getInstance()
                 .setIdConsumer(new DoubleConsumer<Long, Integer, Integer>() {
@@ -185,12 +190,12 @@ public class BookReadingFragment extends Fragtivity {
                         ViewAnimator.popInZero(left, 0, 300);
                     }
                 }
-                if(position == (book.pagesResId.size()-1)){
+                if(position == (book.getPageCount()-1)){
                     if(right.getAlpha() >0){
                         ViewAnimator.popOutZero(right, 0, 300);
                     }
                 }
-                if(position < (book.pagesResId.size()-1)){
+                if(position < (book.getPageCount()-1)){
                     if(right.getAlpha() < 1){
                         ViewAnimator.popInZero(right, 0, 300);
                     }

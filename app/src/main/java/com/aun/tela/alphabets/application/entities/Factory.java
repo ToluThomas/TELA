@@ -68,6 +68,23 @@ public class Factory {
 
         public static class LetterSound{
 
+            public static final List<String> LETTER_SOUND_ALPHABETS = Value.As.<String>LIST("a", "b", "c",
+                    "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "q", "r", "s", "t");
+
+            public static int getPosition(String alphabet){
+                switch (alphabet.toLowerCase()){
+                    case "a": return 0;case "b": return 1;case "c": return 2;case "e":return 3;case "f": return 4;
+                    case "g": return 5;case "h": return 6;case"i": return 7;case "j": return 8;case "k": return 9;case"l":return 10;
+                    case "m":return 11;case"n":return 12;case"o": return 13;case"q":return 14;case"r":return 15;
+                    case "s": return 16;case "t":return 17;
+                    default: return -1;
+                }
+            };
+
+            public static List<String> copyLetterSounds(){
+                return Value.As.LIST(LETTER_SOUND_ALPHABETS);
+            }
+
             public String alphabet;
             public int introIdentResId;
             public int introSoundResId;
@@ -99,14 +116,254 @@ public class Factory {
                 int soundResId;
                 int wordIntroResId;
                 Word[] words;
-                String alp;
                 switch (alphabet.toLowerCase()){
+                    case "a":
+                        introIdentResId = R.raw.tela_audio_alpha_a_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_a;
+                        soundResId = R.raw.tela_letsnd_snd_a;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_a;
+                        words = new Word[]{
+                                new Word("Cat", R.raw.tela_letsnd_word_cat),
+                                new Word("Tap", R.raw.tela_letsnd_word_tap),
+                                new Word("Ant", R.raw.tela_letsnd_word_ant),
+                                new Word("Pan", R.raw.tela_letsnd_word_pan),
+                                new Word("Rat", R.raw.tela_letsnd_word_rat),
+                                new Word("Accident", R.raw.tela_letsnd_word_accident),
+                                new Word("Arm", R.raw.tela_letsnd_word_arm),
+                                new Word("Abuse", R.raw.tela_letsnd_word_abuse),
+                                new Word("Ran", R.raw.tela_letsnd_word_ran),
+                                new Word("Sand", R.raw.tela_letsnd_word_sand)
+                        };
+                        break;
+                    case "b":
+                        introIdentResId = R.raw.tela_audio_alpha_b_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_b;
+                        soundResId = R.raw.tela_letsnd_snd_b;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_b;
+                        words = new Word[]{
+                                new Word("Bread", R.raw.tela_letsnd_word_bread),
+                                new Word("Beans", R.raw.tela_letsnd_word_beans),
+                                new Word("Elbow", R.raw.tela_letsnd_word_elbow),
+                                new Word("Rubbish", R.raw.tela_letsnd_word_rubbish),
+                                new Word("Garbage", R.raw.tela_letsnd_word_garbage)
+                        };
+                        break;
+                    case "c":
+                        introIdentResId = R.raw.tela_audio_alpha_c_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_c;
+                        soundResId = R.raw.tela_letsnd_snd_c;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_c;
+                        words = new Word[]{
+                                new Word("Card", R.raw.tela_letsnd_word_card),
+                                new Word("Captain", R.raw.tela_letsnd_word_captain),
+                                new Word("Car", R.raw.tela_letsnd_word_car),
+                                new Word("Chair", R.raw.tela_letsnd_word_chair),
+                                new Word("Cupboard", R.raw.tela_letsnd_word_cupboard),
+                                new Word("Calendar", R.raw.tela_letsnd_word_calendar),
+                                new Word("Cutlass", R.raw.tela_letsnd_word_cutlass)
+                        };
+                        break;
+                    case "e":
+                        introIdentResId = R.raw.tela_audio_alpha_e_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_e;
+                        soundResId = R.raw.tela_letsnd_snd_e;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_e;
+                        words = new Word[]{
+                                new Word("Elephant", R.raw.tela_letsnd_word_elephant),
+                                new Word("Effort", R.raw.tela_letsnd_word_effort),
+                                new Word("Exam", R.raw.tela_letsnd_word_exam),
+                                new Word("Energy", R.raw.tela_letsnd_word_energy),
+                                new Word("Errand", R.raw.tela_letsnd_word_errand)
+                        };
+                        break;
+                    case "f":
+                        introIdentResId = R.raw.tela_audio_alpha_f_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_f;
+                        soundResId = R.raw.tela_letsnd_snd_f;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_f;
+                        words = new Word[]{
+                                new Word("Fan", R.raw.tela_letsnd_word_fan),
+                                new Word("Filter", R.raw.tela_letsnd_word_filter),
+                                new Word("Fake", R.raw.tela_letsnd_word_fake),
+                                new Word("Friend", R.raw.tela_letsnd_word_friend),
+                                new Word("Fade", R.raw.tela_letsnd_word_fade),
+                                new Word("Fly", R.raw.tela_letsnd_word_fly),
+                                new Word("Fast", R.raw.tela_letsnd_word_fast),
+                                new Word("Frog", R.raw.tela_letsnd_word_frog),
+                                new Word("Food", R.raw.tela_letsnd_word_food),
+                                new Word("Flip", R.raw.tela_letsnd_word_flip)
+                        };
+                        break;
+                    case "g":
+                        introIdentResId = R.raw.tela_audio_alpha_g_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_g;
+                        soundResId = R.raw.tela_letsnd_snd_g;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_g;
+                        words = new Word[]{
+                                new Word("Grass", R.raw.tela_letsnd_word_grass),
+                                new Word("Gap", R.raw.tela_letsnd_word_gap),
+                                new Word("Gate", R.raw.tela_letsnd_word_gate)
+                        };
+                        break;
+                    case "h":
+                        introIdentResId = R.raw.tela_audio_alpha_h_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_h;
+                        soundResId = R.raw.tela_letsnd_snd_h;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_h;
+                        words = new Word[]{
+                                new Word("Horse", R.raw.tela_letsnd_word_horse),
+                                new Word("Ham", R.raw.tela_letsnd_word_ham),
+                                new Word("Happy", R.raw.tela_letsnd_word_happy),
+                                new Word("Hair", R.raw.tela_letsnd_word_hair),
+                                new Word("Hip", R.raw.tela_letsnd_word_hip)
+                        };
+                        break;
+                    case "i":
+                        introIdentResId = R.raw.tela_audio_alpha_i_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_i;
+                        soundResId = R.raw.tela_letsnd_snd_i;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_i;
+                        words = new Word[]{
+                                new Word("Injection", R.raw.tela_letsnd_word_injection),
+                                new Word("Ink", R.raw.tela_letsnd_word_ink),
+                                new Word("Islam", R.raw.tela_letsnd_word_islam),
+                                new Word("Intestine", R.raw.tela_letsnd_word_intestine)
+                        };
+                        break;
+                    case "j":
+                        introIdentResId = R.raw.tela_audio_alpha_j_ident;
+                        introSoundResId = R.raw.tela_letsnd_intro_snd_j;
+                        soundResId = R.raw.tela_letsnd_snd_j;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_j;
+                        words = new Word[]{
+                                new Word("Jet", R.raw.tela_letsnd_word_jet),
+                                new Word("Jar", R.raw.tela_letsnd_word_jar),
+                                new Word("January", R.raw.tela_letsnd_word_january),
+                                new Word("Jackhammer", R.raw.tela_letsnd_word_jackhammer),
+                                new Word("Joint", R.raw.tela_letsnd_word_joint),
+                                new Word("Jealous", R.raw.tela_letsnd_word_jealous)
+                        };
+                        break;
+                    case "k":
+                        introIdentResId = R.raw.tela_audio_alpha_k_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_k;
+                        soundResId = R.raw.tela_letsnd_snd_k;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_k;
+                        words = new Word[]{
+                                new Word("Kid", R.raw.tela_letsnd_word_kid),
+                                new Word("Kitchen", R.raw.tela_letsnd_word_kitchen),
+                                new Word("Kangaroo", R.raw.tela_letsnd_word_kangaroo),
+                                new Word("Key", R.raw.tela_letsnd_word_key),
+                                new Word("King", R.raw.tela_letsnd_word_king)
+                        };
+                        break;
+                    case "l":
+                        introIdentResId = R.raw.tela_audio_alpha_l_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_l;
+                        soundResId = R.raw.tela_letsnd_snd_l;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_l;
+                        words = new Word[]{
+                                new Word("Lie", R.raw.tela_letsnd_word_lie),
+                                new Word("Lion", R.raw.tela_letsnd_word_lion),
+                                new Word("Little", R.raw.tela_letsnd_word_little)
+                        };
+                        break;
+                    case "m":
+                        introIdentResId = R.raw.tela_audio_alpha_m_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_m;
+                        soundResId = R.raw.tela_letsnd_snd_m;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_m;
+                        words = new Word[]{
+                                new Word("Magic", R.raw.tela_letsnd_word_magic),
+                                new Word("Mail", R.raw.tela_letsnd_word_mail),
+                                new Word("Man", R.raw.tela_letsnd_word_man),
+                                new Word("Milk", R.raw.tela_letsnd_word_milk),
+                                new Word("Mice", R.raw.tela_letsnd_word_mice)
+                        };
+                        break;
+                    case "n":
+                        introIdentResId = R.raw.tela_audio_alpha_n_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_n;
+                        soundResId = R.raw.tela_letsnd_snd_n;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_n;
+                        words = new Word[]{
+                                new Word("Cat", R.raw.tela_letsnd_word_nail),
+                                new Word("Tap", R.raw.tela_letsnd_word_name),
+                                new Word("Ant", R.raw.tela_letsnd_word_nurse),
+                                new Word("Pan", R.raw.tela_letsnd_word_nursery)
+                        };
+                        break;
+                    case "o":
+                        introIdentResId = R.raw.tela_audio_alpha_o_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_o;
+                        soundResId = R.raw.tela_letsnd_snd_o;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_o;
+                        words = new Word[]{
+                                new Word("Owl", R.raw.tela_letsnd_word_owl),
+                                new Word("Off", R.raw.tela_letsnd_word_off),
+                                new Word("Over", R.raw.tela_letsnd_word_over),
+                                new Word("Opposite", R.raw.tela_letsnd_word_opposite),
+                                new Word("Oil", R.raw.tela_letsnd_word_oil),
+                                new Word("Office", R.raw.tela_letsnd_word_office),
+                                new Word("Older", R.raw.tela_letsnd_word_older),
+                                new Word("Owl", R.raw.tela_letsnd_word_owl)
+                        };
+                        break;
+                    case "q":
+                        introIdentResId = R.raw.tela_audio_alpha_q_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_q;
+                        soundResId = R.raw.tela_letsnd_snd_q;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_q;
+                        words = new Word[]{
+                                new Word("Queue", R.raw.tela_letsnd_word_queue),
+                                new Word("Queen", R.raw.tela_letsnd_word_queen),
+                                new Word("Quick", R.raw.tela_letsnd_word_quick),
+                                new Word("Quiz", R.raw.tela_letsnd_word_quiz),
+                                new Word("Quiet", R.raw.tela_letsnd_word_quiet)
+                        };
+                        break;
+                    case "r":
+                        introIdentResId = R.raw.tela_audio_alpha_r_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_r;
+                        soundResId = R.raw.tela_letsnd_snd_r;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_r;
+                        words = new Word[]{
+                                new Word("Rat", R.raw.tela_letsnd_word_rat),
+                                new Word("Red", R.raw.tela_letsnd_word_red),
+                                new Word("Rabbit", R.raw.tela_letsnd_word_rabbit),
+                                new Word("Run", R.raw.tela_letsnd_word_run),
+                                new Word("Request", R.raw.tela_letsnd_word_request)
+                        };
+                        break;
+                    case "s":
+                        introIdentResId = R.raw.tela_audio_alpha_s_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_s;
+                        soundResId = R.raw.tela_letsnd_snd_s;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_s;
+                        words = new Word[]{
+                                new Word("Stone", R.raw.tela_letsnd_word_stone),
+                                new Word("Snake", R.raw.tela_letsnd_word_snake),
+                                new Word("Spice", R.raw.tela_letsnd_word_spice),
+                                new Word("Sand", R.raw.tela_letsnd_word_sand)
+                        };
+                        break;
+                    case "t":
+                        introIdentResId = R.raw.tela_audio_alpha_t_ident;
+                        introSoundResId = R.raw.tela_letsnd_introsnd_t;
+                        soundResId = R.raw.tela_letsnd_snd_t;
+                        wordIntroResId = R.raw.tela_letsnd_wordintrosnd_t;
+                        words = new Word[]{
+                                new Word("Cat", R.raw.tela_letsnd_word_table),
+                                new Word("Tap", R.raw.tela_letsnd_word_tell),
+                                new Word("Ant", R.raw.tela_letsnd_word_tent),
+                                new Word("Pan", R.raw.tela_letsnd_word_tap)
+                        };
+                        break;
                     default:
                         introIdentResId = R.raw.tela_audio_alpha_a_ident;
                         introSoundResId = R.raw.tela_letsnd_introsnd_a;
                         soundResId = R.raw.tela_letsnd_snd_a;
                         wordIntroResId = R.raw.tela_letsnd_wordintrosnd_a;
-                        alp = "A";
                         words = new Word[]{
                                 new Word("Cat", R.raw.tela_letsnd_word_cat),
                                 new Word("Tap", R.raw.tela_letsnd_word_tap),
@@ -121,7 +378,7 @@ public class Factory {
                         };
                         break;
                 }
-                return new LetterSound(alp, introIdentResId, introSoundResId, soundResId, wordIntroResId, words);
+                return new LetterSound(alphabet.toUpperCase(), introIdentResId, introSoundResId, soundResId, wordIntroResId, words);
             }
         }
 
@@ -955,7 +1212,70 @@ public class Factory {
 
     }
 
+    public static class Book {
 
+        public int iconRes;
+        public boolean realSupport = false;
+
+        public int[] pageResIds;
+
+        public Book(int... pageResIds){
+            this.pageResIds = pageResIds;
+        }
+
+        public Book setRealSupport(boolean realSupport){
+            this.realSupport = realSupport; return this;
+        }
+
+        public int getPageCount(){return pageResIds.length;}
+
+        public int getPage(int position){
+            return pageResIds[position];
+        }
+
+        public Book setIconRes(int iconRes){
+            this.iconRes = iconRes; return this;
+        }
+
+        public int[] getPages(){
+            return pageResIds;
+        }
+
+        public static List<Book> getBooks(){
+            List<Book> list = new ArrayList<>();
+
+            list.add(new Book(R.drawable.decodable_stories_1, R.drawable.decodable_stories_2,
+                    R.drawable.decodable_stories_3, R.drawable.decodable_stories_4, R.drawable.decodable_stories_5,
+                    R.drawable.decodable_stories_6).setIconRes(R.drawable.ic_decodable_stories).setRealSupport(false));
+            list.add(new Book(R.drawable.reading1_1, R.drawable.reading1_2, R.drawable.reading1_3).setIconRes(R.drawable.ic_reading_1).setRealSupport(false));
+            list.add(new Book(R.drawable.reading2_1, R.drawable.reading2_2, R.drawable.reading2_3).setIconRes(R.drawable.ic_reading_2).setRealSupport(false));
+            list.add(new Book(R.drawable.reading3_1, R.drawable.reading3_2).setIconRes(R.drawable.ic_reading_3).setRealSupport(false));
+            list.add(new Book(R.drawable.reading4_1, R.drawable.reading4_2, R.drawable.reading4_3, R.drawable.reading4_4).setIconRes(R.drawable.ic_reading_4).setRealSupport(false));
+            list.add(new Book(R.drawable.reading5_1, R.drawable.reading5_2, R.drawable.reading5_3, R.drawable.reading5_4).setIconRes(R.drawable.ic_reading_5).setRealSupport(false));
+            list.add(new Book(R.drawable.goat_wants_coat_1, R.drawable.goat_wants_coat_2, R.drawable.goat_wants_coat_3, R.drawable.goat_wants_coat_4, R.drawable.goat_wants_coat_5,
+                            R.drawable.goat_wants_coat_6, R.drawable.goat_wants_coat_7, R.drawable.goat_wants_coat_8, R.drawable.goat_wants_coat_9, R.drawable.goat_wants_coat_10,
+                            R.drawable.goat_wants_coat_11, R.drawable.goat_wants_coat_12, R.drawable.goat_wants_coat_13, R.drawable.goat_wants_coat_14)
+                    .setIconRes(R.drawable.goat_wants_coat_icon)
+                    .setRealSupport(true));
+            list.add(new Book(R.drawable.book_a_rafi_1, R.drawable.book_a_rafi_2, R.drawable.book_a_rafi_3, R.drawable.book_a_rafi_4, R.drawable.book_a_rafi_5, R.drawable.book_a_rafi_6,
+                    R.drawable.book_a_rafi_7, R.drawable.book_a_rafi_8, R.drawable.book_a_rafi_9, R.drawable.book_a_rafi_10, R.drawable.book_a_rafi_11, R.drawable.book_a_rafi_12,
+                    R.drawable.book_a_rafi_13).setIconRes(R.drawable.book_at_waterhole_icon).setRealSupport(true));
+            list.add(new Book(R.drawable.book_ahmeds_lucky_day_1,R.drawable.book_ahmeds_lucky_day_2, R.drawable.book_ahmeds_lucky_day_3, R.drawable.book_ahmeds_lucky_day_4, R.drawable.book_ahmeds_lucky_day_5,
+                    R.drawable.book_ahmeds_lucky_day_6, R.drawable.book_ahmeds_lucky_day_7, R.drawable.book_ahmeds_lucky_day_8, R.drawable.book_ahmeds_lucky_day_9, R.drawable.book_ahmeds_lucky_day_10,
+                    R.drawable.book_ahmeds_lucky_day_11, R.drawable.book_ahmeds_lucky_day_12, R.drawable.book_ahmeds_lucky_day_13, R.drawable.book_ahmeds_lucky_day_14, R.drawable.book_ahmeds_lucky_day_15,
+                    R.drawable.book_ahmeds_lucky_day_16, R.drawable.book_ahmeds_lucky_day_17, R.drawable.book_ahmeds_lucky_day_18, R.drawable.book_ahmeds_lucky_day_19, R.drawable.book_ahmeds_lucky_day_20
+                    ).setIconRes(R.drawable.book_ahmed_lucky_day_icon).setRealSupport(true));
+            list.add(new Book(R.drawable.book_animals_dig_well_1, R.drawable.book_animals_dig_well_2, R.drawable.book_animals_dig_well_3, R.drawable.book_animals_dig_well_4, R.drawable.book_animals_dig_well_5,
+                    R.drawable.book_animals_dig_well_6, R.drawable.book_animals_dig_well_7, R.drawable.book_animals_dig_well_8, R.drawable.book_animals_dig_well_9, R.drawable.book_animals_dig_well_10,
+                    R.drawable.book_animals_dig_well_11, R.drawable.book_animals_dig_well_12, R.drawable.book_animals_dig_well_13, R.drawable.book_animals_dig_well_14, R.drawable.book_animals_dig_well_15,
+                    R.drawable.book_animals_dig_well_16, R.drawable.book_animals_dig_well_17, R.drawable.book_animals_dig_well_18,  R.drawable.book_animals_dig_well_19,  R.drawable.book_animals_dig_well_20,
+                    R.drawable.book_animals_dig_well_21,  R.drawable.book_animals_dig_well_22,  R.drawable.book_animals_dig_well_23,  R.drawable.book_animals_dig_well_24,  R.drawable.book_animals_dig_well_25,
+                    R.drawable.book_animals_dig_well_26,  R.drawable.book_animals_dig_well_27,  R.drawable.book_animals_dig_well_28,  R.drawable.book_animals_dig_well_29,  R.drawable.book_animals_dig_well_30
+            ).setRealSupport(true).setIconRes(R.drawable.book_animals_dig_well_icon));
+            return list;
+        }
+
+    }
 
 
 }

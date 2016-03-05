@@ -92,7 +92,7 @@ public class LetterSoundNavigationFragment extends Fragtivity{
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<String> items = Factory.Alphabets.copyAlphabetsUppercase();
+        List<String> items = Factory.Alphabets.LetterSound.copyLetterSounds();
         final Random rand = new Random();
 
         //create an adapter for the list that shows up at the bottom of the list.
@@ -106,8 +106,6 @@ public class LetterSoundNavigationFragment extends Fragtivity{
                     @Override
                     public void collect(ViewHolder viewHolder, final String s, final Integer integer, Boolean aBoolean) {
                         ViewHolder.setup(viewHolder, s, integer, aBoolean);
-                        viewHolder.itemView.setScaleX(1f);
-                        viewHolder.itemView.setScaleY(1f);
                         ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

@@ -10,6 +10,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.aun.tela.alphabets.R;
+import com.aun.tela.alphabets.application.entities.Factory;
 import com.aun.tela.alphabets.application.generic.DoubleConsumer;
 import com.aun.tela.alphabets.application.generic.QuatroCollector;
 import com.aun.tela.alphabets.application.gui.activity.Activity;
@@ -32,7 +33,7 @@ public class ReadingNavigationFragment extends Fragtivity {
 
     HeaderFooterGridView grid;
     CircularColorView back, up, down;
-    GenericItemAdapter<BookItem, ViewHolder> adapter;
+    GenericItemAdapter<Factory.Book, ViewHolder> adapter;
     
     int textColor, borderColor;
 
@@ -105,31 +106,31 @@ public class ReadingNavigationFragment extends Fragtivity {
             }
         });
 
-        List<BookItem> bookItems = new ArrayList<>();
-        bookItems.add(new BookItem(0, R.drawable.ic_decodable_stories));
-        bookItems.add(new BookItem(1, R.drawable.ic_reading_1));
-        bookItems.add(new BookItem(2, R.drawable.ic_reading_2));
-        bookItems.add(new BookItem(3, R.drawable.ic_reading_3));
-        bookItems.add(new BookItem(4, R.drawable.ic_reading_4));
-        bookItems.add(new BookItem(5, R.drawable.ic_reading_5));
+        List<Factory.Book> books = Factory.Book.getBooks();
 
-        adapter = GenericItemAdapter.<BookItem, ViewHolder>getInstance()
-                .setIdConsumer(new DoubleConsumer<Long, BookItem, Integer>() {
+        adapter = GenericItemAdapter.<Factory.Book, ViewHolder>getInstance()
+                .setIdConsumer(new DoubleConsumer<Long, Factory.Book, Integer>() {
                     @Override
-                    public Long consume(BookItem bookItem, Integer integer) {
+                    public Long consume(Factory.Book book, Integer integer) {
                         return integer.longValue();
                     }
                 })
-                .setItems(bookItems)
-                .setViewCollector(new QuatroCollector<ViewHolder, BookItem, Integer, Boolean>() {
+                .setItems(books)
+                .setViewCollector(new QuatroCollector<ViewHolder, Factory.Book, Integer, Boolean>() {
                     @Override
-                    public void collect(ViewHolder viewHolder, final BookItem bookItem, Integer integer, Boolean aBoolean) {
-                        viewHolder.image.setImageResource(bookItem.iconRes);
+                    public void collect(ViewHolder viewHolder, Factory.Book book, Integer integer, Boolean aBoolean) {
+
+                    }
+                })
+                .setViewCollector(new QuatroCollector<ViewHolder, Factory.Book, Integer, Boolean>() {
+                    @Override
+                    public void collect(ViewHolder viewHolder, final Factory.Book book, Integer integer, Boolean aBoolean) {
+                        viewHolder.image.setImageResource(book.iconRes);
                         viewHolder.itemView.setClickable(true);
                         ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                select(bookItem);
+                                select(book);
                             }
                         });
                     }
@@ -236,33 +237,7 @@ public class ReadingNavigationFragment extends Fragtivity {
         }
     }
 
-    void select(BookItem bookItem){
-        final Book book;
-        switch (bookItem.id){
-            case 0:
-                book = new Book(R.drawable.decodable_stories_1, R.drawable.decodable_stories_2,
-                        R.drawable.decodable_stories_3, R.drawable.decodable_stories_4, R.drawable.decodable_stories_5,
-                        R.drawable.decodable_stories_6);
-                break;
-            case 1:
-                book = new Book(R.drawable.reading1_1, R.drawable.reading1_2, R.drawable.reading1_3);
-                break;
-            case 2:
-                book = new Book(R.drawable.reading2_1, R.drawable.reading2_2, R.drawable.reading2_3);
-                break;
-            case 3:
-                book = new Book(R.drawable.reading3_1, R.drawable.reading3_2);
-                break;
-            case 4:
-                book = new Book(R.drawable.reading4_1, R.drawable.reading4_2, R.drawable.reading4_3, R.drawable.reading4_4);
-                break;
-            case 5:
-                book = new Book(R.drawable.reading5_1, R.drawable.reading5_2, R.drawable.reading5_3, R.drawable.reading5_4);
-                break;
-            default:
-                book = null;
-                break;
-        }
+    void select(final Factory.Book book){
         View hud = findViewById(R.id.hud);
         View ui = findViewById(R.id.ui);
         ViewAnimator.fadeOut(hud, 0, 500);
@@ -274,6 +249,10 @@ public class ReadingNavigationFragment extends Fragtivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                if(book.realSupport) {
+                    Activity.replace(RealBookFragment.getInstance(book, textColor, borderColor));
+                    return;
+                }
                 Activity.replace(BookReadingFragment.getInstance(textColor, borderColor, book));
             }
 

@@ -516,6 +516,44 @@ public class ViewAnimator {
         return animator;
     }
 
+    public static ValueAnimator popInZero(final View v, float scaleX, float scaleY, float alpha, long startDelay, long duration){
+        v.setClickable(true);
+        v.setAlpha(0f);
+        v.setVisibility(View.VISIBLE);
+        PropertyValuesHolder a = PropertyValuesHolder.ofFloat("alpha", 0f, alpha);
+        PropertyValuesHolder x = PropertyValuesHolder.ofFloat("scaleX", 0f, scaleX);
+        PropertyValuesHolder y = PropertyValuesHolder.ofFloat("scaleY", 0f, scaleY);
+        ValueAnimator animator = ObjectAnimator.ofPropertyValuesHolder(v, a, x, y);
+        animator.setStartDelay(startDelay);
+        v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                v.setLayerType(View.LAYER_TYPE_NONE, null);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.setDuration(duration);
+        animator.setInterpolator(new AccelerateInterpolator());
+        v.setEnabled(true);
+        animator.start();
+        return animator;
+    }
+
     public static ValueAnimator popOutZero(final View v, long startDelay, long duration){
         v.setClickable(false);
         v.setAlpha(1f);
