@@ -38,7 +38,7 @@ public class Factory {
                 "v", "w", "x", "y", "z");
 
         public static final List<String> CONSONANTS_LOWERCASE = Value.As.<String>LIST("b", "c", "d", "f", "g", "h", "j", /*"k",*/
-                "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", /*"x",*/ "y", "z");
+                "l", "m", "n", "p", "r", "s", "t", "v", "w", /*"x",*/ "y", "z");
 
         public static final List<String> VOWELS = Value.As.<String>LIST("a", "e", "i", "o", "u");
 
@@ -452,132 +452,132 @@ public class Factory {
 
                 switch (alphabet.toLowerCase()){
                     case "b":
-                        consonantSoundHashMap.put(0, new ConsonantSound("B", R.raw.b));
-                        consonantSoundHashMap.put(1, new ConsonantSound("b", R.raw.b));
+                        consonantSoundHashMap.put(0, new ConsonantSound("B", R.raw.consonant_sound_b));
+                        consonantSoundHashMap.put(1, new ConsonantSound("b", R.raw.consonant_sound_b));
                         accompanyingText = "Baby in a book";
                         imageResId = R.drawable.consonant_baby_in_book;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_b_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_baby_in_book;
                         break;
                     case "c":
-                        consonantSoundHashMap.put(0, new ConsonantSound("C", R.raw.c));
-                        consonantSoundHashMap.put(1, new ConsonantSound("c", R.raw.c));
-                        consonantSoundHashMap.put(2, new ConsonantSound("K", R.raw.c));
-                        consonantSoundHashMap.put(3, new ConsonantSound("k", R.raw.c));
+                        consonantSoundHashMap.put(0, new ConsonantSound("C", R.raw.consonant_sound_c));
+                        consonantSoundHashMap.put(1, new ConsonantSound("c", R.raw.consonant_sound_c));
+                        consonantSoundHashMap.put(2, new ConsonantSound("K", R.raw.consonant_sound_c));
+                        consonantSoundHashMap.put(3, new ConsonantSound("k", R.raw.consonant_sound_c));
                         accompanyingText = "Cat in a car";
                         imageResId = R.drawable.consonant_cat_in_car;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_c_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_cat_in_car;
                         break;
                     case "d":
-                        consonantSoundHashMap.put(0, new ConsonantSound("D", R.raw.d));
-                        consonantSoundHashMap.put(1, new ConsonantSound("d", R.raw.d));
+                        consonantSoundHashMap.put(0, new ConsonantSound("D", R.raw.consonant_sound_d));
+                        consonantSoundHashMap.put(1, new ConsonantSound("d", R.raw.consonant_sound_d));
                         accompanyingText = "Dad and a dog";
                         imageResId = R.drawable.consonant_dad_and_dog;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_d_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_dad_and_dog;
                         break;
                     case "f":
-                        consonantSoundHashMap.put(0, new ConsonantSound("F", R.raw.f));
-                        consonantSoundHashMap.put(1, new ConsonantSound("f", R.raw.f));
+                        consonantSoundHashMap.put(0, new ConsonantSound("F", R.raw.consonant_sound_f));
+                        consonantSoundHashMap.put(1, new ConsonantSound("f", R.raw.consonant_sound_f));
                         accompanyingText = "Fish on a frog";
                         imageResId = R.drawable.consonant_fish_on_frog;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_f_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_fish_on_frog;
                         break;
                     case "g":
-                        consonantSoundHashMap.put(0, new ConsonantSound("G", R.raw.g));
-                        consonantSoundHashMap.put(1, new ConsonantSound("g", R.raw.g));
+                        consonantSoundHashMap.put(0, new ConsonantSound("G", R.raw.consonant_sound_g));
+                        consonantSoundHashMap.put(1, new ConsonantSound("g", R.raw.consonant_sound_g));
                         accompanyingText = "Goat on the grass";
                         imageResId = R.drawable.consonant_goat_on_grass;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_g_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_goat_on_grass;
                         break;
                     case "h":
-                        consonantSoundHashMap.put(0, new ConsonantSound("H", R.raw.h));
-                        consonantSoundHashMap.put(1, new ConsonantSound("h", R.raw.h));
+                        consonantSoundHashMap.put(0, new ConsonantSound("H", R.raw.consonant_sound_h));
+                        consonantSoundHashMap.put(1, new ConsonantSound("h", R.raw.consonant_sound_h));
                         accompanyingText = "Hat on the head";
                         imageResId = R.drawable.consonant_hat_on_head;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_h_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sound_hat_on_head;
                         break;
                     case "j":
-                        consonantSoundHashMap.put(0, new ConsonantSound("J", R.raw.j));
-                        consonantSoundHashMap.put(1, new ConsonantSound("j", R.raw.j));
+                        consonantSoundHashMap.put(0, new ConsonantSound("J", R.raw.consonant_sound_j));
+                        consonantSoundHashMap.put(1, new ConsonantSound("j", R.raw.consonant_sound_j));
                         accompanyingText = "Jam for John";
                         imageResId = R.drawable.consonant_jam_for_jim;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_j_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_jam_for_john;
                         break;
                     case "l":
-                        consonantSoundHashMap.put(0, new ConsonantSound("L", R.raw.l));
-                        consonantSoundHashMap.put(1, new ConsonantSound("l", R.raw.l));
+                        consonantSoundHashMap.put(0, new ConsonantSound("L", R.raw.consonant_sound_l));
+                        consonantSoundHashMap.put(1, new ConsonantSound("l", R.raw.consonant_sound_l));
                         accompanyingText = "Leg on a log";
                         imageResId = R.drawable.consonant_leg_on_log;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_l_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sound_leg_on_log;
                         break;
                     case "m":
-                        consonantSoundHashMap.put(0, new ConsonantSound("M", R.raw.m));
-                        consonantSoundHashMap.put(1, new ConsonantSound("m", R.raw.m));
+                        consonantSoundHashMap.put(0, new ConsonantSound("M", R.raw.consonant_sound_m));
+                        consonantSoundHashMap.put(1, new ConsonantSound("m", R.raw.consonant_sound_m));
                         accompanyingText = "Man on the moon";
                         imageResId = R.drawable.consonant_man_on_moon;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_m_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_man_on_moon;
                         break;
                     case "n":
-                        consonantSoundHashMap.put(0, new ConsonantSound("N", R.raw.n));
-                        consonantSoundHashMap.put(1, new ConsonantSound("n", R.raw.n));
+                        consonantSoundHashMap.put(0, new ConsonantSound("N", R.raw.consonant_sound_n));
+                        consonantSoundHashMap.put(1, new ConsonantSound("n", R.raw.consonant_sound_n));
                         accompanyingText = "Nail in a net";
                         imageResId = R.drawable.consonant_nail_in_net;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_n_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sound_nail_in_net;
                         break;
                     case "p":
-                        consonantSoundHashMap.put(0, new ConsonantSound("P", R.raw.p));
-                        consonantSoundHashMap.put(1, new ConsonantSound("p", R.raw.p));
+                        consonantSoundHashMap.put(0, new ConsonantSound("P", R.raw.consonant_sound_p));
+                        consonantSoundHashMap.put(1, new ConsonantSound("p", R.raw.consonant_sound_p));
                         accompanyingText = "Pencil in a pot";
                         imageResId = R.drawable.consonant_pen_in_pot;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_p_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_pencil_in_pot;
                         break;
                     case "r":
-                        consonantSoundHashMap.put(0, new ConsonantSound("R", R.raw.r));
-                        consonantSoundHashMap.put(1, new ConsonantSound("r", R.raw.r));
+                        consonantSoundHashMap.put(0, new ConsonantSound("R", R.raw.consonant_sound_r));
+                        consonantSoundHashMap.put(1, new ConsonantSound("r", R.raw.consonant_sound_r));
                         accompanyingText = "Ring on a rat";
                         imageResId = R.drawable.consonant_ring_on_rat;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_r_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_ring_on_rat;
                         break;
                     case "s":
-                        consonantSoundHashMap.put(0, new ConsonantSound("S", R.raw.s));
-                        consonantSoundHashMap.put(1, new ConsonantSound("s", R.raw.s));
+                        consonantSoundHashMap.put(0, new ConsonantSound("S", R.raw.consonant_sound_s));
+                        consonantSoundHashMap.put(1, new ConsonantSound("s", R.raw.consonant_sound_s));
                         accompanyingText = "Snake in the sun";
                         imageResId = R.drawable.consonant_snake_in_sun;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_s_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_snake_in_sun;
                         break;
                     case "t":
-                        consonantSoundHashMap.put(0, new ConsonantSound("T", R.raw.t));
-                        consonantSoundHashMap.put(1, new ConsonantSound("t", R.raw.t));
+                        consonantSoundHashMap.put(0, new ConsonantSound("T", R.raw.consonant_sound_t));
+                        consonantSoundHashMap.put(1, new ConsonantSound("t", R.raw.consonant_sound_t));
                         accompanyingText = "Teddy on a table";
                         imageResId = R.drawable.consonant_teddy_on_table;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_t_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_teddy_on_table;
                         break;
                     case "v":
-                        consonantSoundHashMap.put(0, new ConsonantSound("V", R.raw.v));
-                        consonantSoundHashMap.put(1, new ConsonantSound("v", R.raw.v));
+                        consonantSoundHashMap.put(0, new ConsonantSound("V", R.raw.consonant_sound_v));
+                        consonantSoundHashMap.put(1, new ConsonantSound("v", R.raw.consonant_sound_v));
                         accompanyingText = "Vultures at the vet";
-                        imageResId = R.drawable.consonant_baby_in_book;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_v_ident;
+                        imageResId = R.drawable.consonant_vulture_in_vet;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_vultures_at_vet;
                         break;
                     case "w":
-                        consonantSoundHashMap.put(0, new ConsonantSound("W", R.raw.w));
-                        consonantSoundHashMap.put(1, new ConsonantSound("w", R.raw.w));
+                        consonantSoundHashMap.put(0, new ConsonantSound("W", R.raw.consonant_sound_w));
+                        consonantSoundHashMap.put(1, new ConsonantSound("w", R.raw.consonant_sound_w));
                         accompanyingText = "Water in a well";
                         imageResId = R.drawable.consonant_water_in_well;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_w_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_water_in_well;
                         break;
                     case "y":
-                        consonantSoundHashMap.put(0, new ConsonantSound("Y", R.raw.y));
-                        consonantSoundHashMap.put(1, new ConsonantSound("y", R.raw.y));
+                        consonantSoundHashMap.put(0, new ConsonantSound("Y", R.raw.consonant_sound_y));
+                        consonantSoundHashMap.put(1, new ConsonantSound("y", R.raw.consonant_sound_y));
                         accompanyingText = "Yam for you";
                         imageResId = R.drawable.consonant_yam_for_you;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_y_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_yam_for_you;
                         break;
                     case "z":
-                        consonantSoundHashMap.put(0, new ConsonantSound("Z", R.raw.z));
-                        consonantSoundHashMap.put(1, new ConsonantSound("z", R.raw.z));
+                        consonantSoundHashMap.put(0, new ConsonantSound("Z", R.raw.consonant_sound_z));
+                        consonantSoundHashMap.put(1, new ConsonantSound("z", R.raw.consonant_sound_z));
                         accompanyingText = "Zip on a zebra";
                         imageResId = R.drawable.consonant_zip_on_zebra;
-                        accompanyingTextSoundResId = R.raw.tela_audio_alpha_z_ident;
+                        accompanyingTextSoundResId = R.raw.consonant_sent_zip_on_zebra;
                         break;
                 }
                 return new Consonant(alphabet, consonantSoundHashMap, accompanyingText, imageResId, accompanyingTextSoundResId);
@@ -587,8 +587,8 @@ public class Factory {
                 switch (consonant.toLowerCase()){
                     case "b": return 0;case "c": return 1;case "d": return 2;case "f": return 3;case "g":return 4;case "h": return 5;
                     case "j": return 6;/*case "k": return 7;*/case"l": return 7;case "m": return 8;case "n": return 9;case"p":return 10;
-                    case "q":return 11;case"r":return 12;case"s": return 13;case "t":return 14;case"v":return 15;case"w":return 16;
-                    /*case "x": return 18;*/case "y":return 17;case"z": return 18;
+                    case "r":return 11;case"s":return 12;case"t": return 13;case "v":return 14;case"w":return 15;case"y":return 16;
+                    /*case "x": return 18;*/case "z":return 17;
                     default: return -1;
                 }
             }
@@ -1272,6 +1272,15 @@ public class Factory {
                     R.drawable.book_animals_dig_well_21,  R.drawable.book_animals_dig_well_22,  R.drawable.book_animals_dig_well_23,  R.drawable.book_animals_dig_well_24,  R.drawable.book_animals_dig_well_25,
                     R.drawable.book_animals_dig_well_26,  R.drawable.book_animals_dig_well_27,  R.drawable.book_animals_dig_well_28,  R.drawable.book_animals_dig_well_29,  R.drawable.book_animals_dig_well_30
             ).setRealSupport(true).setIconRes(R.drawable.book_animals_dig_well_icon));
+            list.add(new Book(R.drawable.book_bintu_bingo_1, R.drawable.book_bintu_bingo_2, R.drawable.book_bintu_bingo_3, R.drawable.book_bintu_bingo_4, R.drawable.book_bintu_bingo_5, R.drawable.book_bintu_bingo_6,
+                    R.drawable.book_bintu_bingo_7, R.drawable.book_bintu_bingo_8, R.drawable.book_bintu_bingo_9, R.drawable.book_bintu_bingo_10, R.drawable.book_bintu_bingo_11, R.drawable.book_bintu_bingo_12,
+                    R.drawable.book_bintu_bingo_13, R.drawable.book_bintu_bingo_14, R.drawable.book_bintu_bingo_15, R.drawable.book_bintu_bingo_16, R.drawable.book_bintu_bingo_17, R.drawable.book_bintu_bingo_18,
+                    R.drawable.book_bintu_bingo_19, R.drawable.book_bintu_bingo_20, R.drawable.book_bintu_bingo_21, R.drawable.book_bintu_bingo_22, R.drawable.book_bintu_bingo_23,
+                    R.drawable.book_bintu_bingo_24).setIconRes(R.drawable.book_bintu_bingo_icon).setRealSupport(true));
+            list.add(new Book(R.drawable.baby_belly_frog_1, R.drawable.baby_belly_frog_2, R.drawable.baby_belly_frog_3, R.drawable.baby_belly_frog_4, R.drawable.baby_belly_frog_5, R.drawable.baby_belly_frog_6,
+                    R.drawable.baby_belly_frog_7, R.drawable.baby_belly_frog_8, R.drawable.baby_belly_frog_10, R.drawable.baby_belly_frog_9, R.drawable.baby_belly_frog_11, R.drawable.baby_belly_frog_12,
+                    R.drawable.baby_belly_frog_13, R.drawable.baby_belly_frog_14, R.drawable.baby_belly_frog_15, R.drawable.baby_belly_frog_16, R.drawable.baby_belly_frog_17, R.drawable.baby_belly_frog_18,
+                    R.drawable.baby_belly_frog_19, R.drawable.baby_belly_frog_20).setIconRes(R.drawable.baby_belly_frog_icon).setRealSupport(true));
             return list;
         }
 
