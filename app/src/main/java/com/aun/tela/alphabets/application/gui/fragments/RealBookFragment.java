@@ -86,6 +86,7 @@ public class RealBookFragment extends Fragtivity {
         });
 
         ViewAnimator.fadeIn(findViewById(R.id.ui), 0, 300);
+        back.setCircularColor(textColor);
     }
 
     @Override

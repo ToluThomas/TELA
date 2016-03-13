@@ -17,7 +17,9 @@ import com.aun.tela.alphabets.application.gui.activity.Activity;
 import com.aun.tela.alphabets.application.gui.adapter.GenericItemAdapter;
 import com.aun.tela.alphabets.application.gui.custom.CircularColorView;
 import com.aun.tela.alphabets.application.gui.custom.HeaderFooterGridView;
+import com.aun.tela.alphabets.application.gui.custom.SquareImageView;
 import com.aun.tela.alphabets.application.util.ViewAnimator;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +108,7 @@ public class ReadingNavigationFragment extends Fragtivity {
             }
         });
 
-        List<Factory.Book> books = Factory.Book.getBooks();
-
+        final List<Factory.Book> books = Factory.Book.getBooks();
         adapter = GenericItemAdapter.<Factory.Book, ViewHolder>getInstance()
                 .setIdConsumer(new DoubleConsumer<Long, Factory.Book, Integer>() {
                     @Override
@@ -116,16 +117,18 @@ public class ReadingNavigationFragment extends Fragtivity {
                     }
                 })
                 .setItems(books)
-                .setViewCollector(new QuatroCollector<ViewHolder, Factory.Book, Integer, Boolean>() {
+                .setViewConsumer(new DoubleConsumer<ViewHolder, ViewGroup, Integer>() {
                     @Override
-                    public void collect(ViewHolder viewHolder, Factory.Book book, Integer integer, Boolean aBoolean) {
-
+                    public ViewHolder consume(ViewGroup viewGroup, Integer integer) {
+                        return new ViewHolder(LayoutInflater.from(Activity.getInstance()).inflate(R.layout.grid_item_image, viewGroup, false));
                     }
                 })
                 .setViewCollector(new QuatroCollector<ViewHolder, Factory.Book, Integer, Boolean>() {
                     @Override
-                    public void collect(ViewHolder viewHolder, final Factory.Book book, Integer integer, Boolean aBoolean) {
-                        viewHolder.image.setImageResource(book.iconRes);
+                    public void collect(final ViewHolder viewHolder, final Factory.Book book, Integer integer, Boolean aBoolean) {
+
+                        Picasso.with(getContext()).load(book.iconRes).into(viewHolder.image);
+                        //viewHolder.image.setImageResource(book.iconRes);
                         viewHolder.itemView.setClickable(true);
                         ViewAnimator.springify(viewHolder.itemView, new View.OnClickListener() {
                             @Override
@@ -134,17 +137,12 @@ public class ReadingNavigationFragment extends Fragtivity {
                             }
                         });
                     }
-                })
-                .setViewConsumer(new DoubleConsumer<ViewHolder, ViewGroup, Integer>() {
-                    @Override
-                    public ViewHolder consume(ViewGroup viewGroup, Integer integer) {
-                        return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.grid_item_image, viewGroup, false));
-                    }
                 });
 
-        addHeader();
-        grid.setAdapter(adapter);
 
+        addHeader(); // attach a header to the top of our gridview
+
+        //set our created adapter to our gridView
         grid.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -153,7 +151,7 @@ public class ReadingNavigationFragment extends Fragtivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (grid.getChildAt(0) != null && grid.getChildAt(0).getY() < 0) {
+                if (firstVisibleItem != 0) {
                     if (up.getAlpha() < 1) {
                         ViewAnimator.popInZero(up, 0, 300);
                     }
@@ -173,21 +171,39 @@ public class ReadingNavigationFragment extends Fragtivity {
                 }
             }
         });
+        grid.setAdapter(adapter);
+        grid.smoothScrollToPosition(0);
+
+        grid.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(grid.getLastVisiblePosition()+1 != adapter.getCount() ){
+                    if(down.getAlpha() < 1){
+                        ViewAnimator.popInZero(down, 0, 300);
+                    }
+                }else{
+                    if(down.getAlpha() > 0){
+                        ViewAnimator.popOutZero(down, 0, 300);
+                    }
+                }
+            }
+        }, 500);
 
     }
 
     private void addHeader(){
-        View v = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.image_header, null, false); //inflate a layout from resources
+        View v = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.image_header, grid, false); //inflate a layout from resources
 
         //the inflated layout contains a textview and a barColorView which we use here
         ImageView i =  (ImageView) v.findViewById(R.id.image);
         i.setImageResource(R.drawable.owl_books);
         grid.addHeaderView(v);
         ViewAnimator.springify(i, null);
-        View u = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.image_header, null, false);
+        /*View u = LayoutInflater.from(Activity.getInstance()).inflate(R.layout.image_header, grid, false);
         ImageView j =  (ImageView) u.findViewById(R.id.image);
         j.setImageResource(R.drawable.owl_calc);
         grid.addFooterView(u);
+        */
     }
 
     @Override
@@ -225,11 +241,11 @@ public class ReadingNavigationFragment extends Fragtivity {
 
     private static class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView image;
+        SquareImageView image;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) findViewById(R.id.image);
+            image = (SquareImageView) itemView.findViewById(R.id.image);
         }
 
         private View findViewById(int resId){

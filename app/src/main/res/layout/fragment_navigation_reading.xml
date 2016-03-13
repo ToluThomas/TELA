@@ -25,6 +25,8 @@
             android:layout_marginLeft="@dimen/buttonSize"
             android:layout_marginRight="@dimen/buttonSize"
             android:numColumns="3"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
